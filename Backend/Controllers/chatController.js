@@ -1,0 +1,2 @@
+post("/chats")
+get("/chats")
