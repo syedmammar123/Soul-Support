@@ -8,6 +8,10 @@ import BlogList from './pages/BlogList'
 import BlogSingle from './pages/BlogSingle'
 import BlogWrite from './pages/BlogWrite'
 import Login from './pages/Login'
+import LiveSession from './components/Livesession'
+import JoinLiveSession from './pages/JoinLiveSession'
+import TakeLiveSession from './pages/TakeLiveSession'
+import Therapist from './pages/Therapist'
 
 
 // import About from './pages/About'
@@ -26,8 +30,19 @@ function App() {
           <Route path='/blogs' element={<BlogList />} />
           <Route path='/blog/:id' element={<BlogSingle />} />
           <Route path='/write' element={<BlogWrite />} />
-
+        
+       
           {/* <Route path="/about" element={<About/>}/> */}
+
+        {/* info session */}
+        <Route path='/session' element={<JoinLiveSession/>} />
+        <Route path='/instructor/session' element={<TakeLiveSession/>} />
+
+        {/* therapy */}
+        {/* <Route path='/therapy' element={<TakeTherapy/>} />  */}
+        {/* <Route path='/therapy/room/:roomId' element={<CallRoom/>} /> */}
+        <Route path='/therapist' element={<Therapist/>} />
+        {/* <Route path='/therapist/room/:roomId' element={<CallRoom/>} /> */}
           
           <Route path='/login' element={<Login/>} />
 

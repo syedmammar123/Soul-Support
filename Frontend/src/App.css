@@ -439,7 +439,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
     background-color: #d9eff8;
     align-items: center;
     padding: 0px 30px;
-    border-radius: 3vw;
+    /* border-radius: 3vw; */
     box-shadow: 0 5px 15px ;
     overflow:hidden ;
     border-top-left-radius: 0%;

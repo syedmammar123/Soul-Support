@@ -16,6 +16,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.14",
+    "@zegocloud/zego-uikit-prebuilt": "^1.8.13",
     "axios": "^1.6.0",
     "firebase": "^10.5.2",
     "font-awesome": "^4.7.0",

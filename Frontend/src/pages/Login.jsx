@@ -79,7 +79,6 @@ const Login = () => {
              onChange={(e)=>setPassword(e.target.value)}/>
 
             <div className="loooginButton" onClick={handleLogin}>Login </div>
-            {/* <p className="textttt">Not Registered?</p> */}
 
             
             <div className="altLogin">
