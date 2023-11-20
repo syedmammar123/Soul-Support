@@ -12,6 +12,7 @@ import LiveSession from './components/Livesession'
 import JoinLiveSession from './pages/JoinLiveSession'
 import TakeLiveSession from './pages/TakeLiveSession'
 import Therapist from './pages/Therapist'
+import Jokes from './pages/Jokes'
 
 
 // import About from './pages/About'
@@ -45,6 +46,8 @@ function App() {
         {/* <Route path='/therapist/room/:roomId' element={<CallRoom/>} /> */}
           
           <Route path='/login' element={<Login/>} />
+         
+          <Route path='/jokes' element={<Jokes/>} />
 
 
 
