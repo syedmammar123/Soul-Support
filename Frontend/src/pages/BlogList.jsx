@@ -48,6 +48,19 @@ const BlogList=()=>{
         {/* <BlogListHead/> */}
         <Navbar />
 
+        <div className="hero" >
+          <div style={{backgroundColor:"yellow"}}>Articles & Advice About Mental Health</div>
+          <div style={{width:"100%",height:"80vh",border:"2px solid green",display:"flex",justifyContent:"space-around",alignItems:"center",flexWrap:"wrap" }}>
+              
+              <div style={{width:"50%",height:"70vh",border:"2px solid green",display:"flex"}}>Quote</div>
+              <div style={{width:"50%",height:"70vh",border:"2px solid green",display:"flex"}}>Images</div>
+
+              <div style={{border:"2px solid green",alignSelf:"flex-end"}}>...</div>              
+              
+          </div>
+          curves
+        </div> 
+
          <div className="home1">
           <div className="container">
         <div className="posts1">
