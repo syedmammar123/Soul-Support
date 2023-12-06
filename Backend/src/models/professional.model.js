@@ -12,7 +12,7 @@ const professionalSchema = new mongoose.Schema({
   expertise: {
     type: [{
       type: String,
-      enum: ['depression', 'anxiety', 'PTSD', 'OCD', 'stress'],
+      enum: ['Depression', 'Anxiety', 'PTSD', 'OCD', 'Stress'],
     }],
     required: true
   },

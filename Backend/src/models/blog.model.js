@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { Professional } from "./Professional.model";
 
 const blogSchema = new mongoose.Schema({
@@ -19,9 +19,9 @@ const blogSchema = new mongoose.Schema({
         required:true
     },
     author:{
-        type:Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref:"Professional"
-    }, //user model se
+    }, 
     content:{
         type:String,
         required:true,
@@ -31,7 +31,7 @@ const blogSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    index:true,//for searching
+    index:true,
 },{timestamps:true})
 
 export const Blog = mongoose.model("Blog",blogSchema)
