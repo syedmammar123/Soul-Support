@@ -1,7 +1,6 @@
 import express from 'express'
 import cors from 'cors'
 import  cookieParser from 'cookie-parser'
-import blogRoutes from './routes/blogRoutes.js'
 
 const app = express();
 
@@ -10,13 +9,21 @@ app.use(cors(
     credentials:true}
 ))
 
-app.use(express.json()); //parse json object from client in req 
-app.use(express.urlencoded({extended:true})) //parse string or array req from client in url
+app.use(express.json({limit:"16kb"})); //parse json object from client in req 
+app.use(express.urlencoded({extended:true,limit:"16kb"})) //parse string or array req from client in url
 express.static("public")
 app.use(cookieParser())
 
-app.use("/api/blogs",blogRoutes)
-app.use("/api/users",userRoutes)
+
+//importing Routes
+import blogRoutes from './routes/blog.routes.js'
+import userRoutes from './routes/user.routes.js'
+
+//Routes declaration
+app.use("/api/v1/users",userRoutes)
+app.use("/api/v1/blogs",blogRoutes)
+
+//http:localhost:3000/users/register
 
 app.get('/api/jokes',(req,res)=>{
 	const jokes = [{
