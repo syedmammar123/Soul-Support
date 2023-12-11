@@ -103,36 +103,41 @@ const registerPro = asyncHandler( async (req,res)=>{
     if(!user){
         throw new ApiError(500,"Failed to register a user")
     }
+let pro
+    try{
+       pro = await Professional.create({
+          userId: user._id,
+          expertise,
+          licenseNo,
+          timings,
+          specialization,
+          experience,
+          feePerSession,
+          profilePic: pic.url,
+          cv: cv.url,
+      })
 
-    const pro = await Professional.create({
-        userId: user._id,
-        expertise,
-        licenseNo,
-        timings,
-        specialization,
-        experience,
-        feePerSession,
-        profilePic: pic.url,
-        cv: cv.url,
-    })
+    }catch(err){
+      console.log("asd",err)
+    }
     
 
 
-    const createdPro = await Professional.findById(pro?._id)?.select("-cv -profilePic")
     
     if (!pro) {
-    try {
+      try {
         await User.deleteOne({ email });
         throw new ApiError(500, "Failed to register a Professional");
-    } catch (err) {
+      } catch (err) {
         // Handle the error during user deletion
         console.error("Error deleting user:", err);
-
+        
         // Optionally, throw a new ApiError or take other actions based on the error
         throw new ApiError(500, "Failed to register a Professional and delete its User instance from the database");
+      }
     }
-    }
-
+    const createdPro = await Professional.findById(pro?._id)?.select("-cv -profilePic")
+    
     return res.status(201).json(
         new ApiResponse(200,createdPro,"Professional registered successfully!")
     )
