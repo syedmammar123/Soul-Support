@@ -6,7 +6,7 @@ import { Professional } from '../models/professional.model.js';
 import { uploadOnCloudinary } from '../utils/Cloudinary.js';
 import fs from 'fs'
 import mongoose from 'mongoose';
-import { log } from 'console';
+import generateToken from '../utils/generateTokens.temp.js';
 
 
 const registerUser = asyncHandler( async (req,res)=>{
@@ -41,7 +41,7 @@ const registerUser = asyncHandler( async (req,res)=>{
     if(!createdUser){
         throw new ApiError(500,"Failed to register a user")
     }
-
+    generateToken(res,user._id)            
     return res.status(201).json(
         new ApiResponse(200,createdUser,"User registered successfully!")
     )
@@ -103,7 +103,8 @@ const registerPro = asyncHandler( async (req,res)=>{
     if(!user){
         throw new ApiError(500,"Failed to register a user")
     }
-let pro
+
+    let pro;
     try{
        pro = await Professional.create({
           userId: user._id,
@@ -121,9 +122,6 @@ let pro
       console.log("asd",err)
     }
     
-
-
-    
     if (!pro) {
       try {
         await User.deleteOne({ email });
@@ -137,98 +135,8 @@ let pro
       }
     }
     const createdPro = await Professional.findById(pro?._id)?.select("-cv -profilePic")
-    
-    return res.status(201).json(
-        new ApiResponse(200,createdPro,"Professional registered successfully!")
-    )
 
-})
-
-const registerPro1 = asyncHandler( async (req,res)=>{
-
-
-    const {fName,lName,email,
-        password,expertise,
-        licenseNo,timings,
-        specialization,experience,
-        feePerSession,gender} = req.body;
-
-    if([fName,lName,email,
-        password,
-        expertise,licenseNo,timings,
-        specialization,experience,
-        feePerSession,gender].some((field)=>field?.trim()==="")){
-        res.status(400)
-        throw new ApiError(400,"All fields are required!")
-    }
-
-    const profilePicLocalPath = req.files?.profilePic[0]?.path;
-    const cvLocalPath = req.files?.cv[0]?.path;
-    
-    if(!profilePicLocalPath){
-        throw new ApiError(400,"profilePic is required!")
-    }
-    if(!cvLocalPath){
-        throw new ApiError(400,"Cv is required!")
-    }
-
-    const existedUser = await User.findOne({email})
-    
-
-    if (existedUser) {
-        fs.unlinkSync(profilePicLocalPath) 
-        fs.unlinkSync(cvLocalPath)
-        throw new ApiError(409, "User with email already exists")
-    }
-    
-    const pic = await uploadOnCloudinary(profilePicLocalPath)
-    const cv = await uploadOnCloudinary(cvLocalPath)
-
-    const user = await User.create({
-        fName,
-        lName,
-        email,
-        password,
-        role:"pro",
-        gender,
-    })
-
-    const createdUser = await User.findById(user._id).select("-password -refreshToken")
-
-
-    if(!createdUser){
-        throw new ApiError(500,"Failed to register a user")
-    }
-
-    const pro = await Professional.create({
-        userId: user._id,
-        expertise,
-        licenseNo,
-        timings,
-        specialization,
-        experience,
-        feePerSession,
-        profilePic: pic.url,
-        cv: cv.url,
-    })
-    
-
-
-    const createdPro = await Professional.findById(pro?._id)?.select("-cv -profilePic")
-    
-    if (!createdPro) {
-    try {
-        await User.deleteOne({ email });
-        throw new ApiError(500, "Failed to register a Professional");
-    } catch (err) {
-        // Handle the error during user deletion
-        console.error("Error deleting user:", err);
-
-        // Optionally, throw a new ApiError or take other actions based on the error
-        throw new ApiError(500, "Failed to register a Professional and delete its User instance from the database");
-    }
-    }
-
+    generateToken(res,user._id)               
     return res.status(201).json(
         new ApiResponse(200,createdPro,"Professional registered successfully!")
     )
@@ -337,14 +245,49 @@ const registerProo = asyncHandler(async (req, res) => {
   }
 });
 
-
 const authUser = asyncHandler( async (req,res)=>{
+    const {email,password} = req.body;
+
+    if([email,password].some((field)=>field?.trim()==="")){
+        res.status(400)
+        throw new ApiError(400,"All fields are required!")
+    }
+    const user = await User.findOne({email})
+
+    
+    
+    
+
+    if (!user || !(await user.isPasswordCorrect(password))) {
+      throw new ApiError(401, 'Invalid email or password');
+    }
+    
+    generateToken(res,user._id)
+    return res.status(201).json(
+        new ApiResponse(200,user,"User loggedIn")
+    )
+
+
 
 })
 
-const logoutUser = asyncHandler( async (req,res)=>{
+// const logoutUser = asyncHandler( async (req,res)=>{
 
+// })
+const logoutUser = asyncHandler(async(req,res)=>{
+    res.cookie('jwt','',{
+        httpOnly:true,
+        expires: new Date(0)
+    })
+
+    res.status(200).json({message:"User Logged Out"})
+})
+
+const lol = asyncHandler(async(req,res)=>{
+
+    res.status(200).json({message:"User Lol"})
 })
 
 
-export {authUser,registerUser,registerPro,logoutUser}
+
+export {authUser,registerUser,registerPro,logoutUser,lol}

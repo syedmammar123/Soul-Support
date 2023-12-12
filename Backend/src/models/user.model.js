@@ -5,20 +5,20 @@ import jwt from 'jsonwebtoken'
 const userSchema = new mongoose.Schema({
     fName:{
         type:String,
-        required:true,
         trim:true,
+        required:true,
     },
     lName:{
         type:String,
-        required:true,
         trim:true,
+        required:true,
     },
     email:{
         type:String,
-        required:[true,"Email is required!"],
         unique:true,
         lowercase:true,
         trim:true,
+        required:[true,"Email is required!"],
     },
     // isPro:{//professional
     //     type:Boolean,
@@ -26,13 +26,18 @@ const userSchema = new mongoose.Schema({
     // },
     role:{//professional
         type : String,
-        enum : ['user','admin'],
+        enum : ['user','admin','pro'],
         default:"user",
         required: true
     },
     password:{
         type:String,
         required:[true,"Password is required!"],
+    },
+    gender:{
+        type:String,
+        enum : ['male','female'],
+        required:true,
     },
     refreshToken:{
         type:String,

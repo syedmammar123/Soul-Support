@@ -6,7 +6,7 @@ const professionalSchema = new mongoose.Schema({
     ref: "User"
   },
   profilePic: {
-    type: String,
+    type: String, // Cloudinary url
     required: true
   },
   expertise: {
@@ -21,16 +21,31 @@ const professionalSchema = new mongoose.Schema({
     trim: true,
     required: true
   },
+  // timings: {
+  //   type: Object,
+  //   required: true
+  // },
   timings: {
-    type: Object,
-    required: true
+    type: String,
+    required: true,
+    validate:{
+      validator: function(time){
+        const validTimings = [
+          'Mon-Wed-Fri: 11am-4pm',
+          'Tue-Thu-Sat: 4pm-9pm',
+          'Sunday: 10am-8pm',
+        ];
+        return validTimings.includes(time);
+      },
+      message: props => `${props.value} is not a valid timing. Please use one of the specified timings.`,
+    }
   },
   specialization: {
     type: String,
     required: true
   },
   cv: {
-    type: [String], // Assuming you store file paths or URLs
+    type: String, // Cloudinary url
     required: true
   },
   experience: {
@@ -43,8 +58,9 @@ const professionalSchema = new mongoose.Schema({
   },
   feePerSession: {
     type: Number,
-    required: [true, "This is necessary"]
-  }
+    required: [true, "feePerSession is necessary"]
+  },
+  
 },
   { timestamps: true }
 );
