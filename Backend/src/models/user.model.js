@@ -42,7 +42,9 @@ const userSchema = new mongoose.Schema({
     refreshToken:{
         type:String,
     },
-},{timestamps:true})
+},{
+    timestamps:true
+})
 
 userSchema.pre("save",async function (next){
     if(!this.isModified("password")) return next()
@@ -68,6 +70,7 @@ userSchema.methods.generateAccessToken = function(){
     }
     )
 }
+
 userSchema.methods.generateRefreshToken = function(){
     return jwt.sign({
         _id:this.id,

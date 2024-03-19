@@ -1,11 +1,15 @@
 import mongoose, { Schema } from "mongoose";
-import { Professional } from "./Professional.model";
+// import { Professional } from "./Professional.model";
 
 const blogSchema = new mongoose.Schema({
+    author:{
+        type: Schema.Types.ObjectId,
+        ref:"Professional"
+    }, 
     title:{
         type:String,
+        trim:true,
         required:true,
-        trim:true
     },
     bannerPhoto:{
         type:String, //cloudinary
@@ -18,10 +22,6 @@ const blogSchema = new mongoose.Schema({
         }],
         required:true
     },
-    author:{
-        type: Schema.Types.ObjectId,
-        ref:"Professional"
-    }, 
     content:{
         type:String,
         required:true,
@@ -31,7 +31,11 @@ const blogSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    index:true,
+
+    // index:true,
+
 },{timestamps:true})
+
+
 
 export const Blog = mongoose.model("Blog",blogSchema)

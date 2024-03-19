@@ -1,13 +1,23 @@
 import express from "express"
-import { createBlog } from "../controllers/blogController.js";
+import { createBlog, deleteBlog, getBlog, getBlogs, searchBlog, updateBlog } from "../controllers/blog.controller.js";
+import { protect } from "../middlewares/auth.middleware.js";
+import { upload } from "../middlewares/multer.middleware.js";
 
 const router = express.Router()
 
-router.post("/") //create a blog
-router.get("/") ////get all blogs
-router.get("/:id")//get a blog
-router.put("/:id")//update a blog
-router.delete("/:id")//Delete a blog
+// router.route("/").post(protect,createBlog) 
+router.route("/").post(protect,upload.fields([
+        {
+            name: "bannerPhoto",
+            maxCount: 1
+        }, 
+    ]),createBlog) 
+
+router.route("/search").get(searchBlog)
+router.route("/").get(getBlogs) ////get all blogs
+router.route("/:id").get(getBlog)//get a blog
+router.route("/:id").put(protect,updateBlog)
+router.route("/:id").delete(protect,deleteBlog)
 
 // post("/blogs") //create a blog
 // get("/blogs") ////get all blogs

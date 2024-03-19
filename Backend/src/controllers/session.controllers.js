@@ -29,7 +29,7 @@ const createSession = asyncHandler(async (req,res)=>{
 
 const getAllSessions = asyncHandler(async (req,res)=>{
 
-    const sessions = await Session.find()
+    const sessions = await Session.find();
 
     if(!sessions || sessions.length === 0){
         throw new ApiError(404,"No Session Found!!")
@@ -45,7 +45,6 @@ const getAllSessions = asyncHandler(async (req,res)=>{
 const getOneSession = asyncHandler(async (req,res)=>{
 
     const userId = req.user._id
-    console.log(userId)
 
 
     const sessions = await Session.find({

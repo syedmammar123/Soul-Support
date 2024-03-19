@@ -26,7 +26,6 @@ const getAppointments = asyncHandler(async (req,res)=>{
     )
 })
 
-
 const createAppointment = asyncHandler(async (req,res)=>{
     const {therapist,date,time} = req.body;
 

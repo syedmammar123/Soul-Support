@@ -1,18 +1,16 @@
-import mongoose, { Schema, SchemaType } from "mongoose";
-import { ApiError } from "../utils/ApiError";
+import mongoose, { Schema } from "mongoose";
+import { ApiError } from "../utils/ApiError.js";
 
 const appointmentSchema = new mongoose.Schema({
     patient:{
         type: Schema.Types.ObjectId,
         ref:"User",
         required:true,
-
     },
     therapist:{
         type:Schema.Types.ObjectId,
         ref:"Professional",
         required:true,
-
     },
     date:{
         type:Date,
@@ -21,9 +19,11 @@ const appointmentSchema = new mongoose.Schema({
     time:{
         type:String,
         required:true,        
-    }
+    },
 
+    // index:true,
 },
+
 {timestamps:true})
 
 appointmentSchema.pre('save',async function(next){
@@ -41,7 +41,7 @@ appointmentSchema.pre('save',async function(next){
         });
 
         if(userAppointment || therapistAppointment ){
-            throw new ApiError("Appointment time is not available. Please choose a different time.")
+            throw new Error("Appointment time is not available. Please choose a different time.")
         }
 
         next()

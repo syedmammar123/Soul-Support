@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import { Link,Navigate, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import Navbar from "../components/Navbar";
+import Test from "../components/Test";
 // import Cookies from "js-cookie";
 
 const Login = () => {
@@ -34,38 +35,54 @@ const Login = () => {
     // }
   }
 
-  const handleLogin = async () => {
-    // try {
-    //   const response = await axios.post('http://localhost:4000/login', {
-    //     username,
-    //     password,
-    //   });
 
-    //   if(response.data.Login){
-    //     Cookies.set('username', `${response.data.username}`, { expires: 7 });
-    //     Cookies.set('role', `${response.data.role}`, { expires: 7 });
-    //       if(response.data.role == 'user'){
-    //         navigate('/')
-    //       }
-    //       if(response.data.role == 'therapist'){
-    //         navigate('/therapist')
-    //       }
-    //       if(response.data.role == 'instructor'){
-    //         navigate('/instructor/session')
-    //       }
-    //   }
-    //   else{
-    //     alert("Error !")
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    //   alert("Error !")
-    // }
+    useEffect(() => {
+      const storedUser = localStorage.getItem('soulUser');
+    if (storedUser) {
+      const user = JSON.parse(storedUser)
+      if(user.role== 'user'){
+        navigate("/")
+      }
+      if(user.role== 'pro'){
+        navigate("/therapist")
+      }
+      
+    }
+    }, []); 
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/users/login', {
+        username,
+        password,
+      });
+
+      const userData = response.data.data.user
+
+      localStorage.setItem('soulUser', JSON.stringify(userData));
+
+
+      
+          if(userData.role == 'user'){
+            navigate('/')
+          }
+          if(userData.role == 'pro'){
+            navigate('/therapist')
+          }
+          if(response.data.role == 'instructor'){
+            navigate('/instructor/session')
+          }
+      
+     
+    } catch (error) {
+      console.error(error);
+      alert("Error !")
+    }
   };
 
     return (
       <>
-      <Navbar/>
+      {/* <Navbar/> */}
+      <Test/>
       {!register ?
       <div className="MainLogin"  >
        <div className="quote">

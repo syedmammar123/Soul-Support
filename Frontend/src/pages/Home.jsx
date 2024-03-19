@@ -8,11 +8,13 @@ import Livesession from "../components/Livesession";
 import Blog from "../components/Blog";
 import Instructor from "../components/Instructor";
 import Footer from "../components/Footer";
+import Test from "../components/Test";
 
 function Home() {
     return(
         <>
-        <Navbar/>
+        {/* <Navbar/> */}
+        <Test/>
         <HeroSection />
         <Blog/>
         {/* <Livesession/> */}

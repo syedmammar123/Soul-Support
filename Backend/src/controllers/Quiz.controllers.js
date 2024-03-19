@@ -33,7 +33,7 @@ const getQuestions = asyncHandler(async (req,res)=>{
 
 const getResults = asyncHandler(async (req,res)=>{
 
-    const category = req.params.id;
+    const {category} = req.params;
     const {points} = req.body
 
 
