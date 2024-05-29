@@ -4,6 +4,6 @@ import { getCategory,getQuestions,getResults } from "../controllers/Quiz.control
 const router = express.Router();
 router.route("/").get(getCategory)
 router.route("/:id").get(getQuestions)
-router.route("/result/:category").get(getResults)
+router.route("/result/:category/:points").get(getResults)
 
 export default router;

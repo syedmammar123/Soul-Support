@@ -28,7 +28,7 @@ const generateRefreshAndAccessTokens =  async(userId)=>{
 
 const registerUser = asyncHandler( async (req,res)=>{
     // data lia email dekhi k hai tou nhi, uske baad maine daldia apne model mai
-
+  
     const {fName,lName,email,password,gender} = req.body;
 
     //.some is like map but it runs for each item of array and returns true if atleast 1 such condition is found, in my case it will search for atleast one field to be empty. 
@@ -290,13 +290,14 @@ const loginUser = asyncHandler(async (req,res)=>{
   const {username,password} = req.body;
   const email = username
   
+  
   if(!email){
     throw new ApiError(400,"Email is required")
   }
 
   const user = await User.findOne({email})
   // const user = await User.findOne({$or:[{username},{email}]})
-
+  
   if(!user){
     throw new ApiError(404,"User doesnot exist")
   }

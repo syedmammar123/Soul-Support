@@ -1,2 +1,0 @@
-post("/chats")
-get("/chats")

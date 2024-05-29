@@ -94,7 +94,6 @@ const Test = () => {
 
     }else if(buttonName==="Sign Up"){
       navigate("/login")
-      console.log("logout");
     }else{
       console.log("else");
     }  
@@ -152,7 +151,11 @@ const Test = () => {
 
         <div className='nav-CTA'>
           <button className={`${commonButtonClass} w-24 hideNavBtns mr-2 `}>Therapy</button>
-          <button className={`${commonButtonClass} w-24 hideNavBtns`}>Sign-Up</button>
+          {user?
+          <button className={`${commonButtonClass} w-24 hideNavBtns`} onClick={(e)=>handleClick(e.target)}>Logout</button>
+          :
+          <button className={`${commonButtonClass} w-24 hideNavBtns`} onClick={(e)=>handleClick(e.target)}>Sign Up</button>
+          }
 
           <div className="hamburger-menu">
             <Link href="#" onClick={() => setShowMediaIcons(!showMediaIcons)}>

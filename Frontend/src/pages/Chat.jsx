@@ -46,7 +46,13 @@ useEffect(()=>{
 
       setMessages(combinedArray);
     } catch (error) {
-      console.error(error.response.status);
+      if(error.response && error.response.status === 404 && error.response.data.message==="No Chat found!"){
+        setMessages([{
+          userMsg:"",
+          gptMessage: "Hi, I am your AI friend here to chat you and discuss you your issues, feel free and friendly with me and start the conversation by introducting urself.",
+        }]);
+
+      }
      if (error.response && error.response.status === 401) {
       try {
         // Send a request to the refresh-token route
@@ -82,23 +88,11 @@ useEffect(()=>{
     // ]);
     setInput('');
   
-    // const response = await fetch('http://localhost:3000/api/v1/chat', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     // _id:'65787c36c195a062420e528b',
-    //     message: input,
-    //   }),
-    // });
+
   
-      const response = await axios.post('http://localhost:3000/api/v1/chat', {     
-    
-        // _id:'65787c36c195a062420e528b',
-        message: input,
+    const response = await axios.post('http://localhost:3000/api/v1/chat', {      
+      message: input,
     });
-    console.log(response);
 
     const data = await response.data;
     const generatedMessage = data.message;
@@ -118,19 +112,21 @@ useEffect(()=>{
     {/* <Navbar/> */}
     <Test />
     <div className="gptMain">
-     
-
       <div className="chatMain">
         {Messages &&
           Messages.map((message, index) => (
             <React.Fragment key={index}>
-              <div className="user-message">
+              {message.userMsg!==""?
+               <div className="user-message">
                 <div className="message">
                   <b>You</b>
                   <br />
                   {message.userMsg}
                 </div>
               </div>
+              :
+               null 
+              }
               <div className="assistant-message">
                 <div className="message">
                   <b>AI</b>

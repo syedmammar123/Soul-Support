@@ -787,9 +787,13 @@
 
 /* blogss.module.css-------------------------------------------------- */
 
+:root {
+  /* --swiper-navigation-color: #325343; */
+  --swiper-theme-color: #325343 !important;
+}
+
 .home1 {
-  background: linear-gradient(135deg, #cfdbec69 10%, #93b4c16b 100%);
-  padding: 2%;
+ 
 }
 
 .home1 .posts1 {
@@ -797,8 +801,8 @@
   flex-direction: column;
   gap: 70px;
   justify-content: center;
-  align-items: center;
-  margin: 0 3%;
+  align-items: left;
+  /* margin: 0 3%; */
 }
 
 .posts1 .post {
@@ -2648,7 +2652,6 @@ h3 {
 
 /* --------------------------- MOBILE VERSION ------------------------------ */
 
-/* -------------------- DESKTOP OPTIMIZATION -------------------- */
 @media only screen and (min-device-width: 64em) {
   .coverrrr {
     width: 25%;

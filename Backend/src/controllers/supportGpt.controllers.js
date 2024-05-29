@@ -94,8 +94,7 @@ const postChate = asyncHandler(async (req, res) => {
 });
 const postChat = asyncHandler(async (req, res) => {
   const { message } = req.body;
-//   const { _id } = req.user;
-  const  _id = '65787c36c195a062420e528b'
+  const { _id } = req.user;
 
   const completion = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
@@ -140,9 +139,8 @@ const postChat = asyncHandler(async (req, res) => {
 
 
 const getChat = asyncHandler(async (req, res) => {
-      const  id = '65787c36c195a062420e528b'
 
-    // const id = req.user._id; 
+    const id = req.user._id; 
 
     const chat = await GptChat.find({user:id})
 

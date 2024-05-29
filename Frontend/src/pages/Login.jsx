@@ -22,17 +22,17 @@ const Login = () => {
   axios.defaults.withCredentials = true;
  
   const handleRegisteration = async ()=>{
-    // try {
-    //   const response = await axios.post('http://localhost:4000/register', {
-    //     email,
-    //     username,
-    //     password,
-    //   });
-    //   setRegister(false)
-    // } catch (error) {
-    //   console.error(error);
-    //   alert("error in registeration! Try again")
-    // }
+    try {
+      const response = await axios.post('http://localhost:4000/register', {
+        email,
+        username,
+        password,
+      });
+      setRegister(false)
+    } catch (error) {
+      console.error(error);
+      alert("error in registeration! Try again")
+    }
   }
 
 
@@ -51,7 +51,7 @@ const Login = () => {
     }, []); 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/users/login', {
+      const response = await axios.post('http://localhost:4000/api/v1/users/login', {
         username,
         password,
       });
