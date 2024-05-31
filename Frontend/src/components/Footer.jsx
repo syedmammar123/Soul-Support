@@ -80,8 +80,9 @@ function Footer() {
             </Link>
           </div>
         </div>
+        <br />
         <div className="footerpart">
-          <p>ⓒ2023 SoulSupport All rights reserved</p>
+          <p>ⓒ2024 SoulSupport All rights reserved</p>
         </div>
       </div>
     </>

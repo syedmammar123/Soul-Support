@@ -14,6 +14,7 @@ import 'swiper/css/effect-creative';
 
 // import './styles.css';
 import { Autoplay, EffectFade, Pagination, Navigation, EffectCreative } from 'swiper/modules';
+import Footer from "../components/Footer";
 
 
 const BlogList=()=>{
@@ -32,24 +33,28 @@ const BlogList=()=>{
   }
   var fake = [{
     blogid:1,
-    blogtitle:"king",
+    blogtitle:"How harnessing Will power To meet your goals can change your life.",
     blogcontent:"adadadasd",
-    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsLXGyRaOxv5DrjguRH_gABl43f4H2VCzdsQ&usqp=CAU"
+    displaytext: "Harnessing your willpower can significantly change your life. By setting clear goals and consistently working towards them, you can achieve more than you ever thought possible.",
+    img:"https://dy7glz37jgl0b.cloudfront.net/advice/images/betterhelp/223/1acf4b28bfa15e79e7124e9553ad18ad-getty-sarah-waiswa_l.jpg"
   },{
     blogid:2,
-    blogtitle:"king",
+    blogtitle:"How harnessing Will power To meet your goals can change your life.",
     blogcontent:"adadadasd",
-    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsLXGyRaOxv5DrjguRH_gABl43f4H2VCzdsQ&usqp=CAU"
+    displaytext: "Harnessing your willpower can significantly change your life. By setting clear goals and consistently working towards them, you can achieve more than you ever thought possible.",
+    img:"https://dy7glz37jgl0b.cloudfront.net/advice/images/341c509086ff5067842a0d7027315868-girl-holding-mug-smiling-by-computer_l.jpg"
   },{
     blogid:3,
-    blogtitle:"king",
+    blogtitle:"How harnessing Will power To meet your goals can change your life.",
     blogcontent:"adadadasd",
-    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsLXGyRaOxv5DrjguRH_gABl43f4H2VCzdsQ&usqp=CAU"
+    displaytext: "Harnessing your willpower can significantly change your life. By setting clear goals and consistently working towards them, you can achieve more than you ever thought possible.",
+    img:"https://dy7glz37jgl0b.cloudfront.net/advice/images/c85803a0a82bfdd0ee3b4ceb69d7d5dc-man-in-a-hotel-lobby-scrolls-on-phone_l.jpg"
   },{
     blogid:4,
-    blogtitle:"king",
+    blogtitle:"How harnessing Will power To meet your goals can change your life.",
     blogcontent:"adadadasd",
-    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsLXGyRaOxv5DrjguRH_gABl43f4H2VCzdsQ&usqp=CAU"
+    displaytext: "Harnessing your willpower can significantly change your life. By setting clear goals and consistently working towards them, you can achieve more than you ever thought possible.",
+    img:"https://assets.betterhelp.com/advice/images/5913aafdde4749275f5d0ec56395ac56-solos-sad_59_l.jpg"
   },]
 
  const wave = {
@@ -160,77 +165,23 @@ const shapeFill = {
           </div>  
           
           <div className="flex items-center justify-around  w-[95%] m-auto flex-wrap">
-            <div className="rounded border border-gray-200 text-center w-[30%] p-4 py-8 flex justify-between items-center flex-col h-[80vh] my-4">
-             <div className="w-[100%] overflow-hidden rounded-lg" >
-               <img src="https://dy7glz37jgl0b.cloudfront.net/advice/images/b0c659f3b45ab03ffbecf781f227798b-older-woman-speaks-on-phone-to-client_l.jpg" alt="" className="transform transition-transform duration-300 ease-in-out hover:scale-105 rounded-lg" />
-             </div>
-              <h6>How harnessing Will power To meet your goals can change your life.</h6>
-              <p>text/category</p>
-
-            </div>
-            <div className="rounded border border-gray-200 text-center w-[30%] p-4 py-8 flex justify-between items-center flex-col h-[80vh] my-4">
-             <div className="w-[100%] overflow-hidden rounded-lg" >
-               <img src="https://dy7glz37jgl0b.cloudfront.net/advice/images/b0c659f3b45ab03ffbecf781f227798b-older-woman-speaks-on-phone-to-client_l.jpg" alt="" className="transform transition-transform duration-300 ease-in-out hover:scale-105 rounded-lg" />
-             </div>
-              <h6>How harnessing Will power To meet your goals can change your life.</h6>
-              <p>text/category</p>
-
-            </div>
-            <div className="rounded border border-gray-200 text-center w-[30%] p-4 py-8 flex justify-between items-center flex-col h-[80vh] my-4">
-             <div className="w-[100%] overflow-hidden rounded-lg" >
-               <img src="https://dy7glz37jgl0b.cloudfront.net/advice/images/b0c659f3b45ab03ffbecf781f227798b-older-woman-speaks-on-phone-to-client_l.jpg" alt="" className="transform transition-transform duration-300 ease-in-out hover:scale-105 rounded-lg" />
-             </div>
-              <h6>How harnessing Will power To meet your goals can change your life.</h6>
-              <p>text/category</p>
-
-            </div>
-            <div className="rounded border border-gray-200 text-center w-[30%] p-4 py-8 flex justify-between items-center flex-col h-[80vh] my-4">
-             <div className="w-[100%] overflow-hidden rounded-lg" >
-               <img src="https://dy7glz37jgl0b.cloudfront.net/advice/images/b0c659f3b45ab03ffbecf781f227798b-older-woman-speaks-on-phone-to-client_l.jpg" alt="" className="transform transition-transform duration-300 ease-in-out hover:scale-105 rounded-lg" />
-             </div>
-              <h6>How harnessing Will power To meet your goals can change your life.</h6>
-              <p>text/category</p>
-
-            </div>
-            <div className="rounded border border-gray-200 text-center w-[30%] p-4 py-8 flex justify-between items-center flex-col h-[80vh] my-4">
-             <div className="w-[100%] overflow-hidden rounded-lg" >
-               <img src="https://dy7glz37jgl0b.cloudfront.net/advice/images/b0c659f3b45ab03ffbecf781f227798b-older-woman-speaks-on-phone-to-client_l.jpg" alt="" className="transform transition-transform duration-300 ease-in-out hover:scale-105 rounded-lg" />
-             </div>
-              <h6>How harnessing Will power To meet your goals can change your life.</h6>
-              <p>text/category</p>
-
-            </div>
-            
+            {blogs.reverse().map((item)=>(            
+                <div className="group rounded border border-gray-200 text-center w-[30%] p-4 py-4 flex justify-between items-center flex-col h-[500px] my-4">
+                  <div className="w-72 h-52 bg-red-500 overflow-hidden rounded-lg" >
+                    <img src={item.img} alt="" className="w-full h-full object-cover transform transition-transform duration-300 ease-in-out group-hover:scale-105 rounded-lg" />
+                  </div>
+                  <h6 className="text-start font-semibold">{item.blogtitle}</h6>
+                  
+                  <p className="text-start w-full" >{item.displaytext}</p>
+                  
+                  <div className="border p-2 hover:bg-green-100 ">
+                    <button onClick={()=>navigate(`/blog/${item.blogid}`)}>Read More</button>
+                  </div>
+                </div>
+            ))}
           </div>
 
-         <div className="home1">
-          <div className="container">
-        <div className="posts1">
-          {blogs.reverse().map((item)=>(
-            <div className="post" key={item.blogid}>
-                <div className="img1">
-                    <img src={item.img}></img>
-                </div>
-                <div className="content1">
-                <Link href={`/blog/${item.blogid}`} >
-                      <h1>{item.blogtitle}</h1>
-                </Link>
-                  <div className="text_container">
-                      <p className="text">{ item.blogcontent}</p>
-                  </div>
-                  <div className="showmore">
-                    <button onClick={()=>navigate(`/blog/${item.blogid}`)}>Read More</button>
-                  </div>                    
-                </div>
-            </div>
-          ))}
-        </div>
-        </div> 
-        </div>
-        
-
-       
-
+          <Footer/>
         
         {/* <BlogPage/> */}
        
