@@ -14,6 +14,8 @@ import TakeLiveSession from './pages/TakeLiveSession'
 import Therapist from './pages/Therapist'
 import Jokes from './pages/Jokes'
 import Test from './components/Test'
+import Assessments from './pages/Assessment'
+import AssessmentCategory from './pages/AssessmentCategory'
 
 
 // import About from './pages/About'
@@ -30,6 +32,10 @@ function App() {
           <Route path="/home" element={<Home/>}/>
           <Route path='/careers' element = {<Careers/>} />
           <Route path='/ai-chat' element={<Chat/>} />
+
+        {/* assessment */}
+          <Route path='/quiz' element={<Assessments />} />
+          <Route path='/quiz/:AssessmentCategory' element={<AssessmentCategory />} />
 
         {/* blogs */}
           <Route path='/blogs' element={<BlogList />} />

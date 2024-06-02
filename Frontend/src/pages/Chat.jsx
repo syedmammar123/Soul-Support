@@ -1,9 +1,9 @@
 import React, { useState, useEffect,useRef } from 'react';
 import axios from 'axios';
-// import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+// import Navbar from '../components/Navbar';
 import Test from '../components/Test';
+
 
 function Chat() {
   const [input, setInput] = useState('');
@@ -36,7 +36,7 @@ useEffect(()=>{
 
   const fetchChatLog = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/v1/chat');
+      const response = await axios.get('http://localhost:4000/api/v1/chat');
       
       const data = response.data.message[0].messages;
       const combinedArray = data.map((item) => ({
@@ -56,12 +56,13 @@ useEffect(()=>{
      if (error.response && error.response.status === 401) {
       try {
         // Send a request to the refresh-token route
-        await axios.post('http://localhost:3000/api/v1/users/refresh-token');
+        await axios.post('http://localhost:4000/api/v1/users/refresh-token');
         
         // Retry the original request after token refresh
         await fetchChatLog();
       } catch (refreshError) {
         console.error('Error refreshing token:', refreshError);
+        navigate("/Login")
         // Handle the error when refresh token fails
       }
     } else {
@@ -90,7 +91,7 @@ useEffect(()=>{
   
 
   
-    const response = await axios.post('http://localhost:3000/api/v1/chat', {      
+    const response = await axios.post('http://localhost:4000/api/v1/chat', {      
       message: input,
     });
 
@@ -112,13 +113,13 @@ useEffect(()=>{
     {/* <Navbar/> */}
     <Test />
     <div className="gptMain">
-      <div className="chatMain">
+      <div className={"chatMain"}>
         {Messages &&
           Messages.map((message, index) => (
             <React.Fragment key={index}>
               {message.userMsg!==""?
-               <div className="user-message">
-                <div className="message">
+               <div className={'user-message'}>
+                <div className={"message"}>
                   <b>You</b>
                   <br />
                   {message.userMsg}
@@ -127,10 +128,11 @@ useEffect(()=>{
               :
                null 
               }
-              <div className="assistant-message">
-                <div className="message">
+              <div className={'assistant-message'}>
+                <div className={"message"}>
                   <b>AI</b>
                   <br />
+                  {"gptMessage"}
                   {message.gptMessage}
                 </div>
               </div>
@@ -139,15 +141,15 @@ useEffect(()=>{
         <div ref={chatMainRef} />
       </div>
 
-      <div className="gptInput-container">
-        <form className="gptInputForm" onSubmit={handleSubmit}>
+      <div className={'gptInput-container'}>
+        <form className={"gptInputForm"} onSubmit={handleSubmit}>
           <input
-            className="gptInput"
+            className={"gptInput"}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Send a message"
           />
-          <button className="gptSendButton" type="submit" disabled={!input.trim()}>
+          <button className={"gptSendButton"} type="submit" disabled={!input.trim()}>
             Send
           </button>
         </form>

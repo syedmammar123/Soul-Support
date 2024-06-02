@@ -1,0 +1,115 @@
+.MainHeading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+.MainHeading h1{
+    font-family: Montserrat;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    background: linear-gradient(90deg, #00ff6a -13.79%, #2bce33 82.1%, #74FFE6 121.81%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* margin-bottom: -4px; */
+
+}
+.MainHeading span{
+    color: #7C757E;
+    font-family: Montserrat;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.question {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    padding: 12px;
+    border-radius: 16px;
+    margin: 20px auto;
+}
+
+.question p {
+    font-size: 20px;
+    color: black;
+    font-weight: 600;
+    margin: 10px 8px;
+}
+
+
+.question ul li {
+    list-style-type: none;
+}
+
+.answer label input[type="radio"] {
+
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    font: inherit;
+    color: #714C9F;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #714C9F;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+}
+
+.answer label {
+    padding: 5px 10px;
+    background: #1d1d4229;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+
+}
+
+.answer label input[type="radio"]::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 12px 12px #714C9F;
+}
+
+.answer label input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+.answer label input[type="radio"]:focus {
+    outline: max(1px, 1px) solid #714C9F;
+}
+
+.answer label span {
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+
+
+.button{
+    display: flex;
+  padding: 4px 20px;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  border-radius: 100px;
+  background-color: #8f00ff;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid #2D0050;
+  margin-top: 32px;
+  margin-bottom: 3px;
+}

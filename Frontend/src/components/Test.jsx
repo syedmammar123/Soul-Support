@@ -89,7 +89,7 @@ const Test = () => {
       localStorage.removeItem('soulUser')
         navigate("/")
         setUser()
-        await axios.post('http://localhost:3000/api/v1/users/logout');
+        await axios.post('http://localhost:4000/api/v1/users/logout');
         
 
     }else if(buttonName==="Sign Up"){
@@ -135,7 +135,9 @@ const Test = () => {
     <>
       <nav className='main-nav'>
         <header className='logo'>
-          <img src="images/NavLogo.png" className='w-36' alt="" />
+          <img src="images/NavLogo.png" className='w-36 cursor-pointer' alt="" 
+          onClick={()=>navigate("/")}
+          />
         </header>
 
         <div className={showMediaIcons ? 'menu-link mobile-menu-link' : 'menu-link'}>
