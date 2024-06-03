@@ -204,9 +204,13 @@ const AssessmentCategory = () => {
                     <span>{result[0].recommendation}</span>   
 
                     <button
-                    className='bg-green-700 rounded-sm p-3 text-red-400'
-                    onClick={()=>navigate("/SupportGpt")}
+                    className='bg-green-500 rounded-xl p-2 m-9 text-white'
+                    onClick={()=>navigate("/")}
                     >Book Appointment</button>             
+                    <button
+                    className='bg-green-500 rounded-2xl p-2 m-4 text-white'
+                    onClick={()=>navigate("/ai-chat")}
+                    >AI-Support</button>             
                 </div>
             </>
         :

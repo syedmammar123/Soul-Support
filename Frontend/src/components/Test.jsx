@@ -92,7 +92,7 @@ const Test = () => {
         await axios.post('http://localhost:4000/api/v1/users/logout');
         
 
-    }else if(buttonName==="Sign Up"){
+    }else if(buttonName==="Log In"){
       navigate("/login")
     }else{
       console.log("else");
@@ -121,7 +121,7 @@ const Test = () => {
             user?
             <button className={`${commonButtonClass} w-40`} onClick={(e)=>handleClick(e.target)}>Logout</button>
             :
-            <button className={`${commonButtonClass} w-40`} onClick={(e)=>handleClick(e.target)}>Sign Up</button>
+            <button className={`${commonButtonClass} w-40`} onClick={(e)=>handleClick(e.target)}>Log In</button>
             }
             
           </li>
@@ -156,7 +156,7 @@ const Test = () => {
           {user?
           <button className={`${commonButtonClass} w-24 hideNavBtns`} onClick={(e)=>handleClick(e.target)}>Logout</button>
           :
-          <button className={`${commonButtonClass} w-24 hideNavBtns`} onClick={(e)=>handleClick(e.target)}>Sign Up</button>
+          <button className={`${commonButtonClass} w-24 hideNavBtns`} onClick={(e)=>handleClick(e.target)}>Log In</button>
           }
 
           <div className="hamburger-menu">
