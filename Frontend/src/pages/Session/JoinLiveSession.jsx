@@ -1,8 +1,7 @@
 
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
-
+import Navbar from "../../components/Navbar";
 const JoinLiveSession = () => {
     const navigate = useNavigate()
   function randomID(len) {

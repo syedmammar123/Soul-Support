@@ -9,13 +9,14 @@ import BlogSingle from './pages/BlogSingle'
 import BlogWrite from './pages/BlogWrite'
 import Login from './pages/Login'
 import LiveSession from './components/Livesession'
-import JoinLiveSession from './pages/JoinLiveSession'
-import TakeLiveSession from './pages/TakeLiveSession'
 import Therapist from './pages/Therapist'
 import Jokes from './pages/Jokes'
 import Test from './components/Test'
 import Assessments from './pages/Assessment'
 import AssessmentCategory from './pages/AssessmentCategory'
+import Session from './pages/Session'
+import JoinLiveSession from './pages/Session/JoinLiveSession'
+import TakeLiveSession from './pages/Session/TakeLiveSession'
 
 
 // import About from './pages/About'
@@ -46,8 +47,10 @@ function App() {
           {/* <Route path="/about" element={<About/>}/> */}
 
         {/* info session */}
+        <Route path='/sessions' element={<Session/>} />
         <Route path='/session' element={<JoinLiveSession/>} />
         <Route path='/instructor/session' element={<TakeLiveSession/>} />
+        <Route path='/LiveSession' element={<LiveSession/>} />
 
         {/* therapy */}
         {/* <Route path='/therapy' element={<TakeTherapy/>} />  */}

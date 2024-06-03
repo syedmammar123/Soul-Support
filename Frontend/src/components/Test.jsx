@@ -1,73 +1,3 @@
-// import React, { useEffect, useState } from 'react'
-// import '../App.css'
-// import { Link } from 'react-router-dom'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faBars, faX } from '@fortawesome/free-solid-svg-icons'
-
-// const Test = () => {
-//     const [showMediaIcons, setShowMediaIcons] = useState(false);
-
-//     return (
-//     <>
-//         <nav className='main-nav'>
-//             <div className='loga'>
-//                 <img src="images/NavLogo.png" className='w-36' alt="" />
-//             </div>
-
-//             <div className={showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"}>
-//                 <ul>
-//                     <li className=' bg-green-200 rounded-full w-20 py-1 text-center'>
-//                         <Link >Home</Link>
-//                     </li>
-//                     <li className=' bg-green-200 rounded-full w-20 py-1 text-center'>
-//                         <Link  >AI-Chat</Link>
-//                     </li>
-//                     <li className=' bg-green-200 rounded-full w-20 py-1 text-center'>
-//                         <Link>Quiz</Link>
-//                     </li>
-//                     <li className=' bg-green-200 rounded-full w-20 py-1 text-center'>
-//                         <Link >Blogs</Link>
-//                     </li>
-//                     <li className=' bg-green-200 rounded-full w-20 py-1 text-center'>
-//                         <Link>Careers</Link>
-//                     </li>
-//                     <li className=' bg-green-200 rounded-full w-20 py-1 text-center'>
-//                         <Link >Sessions</Link>
-//                     </li>
-
-
-//                     <li >
-//                 <button className='bg-green-500 rounded-full w-40 text-center text-lg hover:text-xl font-semibold font-mono text-white ' style={{display:showMediaIcons?"inline-block":"none"}}>Therapy</button>
-//                     </li>
-//                     <li>
-//                 <button className='bg-green-500  rounded-full w-40 text-center text-lg hover:text-xl font-semibold font-mono text-white  ' style={{display:showMediaIcons?"inline-block":"none"}}>Sign Up</button>
-//                     </li>
-//                 </ul>
-//             </div>
-
-//             <div className='btn3rd'>
-//                 <button className='btnDesktop bg-green-500 rounded-full w-24 py-1 text-lg hover:text-xl font-semibold font-mono text-white mr-2'>Therapy</button>
-//                 <button className='btnDesktop bg-green-500 rounded-full w-24 py-1 text-lg hover:text-xl font-semibold font-mono text-white'>Sign-Up</button>
-
-
-//                 <div className="hamburger-menu">
-//                 <Link href="#" onClick={() => setShowMediaIcons(!showMediaIcons)}>
-//                     <FontAwesomeIcon icon={faBars} />
-//                 </Link>
-//                 </div>
-//             </div>
-
-            
-//         </nav>
-
-  
-//     </>
-//     )
-// }
-
-// export default Test;
-
-
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -133,7 +63,7 @@ const Test = () => {
 
   return (
     <>
-      <nav className='main-nav'>
+      <nav className='main-nav z-10'>
         <header className='logo'>
           <img src="images/NavLogo.png" className='w-36 cursor-pointer' alt="" 
           onClick={()=>navigate("/")}
