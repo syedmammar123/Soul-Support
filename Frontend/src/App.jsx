@@ -17,6 +17,8 @@ import AssessmentCategory from './pages/AssessmentCategory'
 import Session from './pages/Session'
 import JoinLiveSession from './pages/Session/JoinLiveSession'
 import TakeLiveSession from './pages/Session/TakeLiveSession'
+import TakeTherapy from './pages/Therapy'
+// import CallRoom from './components/CallRoom/CallRoom'
 
 
 // import About from './pages/About'
@@ -53,7 +55,7 @@ function App() {
         <Route path='/LiveSession' element={<LiveSession/>} />
 
         {/* therapy */}
-        {/* <Route path='/therapy' element={<TakeTherapy/>} />  */}
+        <Route path='/therapy' element={<TakeTherapy/>} /> 
         {/* <Route path='/therapy/room/:roomId' element={<CallRoom/>} /> */}
         <Route path='/therapist' element={<Therapist/>} />
         {/* <Route path='/therapist/room/:roomId' element={<CallRoom/>} /> */}

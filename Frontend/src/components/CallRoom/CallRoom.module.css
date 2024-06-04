@@ -1,0 +1,79 @@
+.App {
+    /* text-align: center; */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+   
+  }
+  .clicked{
+    display: none;
+  }
+  
+
+  
+  
+  .videos{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    overflow:hidden;
+  }
+  
+  .video-player video{
+    object-fit:contain;
+    width: 19% !important; 
+    height: 32% !important;
+    right:15%;
+    position:absolute;
+    bottom :8%;
+    transform: scaleX(-1);
+    z-index: 3;
+  }
+  @media (max-width: 500px) {
+    .video-player video {
+      width: 39% !important;
+      height: 14% !important;
+      right: 5%;
+      bottom: 15%;
+    }
+  }
+  
+  .video-player2 video{
+     top: 0;
+    margin: 0 auto;
+    object-fit:contain;
+    position: absolute;
+    transform: scaleX(-1);
+  
+  }
+  
+  #controls{
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform:translateX(-50%);
+    display: flex;
+    gap: 1em;
+  }
+  
+  
+  .control-container{
+  background-color: rgb(179, 102, 249, .9);
+  padding: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  }
+  
+  .control-container img{
+    height: 30px;
+    width: 30px;
+  }
+  
+  #leave-btn{
+    background-color: rgb(255,80,80, 1);
+  }
