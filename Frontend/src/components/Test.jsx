@@ -82,7 +82,9 @@ const Test = () => {
         </div>
 
         <div className='nav-CTA'>
-          <button className={`${commonButtonClass} w-24 hideNavBtns mr-2 `}>Therapy</button>
+          <button className={`${commonButtonClass} w-24 hideNavBtns mr-2 `}
+          onClick={()=>navigate("/therapy")}
+          >Therapy</button>
           {user?
           <button className={`${commonButtonClass} w-24 hideNavBtns`} onClick={(e)=>handleClick(e.target)}>Logout</button>
           :

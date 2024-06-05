@@ -55,7 +55,7 @@ function App() {
         <Route path='/LiveSession' element={<LiveSession/>} />
 
         {/* therapy */}
-        <Route path='/therapy' element={<TakeTherapy/>} /> 
+        <Route path='/therapy/:category?' element={<TakeTherapy/>} /> 
         {/* <Route path='/therapy/room/:roomId' element={<CallRoom/>} /> */}
         <Route path='/therapist' element={<Therapist/>} />
         {/* <Route path='/therapist/room/:roomId' element={<CallRoom/>} /> */}
