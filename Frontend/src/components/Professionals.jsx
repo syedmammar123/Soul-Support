@@ -63,28 +63,7 @@ useEffect(()=>{
     <section id="head" className="head_aq">
       <div className="container_aq">
         {/* Left Container */}
-        <div className="left-container_aq">
-          <div className="text_aq">
-            <h2 className="title_aq">SHARE YOUR VOICE: WRITE FOR US!</h2>
-            <p className="description_aq">
-              <blockquote className="desc-span_aq">Share Your Insights, Inspire Minds.</blockquote>
-              
-            </p>
-          </div>
-          <div className="write-button_aq">
-            <button onClick={()=>{window.location.href="write"}} className="access access_aq">Write For Us</button> 
-          </div>
-          <div className="view_aq">
-            <h3 className="view-head_aq">Your Blogs</h3>
-            {blogs.length > 0 ? (
-              blogs.map((blog) => (
-                <Card key={blog.blogid} param1={blog.blogtitle} param2={blog.blogcontent} image={blog.img} />
-              ))
-            ) : (
-              <p> No blog Found</p>
-            )}
-          </div>
-        </div>
+
 
         {/* Right Container */}
         <div className="right-container_aq">
@@ -92,8 +71,11 @@ useEffect(()=>{
           <> 
           {/* this is just a sample you have to implement conditional rendering! */}
             <p>You have a Session Today .</p>
-            <JoinCall />
+            Time, join button
+            Time, join button
+            {/* <JoinCall /> */}
             </>
+            <h5>Upcomming Appointment</h5>
           {upcomingAppointments.length > 0 ? (
             upcomingAppointments.map((appoint) => (
               <div key={appoint}>
@@ -126,6 +108,10 @@ useEffect(()=>{
             </>
           )}
         </div>
+
+        Your Sessions:
+        You currently donot have any upcomming session.
+        card of session with topic date and join button
         
       </div>
     </section>
