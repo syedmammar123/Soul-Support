@@ -2872,6 +2872,29 @@ z
 }
 
 /* Therapist------------------------------------------------------ */
+@keyframes glowing-multiple {
+  0% {
+    box-shadow: 0 0 0 0px rgba(131, 255, 131, 0.7), 0 0 0 0px rgba(0, 155, 0, 0.7), 0 0 0 0px rgba(0, 55, 0, 0.7);
+  }
+  25% {
+    box-shadow: 0 0 0 5px rgba(0, 255, 0, 0.7), 0 0 0 0px rgba(0, 155, 0, 0.7), 0 0 0 0px rgba(0, 55, 0, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.7), 0 0 0 5px rgba(0, 155, 0, 0.7), 0 0 0 0px rgba(0, 55, 0, 0.7);
+  }
+  75% {
+    box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.7), 0 0 0 0px rgba(0, 155, 0, 0.7), 0 0 0 5px rgba(0, 55, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 0 0px rgba(0, 255, 0, 0.7), 0 0 0 0px rgba(0, 155, 0, 0.7), 0 0 0 0px rgba(0, 55, 0, 0.7);
+  }
+}
+
+.glow-multiple {
+  animation: glowing-multiple 3s infinite;
+}
+
+
 .therapist_body {
   font: 1em/1.618 Inter, sans-serif;
   display: flex;
