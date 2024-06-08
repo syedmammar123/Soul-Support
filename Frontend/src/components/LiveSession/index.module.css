@@ -210,6 +210,23 @@
   background-color: rgb(213, 241, 0);
   animation: neonGlow 3s infinite alternate;
   transition: all 1s;
+  font-size: 16px;
+}
+.btn-notlive {
+  width: 150px;
+  font-size: 20px;
+  height: 50px;
+  border: 1px solid gray;
+  border-radius: 52px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  left: 32vw;
+  margin-top: 50vh;
+  background-color: rgba(175, 175, 173, 0.738);
+  font-size: 16px;
+
 }
 
 

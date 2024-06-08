@@ -92,6 +92,7 @@ const postChate = asyncHandler(async (req, res) => {
 
   res.status(200).json({ message: generatedMessage.content, chat });
 });
+
 const postChat = asyncHandler(async (req, res) => {
   const { message } = req.body;
   const { _id } = req.user;
