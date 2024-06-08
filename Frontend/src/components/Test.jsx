@@ -65,7 +65,7 @@ const Test = () => {
     <>
       <nav className='main-nav z-10'>
         <header className='logo'>
-          <img src="images/NavLogo.png" className='w-36 cursor-pointer' alt="" 
+          <img src="/images/NavLogo.png" className='w-36 cursor-pointer' alt="" 
           onClick={()=>navigate("/")}
           />
         </header>

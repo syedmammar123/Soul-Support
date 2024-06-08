@@ -58,9 +58,11 @@ function App() {
         <Route path='/therapy/:category?' element={<TakeTherapy/>} /> 
         {/* <Route path='/therapy/room/:roomId' element={<CallRoom/>} /> */}
         <Route path='/therapist' element={<Therapist/>} />
+        <Route path='/therapist/session' element={<TakeLiveSession/>} />
+
         {/* <Route path='/therapist/room/:roomId' element={<CallRoom/>} /> */}
           
-          <Route path='/login' element={<Login/>} />
+          <Route path='/login/:redirect?' element={<Login/>} />
          
           <Route path='/jokes' element={<Jokes/>} />
 

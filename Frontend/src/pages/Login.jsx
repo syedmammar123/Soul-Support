@@ -1,6 +1,6 @@
 
 import React, {useEffect, useState} from "react";
-import { Link,Navigate, useNavigate } from "react-router-dom";
+import { Link,Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from 'axios'
 import Navbar from "../components/Navbar";
 import Test from "../components/Test";
@@ -12,6 +12,8 @@ const Login = () => {
   const [password,setPassword] = useState('')
   const [email,setEmail] = useState('')
   const navigate = useNavigate()
+
+  const {redirect} = useParams()
 
   useEffect(()=>{
     // if(Cookies.get("role")){
@@ -35,20 +37,19 @@ const Login = () => {
     }
   }
 
-
-    useEffect(() => {
-      const storedUser = localStorage.getItem('soulUser');
+  useEffect(() => {
+    const storedUser = localStorage.getItem('soulUser');
     if (storedUser) {
       const user = JSON.parse(storedUser)
       if(user.role== 'user'){
-        navigate("/")
+        navigate(`/`)
       }
       if(user.role== 'pro'){
         navigate("/therapist")
       }
-      
     }
-    }, []); 
+  }, []); 
+
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://localhost:4000/api/v1/users/login', {
@@ -63,7 +64,8 @@ const Login = () => {
 
       
           if(userData.role == 'user'){
-            navigate('/')
+            alert(redirect)
+            navigate(`/${redirect!=undefined?redirect:""}`)
           }
           if(userData.role == 'pro'){
             navigate('/therapist')
@@ -100,12 +102,10 @@ const Login = () => {
             
             <div className="altLogin">
                 <p className="textttt">Not Registered?</p>
-              
                 <p><Link to='' onClick={()=>setRegister(true)}> Click here to Register!</Link></p>
             </div>
          </div>
       </div>
-
       :
       <div className="MainLogin">
         <div className="quote">
@@ -131,8 +131,6 @@ const Login = () => {
          </div>
       </div>
     }
-
-      
 
       </>
     )

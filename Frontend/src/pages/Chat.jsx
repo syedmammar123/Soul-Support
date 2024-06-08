@@ -13,26 +13,13 @@ function Chat() {
   
   axios.defaults.withCredentials = true;
 
-//   const username=Cookies.get("username")
-//   const role=Cookies.get("role")
-
-//   useEffect(() => {
-//     if(!username){
-//       navigate('/login')
-//     }else{
-//     fetchChatLog();
-//     }  
-
-// },[])
-
   useEffect(() => {
-
     chatMainRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [ Messages]);
 
-useEffect(()=>{
-      fetchChatLog();
-},[])
+  useEffect(()=>{
+        fetchChatLog();
+  },[])
 
   const fetchChatLog = async () => {
     try {
@@ -62,16 +49,13 @@ useEffect(()=>{
         await fetchChatLog();
       } catch (refreshError) {
         console.error('Error refreshing token:', refreshError);
-        navigate("/Login")
+        navigate("/login/ai-chat")
         // Handle the error when refresh token fails
       }
     } else {
       // Handle other types of errors
       console.error('Error occurred:', error);
-    }
-    
-
-      
+    }     
     }
   };
 
@@ -81,12 +65,7 @@ useEffect(()=>{
     if (input.trim() === '') {
       return;
     }
-    // setMessages((prevMessages) => [
-    //   ...prevMessages,
-    //   {
-    //     userMsg: input,
-    //   },
-    // ]);
+
     setInput('');
   
 
