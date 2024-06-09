@@ -50,15 +50,15 @@ function App() {
 
         {/* info session */}
         <Route path='/sessions' element={<Session/>} />
-        <Route path='/session/:id' element={<JoinLiveSession/>} />
-        <Route path='/therapist/session/:id' element={<TakeLiveSession/>} />
+        <Route path='/session/:roomId' element={<JoinLiveSession/>} />
+        <Route path='/therapist/session/:roomId?' element={<TakeLiveSession/>} />
         <Route path='/LiveSession' element={<LiveSession/>} />
 
         {/* therapy */}
         <Route path='/therapy/:category?' element={<TakeTherapy/>} /> 
         {/* <Route path='/therapy/room/:roomId' element={<CallRoom/>} /> */}
         <Route path='/therapist' element={<Therapist/>} />
-        <Route path='/therapist/session' element={<TakeLiveSession/>} />
+        {/* <Route path='/therapist/session' element={<TakeLiveSession/>} /> */}
 
         {/* <Route path='/therapist/room/:roomId' element={<CallRoom/>} /> */}
           

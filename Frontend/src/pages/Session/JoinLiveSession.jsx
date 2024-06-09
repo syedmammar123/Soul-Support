@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 const JoinLiveSession = () => {
   const navigate = useNavigate()
-  const {id} = useParams()
+  const {roomId} = useParams()
   const [userName,setUserName] = useState("")
   
   axios.defaults.withCredentials = true;
@@ -40,7 +40,7 @@ const JoinLiveSession = () => {
       await fetchUserDetail();
     } catch (refreshError) {
       console.error('Error refreshing token:', refreshError);
-      navigate("/login/session")
+      navigate(`/login/sessions`)
       // Handle the error when refresh token fails
     }
   } else {
@@ -55,7 +55,7 @@ const JoinLiveSession = () => {
   },[])
 
 
-  //
+
   function randomID(len) {
     let result = "";
     if (result) return result;
@@ -70,7 +70,6 @@ const JoinLiveSession = () => {
     return result;
   }
 
-  const  roomId  = id
 
   let sharedLinks = [];
 
@@ -107,7 +106,7 @@ const JoinLiveSession = () => {
         },
       },
       sharedLinks,
-      onLeaveRoom:()=>{navigate('/')}
+      onLeaveRoom:()=>{navigate('/sessions')}
       ,
     });
     
@@ -120,7 +119,7 @@ const JoinLiveSession = () => {
     <div
       className="myCallContainer"
       ref={myMeeting}
-      style={{ width: "100vw", height: "100vh" }}
+      style={{ width: "100vw", height: "90vh" }}
     ></div>
     </>
   );

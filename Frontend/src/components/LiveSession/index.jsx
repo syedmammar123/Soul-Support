@@ -59,7 +59,8 @@ function LiveSession() {
     };
 
     const handleJoin = (id)=>{
-    navigate(`/session/${id}`)
+    // navigate(`/session/${id}`)
+     window.location.href = `/session/${id}`
     }
 
     
