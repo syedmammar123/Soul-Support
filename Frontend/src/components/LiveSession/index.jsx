@@ -7,21 +7,18 @@ import axios from 'axios';
 
 function LiveSession() {
     
-    
     const navigate = useNavigate()   
     const [sessionId, setSessionId] = useState("a")
     const [sessionData, setSessionData] = useState([])
     
     axios.defaults.withCredentials = true;
 
-
-
     const fetchAllSessions = async () => {
         try {
         const response = await axios.get('http://localhost:4000/api/v1/session/all');
         
         const data = response.data.message
-        console.log(data)
+        data[0].dateTime = new Date()
         setSessionData(data)
         
 

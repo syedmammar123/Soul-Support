@@ -119,7 +119,7 @@ const JoinLiveSession = () => {
     <div
       className="myCallContainer"
       ref={myMeeting}
-      style={{ width: "100vw", height: "90vh" }}
+      style={{ width: "100%", height: "90vh" }}
     ></div>
     </>
   );

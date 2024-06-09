@@ -1,9 +1,98 @@
 import React, { useEffect, useState } from 'react';
 import Test from '../components/Test';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Therapist = () => {
   const navigate = useNavigate()
+  
+  axios.defaults.withCredentials = true;
+
+  const fetchUserDetail = async () => {
+  try {
+    const response = await axios.get('http://localhost:4000/api/v1/users/getUser');
+    
+    const data = response.data.message; 
+
+    if(data.role != "pro"){
+      navigate("/")
+    }
+
+
+    // setUserName(data.fName + " " +data.lName)
+
+  } catch (error) {
+    
+    if(error.response && error.response.status === 404 && error.response.data.message==="No user found!"){
+      alert("seems like issue in user id :(")
+      navigate("/")
+    }
+
+    if (error.response && error.response.status === 401) {
+    try {
+      // Send a request to the refresh-token route
+      await axios.post('http://localhost:4000/api/v1/users/refresh-token');
+      
+      // Retry the original request after token refresh
+      await fetchUserDetail();
+    } catch (refreshError) {
+      console.error('Error refreshing token:', refreshError);
+      navigate(`/login/therapist`)
+      // Handle the error when refresh token fails
+    }
+  } else {
+    // Handle other types of errors
+    console.error('Error occurred:', error);
+  }     
+  }
+  };
+
+  const fetchSessions = async () => {
+  try {
+    const response = await axios.get('http://localhost:4000/api/v1/session/one');
+    
+    const data = response.data.message; 
+
+    console.log(data)
+    let formattedData = [ ] 
+    for (let i = 0; i < data.length; i++) {
+      const obj = {};
+      obj.topic = data[i].title      
+      const idx = data[i].dateTime.indexOf("T")
+      obj.date =  data[i].dateTime.slice(0,idx)
+
+      const date = new Date(data[i].dateTime)
+      date.setHours(date.getHours()+1)
+
+      
+      obj.startTime = data[i].dateTime.slice(idx+1,idx+6)
+      obj.endTime = date.toISOString().substring(11, 16);
+
+      formattedData.push(obj)
+    }
+
+    setUpcomingSessions(formattedData)
+
+
+
+  } catch (error) {
+    
+    if(error.response && error.response.status === 404 && error.response.data.message==="No Session Found!!"){
+      
+      //no sessions for the therapist
+    }
+
+    
+  }
+  };
+
+  useEffect(()=>{
+        fetchUserDetail();
+        fetchSessions()
+  },[])
+
+
+
   const currentDate = new Date();
 
   const [upcomingAppointments, setUpcomingAppointments] = useState([
@@ -13,6 +102,18 @@ const Therapist = () => {
     { date: '2024-06-10', startTime: '09:00', endTime: '10:00', client: 'Michael Brown', issue: 'OCD' },
     { date: '2024-06-11', startTime: '14:00', endTime: '15:00', client: 'Sarah Davis', issue: 'Stress' },
   ]);
+
+  // [
+  //   {
+  //       "topic": "How to be happy?",
+  //       "date": "2024-06-09",
+  //       "startTime": "23:25",
+  //       "endTime": "00:25"
+  //   },
+  
+  // ]
+
+  const [upcomingSessions, setUpcomingSessions] = useState([]);
 
   const isAppointmentTimeNow = (date, startTime, endTime) => {
     const startDateTime = new Date(date + 'T' + startTime);
@@ -43,17 +144,12 @@ const Therapist = () => {
     { id:3,  topic: 'Life of Pie3!', date: '20th May 2024' },
   ];
 
-const [upcomingSessions, setUpcomingSessions] = useState([
-  { date: '2024-06-07', startTime: '17:00', endTime: '20:00', topic: 'Mindfulness Meditation', description: 'Learn techniques to reduce stress and promote mental well-being.' },
-  { date: '2024-06-07', startTime: '18:00', endTime: '18:50', topic: 'Cognitive Behavioral Therapy', description: 'Understanding and challenging negative thought patterns.' },
-  { date: '2024-06-09', startTime: '12:00', endTime: '13:00', topic: 'Emotional Regulation', description: 'Tools for managing intense emotions and maintaining stability.' },
-  { date: '2024-06-10', startTime: '09:00', endTime: '10:00', topic: 'Self-Compassion Practice', description: 'Cultivating kindness and understanding towards oneself.' },
-  { date: '2024-06-11', startTime: '14:00', endTime: '15:00', topic: 'Effective Communication Skills', description: 'Improving relationships through clear and empathetic communication.' },
-]);
+  
 
   const isSessionTimeNow = (date, startTime, endTime) => {
     const startDateTime = new Date(date + 'T' + startTime);
     const endDateTime = new Date(date + 'T' + endTime);
+
 
     return currentDate >= startDateTime && currentDate <= endDateTime;
   };

@@ -8,7 +8,6 @@ const Session = () => {
         <Test/>
         {/* Happening now! */}
         <br />
-
         <LiveSession/>
     </div>
   )
