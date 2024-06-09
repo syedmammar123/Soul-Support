@@ -1,8 +1,6 @@
-
 import React, {useEffect, useState} from "react";
 import { Link,Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from 'axios'
-import Navbar from "../components/Navbar";
 import Test from "../components/Test";
 // import Cookies from "js-cookie";
 
@@ -25,7 +23,7 @@ const Login = () => {
  
   const handleRegisteration = async ()=>{
     try {
-      const response = await axios.post('http://localhost:4000/register', {
+      const response = await axios.post('http://localhost:4000/users/register', {
         email,
         username,
         password,
@@ -64,7 +62,6 @@ const Login = () => {
 
       
           if(userData.role == 'user'){
-            alert(redirect)
             navigate(`/${redirect!=undefined?redirect:""}`)
           }
           if(userData.role == 'pro'){
@@ -77,7 +74,7 @@ const Login = () => {
      
     } catch (error) {
       console.error(error);
-      alert("Error !")
+      alert("Error in login!")
     }
   };
 

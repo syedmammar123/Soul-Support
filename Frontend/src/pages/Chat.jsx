@@ -36,7 +36,7 @@ function Chat() {
       if(error.response && error.response.status === 404 && error.response.data.message==="No Chat found!"){
         setMessages([{
           userMsg:"",
-          gptMessage: "Hi, I am your AI friend here to chat you and discuss you your issues, feel free and friendly with me and start the conversation by introducting urself.",
+          gptMessage: "Hi, I am your AI friend here to chat you and discuss you your issues, feel free and friendly with me and start the conversation by introducting yourself.",
         }]);
 
       }

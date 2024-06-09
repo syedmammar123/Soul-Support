@@ -50,8 +50,8 @@ function App() {
 
         {/* info session */}
         <Route path='/sessions' element={<Session/>} />
-        <Route path='/session' element={<JoinLiveSession/>} />
-        <Route path='/instructor/session' element={<TakeLiveSession/>} />
+        <Route path='/session/:id' element={<JoinLiveSession/>} />
+        <Route path='/therapist/session/:id' element={<TakeLiveSession/>} />
         <Route path='/LiveSession' element={<LiveSession/>} />
 
         {/* therapy */}

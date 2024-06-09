@@ -44,7 +44,6 @@ const getAllSessions = asyncHandler(async (req,res)=>{
         let currentSession = modifiableObj[i]
                     
         const speaker = await User.find({_id:currentSession.speaker}).select("fName lName")
-        console.log(speaker[0])
         const speakerPic = await Professional.find({userId:currentSession.speaker}).select("profilePic")
         
         // const speakerPic = await Professional.find({userId:currentSession.speaker}).select("-expertise -licenseNo -timings -specialization -experience -feePerSession -cv -_id -userId -isApproved ")

@@ -1,9 +1,61 @@
 
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import Test from "../../components/Test";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+
+
 const JoinLiveSession = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
+  const {id} = useParams()
+  const [userName,setUserName] = useState("")
+  
+  axios.defaults.withCredentials = true;
+
+  const fetchUserDetail = async () => {
+  try {
+    const response = await axios.get('http://localhost:4000/api/v1/users/getUser');
+    
+    const data = response.data.message; 
+
+
+    setUserName(data.fName + " " +data.lName)
+
+  } catch (error) {
+    
+    if(error.response && error.response.status === 404 && error.response.data.message==="No user found!"){
+      alert("seems like issue in user id :(")
+      navigate("/")
+    }
+
+    if (error.response && error.response.status === 401) {
+    try {
+      // Send a request to the refresh-token route
+      await axios.post('http://localhost:4000/api/v1/users/refresh-token');
+      
+      // Retry the original request after token refresh
+      await fetchUserDetail();
+    } catch (refreshError) {
+      console.error('Error refreshing token:', refreshError);
+      navigate("/login/session")
+      // Handle the error when refresh token fails
+    }
+  } else {
+    // Handle other types of errors
+    console.error('Error occurred:', error);
+  }     
+  }
+  };
+
+  useEffect(()=>{
+        fetchUserDetail();
+  },[])
+
+
+  //
   function randomID(len) {
     let result = "";
     if (result) return result;
@@ -18,7 +70,7 @@ const JoinLiveSession = () => {
     return result;
   }
 
-  const  roomId  = "a"
+  const  roomId  = id
 
   let sharedLinks = [];
 
@@ -32,7 +84,7 @@ const JoinLiveSession = () => {
       serverSecret,
       roomId,
       randomID(5),
-      randomID(5)
+      userName
     );
 
     const zp = ZegoUIKitPrebuilt.create(kitToken);
@@ -64,7 +116,7 @@ const JoinLiveSession = () => {
 
   return (
     <>
-    <Navbar/>
+    <Test/>
     <div
       className="myCallContainer"
       ref={myMeeting}

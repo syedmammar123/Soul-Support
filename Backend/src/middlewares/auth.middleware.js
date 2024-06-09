@@ -22,6 +22,7 @@ const protectOld = asyncHandler(async (req,res,next)=>{
 })
 
 const protect = asyncHandler( async( req, _ , next)=>{
+    
     try {
         const token = req.cookies?.accessToken || req.header("Authorization")?.split(" ")[1]    
 

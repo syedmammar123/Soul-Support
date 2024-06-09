@@ -354,6 +354,25 @@ const logoutUser = asyncHandler(async(req,res)=>{
   )
 })
 
+const getUser = asyncHandler(async (req, res) => {
+  
+
+    const id = req.user._id; 
+
+    const user = await User.findById(id)
+
+    if(!user || user.length == 0){
+        res.status(404)
+        throw new ApiError(404,"No user found!")
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200,"You have user details here!",user)
+    )
+    
+})
+
+
 const refreshAccessToken = asyncHandler(async (req,res)=>{
   const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
 
@@ -400,4 +419,4 @@ const refreshAccessToken = asyncHandler(async (req,res)=>{
 
 
 
-export {authUser,registerUser,registerPro,logoutUser,loginUser,refreshAccessToken}
+export {authUser,registerUser,registerPro,logoutUser,loginUser,refreshAccessToken,getUser}

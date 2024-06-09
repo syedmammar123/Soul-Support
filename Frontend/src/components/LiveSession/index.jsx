@@ -58,8 +58,8 @@ function LiveSession() {
         return 'upcoming';
     };
 
-    const handleJoin = ()=>{
-    navigate(`/session`)
+    const handleJoin = (id)=>{
+    navigate(`/session/${id}`)
     }
 
     
@@ -83,7 +83,7 @@ function LiveSession() {
                     </div>
 
                    {isSessionNow(item.dateTime) === 'live' && (
-                        <button className={`${styles.joinBtnn} ${styles['btn-live']}`} onClick={handleJoin}>Join Live</button>
+                        <button className={`${styles.joinBtnn} ${styles['btn-live']}`} onClick={()=>handleJoin(item._id)}>Join Live</button>
                     )}
 
                     {isSessionNow(item.dateTime) === 'upcoming' && (
