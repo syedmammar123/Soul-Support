@@ -58,25 +58,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Test from '../../components/Test';
 import BookingPayment from '../../components/TherapyComps/BookingPayment';
 import JoinCall from '../../components/JoinCall';
+import axios from 'axios';
 
 const TakeTherapy = () => {
   const { category } = useParams();
+  const navigate = useNavigate();
+  const [doctors ,setDoctors] = useState([])
+
   
 
   const appointmentReasons = ['Depression', 'Anxiety', 'PTSD', 'OCD', 'Stress'];
 
-  const doctors = [
-    { name: 'Dr. Alice', specialty: ['Depression', 'Anxiety'] },
-    { name: 'Dr. Bob', specialty: ['PTSD', 'OCD'] },
-    { name: 'Dr. Carol', specialty: ['Depression', 'Stress'] },
-    { name: 'Dr. David', specialty: ['Anxiety', 'PTSD'] },
-    { name: 'Dr. Emily', specialty: ['OCD', 'Stress'] },
-    { name: 'Dr. Frank', specialty: ['Depression', 'OCD'] },
-    { name: 'Dr. Grace', specialty: ['Anxiety', 'Stress'] },
-    { name: 'Dr. Henry', specialty: ['Depression', 'Anxiety', 'PTSD'] },
-    { name: 'Dr. Irene', specialty: ['OCD', 'Stress'] },
-    // Add more doctors as needed
-  ];
   const previousSessions = [
     { therapist: 'Dr. Jane Doe', date: '20th May 2024', time: '2pm-3pm' },
     { therapist: 'Dr. John Smith', date: '10th April 2024', time: '11am-12pm' },
@@ -94,9 +86,66 @@ const TakeTherapy = () => {
 
   const [showBookingPayment, setShowBookingPayment] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState('');
+  const [selectedDoctorId, setSelectedDoctorId] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedReason, setSelectedReason] = useState('');
+
+
+  const fetchUserDetail = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/v1/users/getUser');
+      const data = response.data.message;
+      
+      if (data.role == "pro") {
+        navigate("/therapist");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 404 && error.response.data.message === "No user found!") {
+        alert("seems like issue in user id :(");
+        navigate("/");
+      }
+
+      if (error.response && error.response.status === 401) {
+        try {
+          await axios.post('http://localhost:4000/api/v1/users/refresh-token');
+          await fetchUserDetail();
+        } catch (refreshError) {
+          console.error('Error refreshing token:', refreshError);
+          navigate(`/login/therapy`);
+        }
+      } else {
+        console.error('Error occurred:', error);
+      }
+    }
+  };
+
+  const fetchProfessionals = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/v1/professionals/getPro');
+      const data = response.data.message;
+      console.log(data)
+
+      let formattedData = [];
+      for (let i = 0; i < data.length; i++) {
+        const obj = {};
+        obj._id = data[i]._id;
+        obj.name = data[i].name;
+        obj.specialty = data[i].expertise;            
+        formattedData.push(obj);
+      }
+      setDoctors(formattedData);     
+    } catch (error) {
+      if (error.response && error.response.status === 404 && error.response.data.message === "No therapist Found!!") {
+        // no therapist
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetail();
+    fetchProfessionals()
+  }, []);
 
 
   const updateTimeSlots = () => {
@@ -144,6 +193,7 @@ const TakeTherapy = () => {
   const filteredDoctors = doctors.filter(doctor => doctor.specialty.includes(reason));
   // Set the first doctor from the filtered list as selectedDoctor
   setSelectedDoctor(filteredDoctors.length > 0 ? filteredDoctors[0].name : '');
+  setSelectedDoctorId(filteredDoctors.length > 0 ? filteredDoctors[0]._id : '');
 };
 
   useEffect(() => {
@@ -151,15 +201,6 @@ const TakeTherapy = () => {
       setSelectedReason(category);
     }
   }, [category]);
-
-  // const username = Cookies.get('username');
-  // const role = Cookies.get('role');
-
-  useEffect(() => {
-    // if (username == null) {
-    //   navigate('/login');
-    // }
-  }, []);
 
   return (
     <div className="min-h-screen bg-green-50">
@@ -179,7 +220,7 @@ const TakeTherapy = () => {
 
 
           <div className="flex-1 md:flex-none md:w-2/3 bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-2xl font-semibold text-green-700">Upcoming Sessions</h2>
+            <h2 className="text-2xl font-semibold text-green-700">Upcoming Appointment</h2>
             {hasUpcomingSession ? (
               <>
               
@@ -261,12 +302,17 @@ const TakeTherapy = () => {
             <select
               className="mt-1 p-2 border border-gray-300 rounded w-full"
               value={selectedDoctor}
-              onChange={(e) => setSelectedDoctor(e.target.value)}
+              onChange={(e) => {
+                setSelectedDoctor(e.target.value);
+                setSelectedDoctorId(e.target.value._id);
+                console.log(e.target.value)
+
+              }}
             >
               {doctors
                 .filter(doctor => doctor.specialty.includes(selectedReason))
-                .map(doctor => (
-                  <option key={doctor.name} value={doctor.name}>{doctor.name}</option>
+                .map((doctor,index )=> (
+                  <option key={index} value={doctor.name}>{doctor.name}</option>
                 ))}
             </select>
           </div>

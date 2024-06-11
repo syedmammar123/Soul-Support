@@ -351,7 +351,6 @@ const Therapist = () => {
         obj.dateTime = data[i].dateTime;
         formattedData.push(obj);
       }
-      formattedData = [];
       setUpcomingSessions(formattedData);
       setLoadingSessions(false);
     } catch (error) {

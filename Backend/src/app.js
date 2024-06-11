@@ -26,6 +26,7 @@ app.use(cookieParser())
 //importing Routes
 import blogRoutes from './routes/blog.routes.js'
 import userRoutes from './routes/user.routes.js'
+import professionalRoutes from './routes/professionals.routes.js'
 import sessionRoutes from './routes/session.routes.js'
 import appointmentRoutes from './routes/appointment.routes.js'
 import paymentRoutes from './routes/payment.routes.js'
@@ -34,6 +35,7 @@ import quizRoutes from './routes/quiz.routes.js'
 
 //Routes declaration
 app.use("/api/v1/users",userRoutes)
+app.use("/api/v1/professionals",professionalRoutes)
 app.use("/api/v1/blogs",blogRoutes)
 app.use("/api/v1/session",sessionRoutes)
 app.use("/api/v1/appointment",appointmentRoutes)
