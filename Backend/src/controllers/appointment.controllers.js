@@ -28,6 +28,7 @@ const getAppointments = asyncHandler(async (req,res)=>{
 
 const createAppointment = asyncHandler(async (req,res)=>{
     const {therapist,date,time} = req.body;
+    console.log(therapist,date,time)
 
     if(therapist==""|| date=="" || time==""){
         res.status(400)
