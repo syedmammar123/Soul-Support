@@ -284,14 +284,10 @@ const Therapist = () => {
   const navigate = useNavigate();
   
   const [loadingUser, setLoadingUser] = useState(true);
+  const [loadingAppointments, setLoadingAppointments] = useState(true);
   const [loadingSessions, setLoadingSessions] = useState(true);
-  const [upcomingAppointments, setUpcomingAppointments] = useState([
-    { date: '2024-06-07', startTime: '17:00', endTime: '20:00', client: 'John Doe', issue: 'Depression' },
-    { date: '2024-06-07', startTime: '18:00', endTime: '18:50', client: 'Jane Smith', issue: 'Anxiety' },
-    { date: '2024-06-09', startTime: '12:00', endTime: '13:00', client: 'Emily Johnson', issue: 'PTSD' },
-    { date: '2024-06-10', startTime: '09:00', endTime: '10:00', client: 'Michael Brown', issue: 'OCD' },
-    { date: '2024-06-11', startTime: '14:00', endTime: '15:00', client: 'Sarah Davis', issue: 'Stress' },
-  ]);
+  const [upcomingAppointments, setUpcomingAppointments] = useState([ ]);
+
   const [upcomingSessions, setUpcomingSessions] = useState([]);
   const [previousBlogs, setPreviousBlogs] = useState([
     { id: 1, topic: 'Life of Pie!', date: '20th May 2024' },
@@ -360,30 +356,57 @@ const Therapist = () => {
     }
   };
 
+  const fetchAppointments = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/v1/appointment');
+      const data = response.data.message;
+
+      let formattedData = [];
+      for (let i = 0; i < data.length; i++) {
+        const obj = {};
+        obj._id = data[i]._id;
+        
+
+        const [time, modifier] = data[i].time.split(' ');
+        let [hours, minutes] = time.split(':');
+        
+        
+        
+        if (modifier === 'PM' && hours !== '12') {
+          hours = parseInt(hours, 10) + 12;
+        } else if (modifier === 'AM' && hours === '12') {
+          hours = '00';
+        }
+    
+        const formattedTime = `${hours}:${minutes}`;
+        
+        const idx = data[i].date.indexOf("T");
+        obj.date = data[i].date.slice(0, idx);
+        const date = new Date(`${data[i].date.slice(0, idx)}T${formattedTime}`);
+        obj.dateTime = date
+        obj.startTime = `${date.getHours()}:${date.getMinutes()}0`;
+        date.setHours(date.getHours() + 1);
+        obj.endTime = `${date.getHours()}:${date.getMinutes()}0`;
+        obj.time = data[i].time;
+        obj.patientName = data[i].patientName;
+        formattedData.push(obj);
+      }
+      setUpcomingAppointments(formattedData)
+      setLoadingAppointments(false);
+    } catch (error) {
+      if (error.response && error.response.status === 404 && error.response.data.message === "No appointment Found!!") {
+        
+      }
+    }
+  };
+
   useEffect(() => {
     fetchUserDetail();
     fetchSessions();
+    fetchAppointments()
   }, []);
 
   const currentDate = new Date();
-
-  const isAppointmentTimeNow = (date, startTime, endTime) => {
-    const startDateTime = new Date(date + 'T' + startTime);
-    const endDateTime = new Date(date + 'T' + endTime);
-    return currentDate >= startDateTime && currentDate <= endDateTime;
-  };
-
-  const isSameDayAppointment = (date) => {
-    const appointmentDate = new Date(date);
-    const appointmentDateString = appointmentDate.toDateString();
-    const currentDateDateString = currentDate.toDateString();
-    return appointmentDateString === currentDateDateString;
-  };
-
-  const isPastAppointment = (date, endTime) => {
-    const endDateTime = new Date(date + 'T' + endTime);
-    return currentDate > endDateTime;
-  };
 
   const isSessionNow = (time) => {
     const sessionStartTime = new Date(time);
@@ -398,20 +421,43 @@ const Therapist = () => {
     return 'upcoming';
   };
 
+  const isAppointNow = (date, time) => {
+
+
+    const [timeString, modifier] = time.split(' ');
+    let [hours, minutes] = timeString.split(':');
+    hours = parseInt(hours, 10);
+
+    if (modifier === 'PM' && hours !== 12) {
+      hours += 12;
+    } else if (modifier === 'AM' && hours === 12) {
+      hours = 0;
+    }
+
+    // Combine date and time
+    const sessionStartTime = new Date(`${date}T${hours.toString().padStart(2, '0')}:${minutes.padStart(2, '0')}:00`);
+    const now = new Date();
+    const sessionEndTime = new Date(sessionStartTime.getTime() + (60 * 60 * 1000));
+
+
+
+    if (now >= sessionStartTime && now <= sessionEndTime) {
+      return 'live';
+    }
+    if (now > sessionEndTime) {
+      return 'expired';
+    }
+    return 'upcoming';
+  };
+
   const handleJoin = (id) => {
+    window.location.href = `/therapist/session/${id}`;
+  };
+  const handleJoinAppointmentCall = (id) => {
     window.location.href = `/therapist/session/${id}`;
   };
 
   // Skeleton Loader Components
-  const SkeletonBlogCard = () => (
-    <div className="mb-4 p-2 bg-gray-200 rounded-lg animate-pulse">
-      <div className="h-6 bg-gray-300 rounded w-3/4 mb-2"></div>
-      <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-    </div>
-  );
-
-
-
   const SkeletonCard = () => (
     <div className="mb-4 p-2 bg-gray-50 rounded-lg animate-pulse">
       <div className="h-6 bg-green-200 rounded w-3/4 mb-2"></div>
@@ -457,31 +503,42 @@ const Therapist = () => {
             <div className="mb-4">
               <h2 className="text-base font-semibold text-green-700 mt-6 italic">Upcoming Appointments:</h2>
               <div className="mt-2 max-h-80 overflow-y-auto">
-                {loadingUser ? (
+                {loadingAppointments ? (
                   <>
                     <SkeletonCard />
                     <SkeletonCard />
                     <SkeletonCard />
                   </>
                 ) : (
+                  upcomingAppointments.length > 0 ?(
                   upcomingAppointments.map((appointment, index) => (
                     <div key={index} className="mb-4 px-2 py-1 mr-1 rounded-lg bg-green-50">
-                      <p className="text-lg font-semibold text-green-900 italic">{appointment.client}</p>
-                      <p className="text-gray-500 text-xs italic">{appointment.date} | {appointment.startTime} - {appointment.endTime}</p>
-                      <p className="text-gray-500 text-sm italic flex items-center justify-between">{appointment.issue}
-                        {isAppointmentTimeNow(appointment.date, appointment.startTime, appointment.endTime) && (
-                          <button className="mt-0 px-2 py-1 mb-1 rounded-xl text-xs bg-green-400 text-white border border-green-500 glow-multiple">
+                      <p className="text-lg font-semibold text-green-900 italic">{appointment.patientName}</p>
+                      <p className="text-gray-500 text-xs italic">{appointment.date}</p>
+                      <p className="text-gray-500 text-xs italic flex items-center justify-between">{appointment.startTime} - {appointment.endTime}
+                        {isAppointNow(appointment.date,appointment.time) === 'live' && (
+                          <p className="mb-1 px-2 py-1 rounded-xl text-xs bg-green-400 text-white border border-green-500 glow-multiple cursor-pointer font-medium"
+                            onClick={() => handleJoinAppointmentCall(appointment._id)}
+                            >
                             Join Now!
-                          </button>
+                          </p>
                         )}
-                        {!isAppointmentTimeNow(appointment.date, appointment.startTime, appointment.endTime) && !isPastAppointment(appointment.date, appointment.endTime) && isSameDayAppointment(appointment.date) && (
-                          <button className="mt-1 px-2 py-1 rounded-xl text-xs bg-gray-300 text-gray-500" disabled>
-                            Appointment Today
-                          </button>
+                        {isAppointNow(appointment.date,appointment.time) === 'upcoming' && (
+                          <p className="mt-1 px-2 py-1 rounded-xl text-xs bg-gray-300 cursor-default text-white" disabled>
+                            Coming Soon
+                          </p>
+                        )}
+                        {isAppointNow(appointment.date,appointment.time) === 'expired' && (
+                          <p className="mt-1 px-2 py-1 rounded-xl text-xs bg-red-300 text-white" disabled>
+                            Appointment Expired
+                          </p>
                         )}
                       </p>
                     </div>
-                  ))
+                  )))
+                  :(
+                    <p className="text-gray-600 text-center my-10 text-sm ">You currently do not have any appointments booked!</p>
+                  )
                 )}
               </div>
             </div>

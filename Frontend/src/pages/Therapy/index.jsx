@@ -7,6 +7,10 @@ const TakeTherapy = () => {
   const { category } = useParams();
   const navigate = useNavigate();
   const [doctors, setDoctors] = useState([]);
+  const [upcomingAppointments, setUpcomingAppointments] = useState([ ]);
+  const [loadingAppointments, setLoadingAppointments] = useState(true);
+
+
   const appointmentReasons = ['Depression', 'Anxiety', 'PTSD', 'OCD', 'Stress'];
 
   const previousSessions = [
@@ -62,11 +66,12 @@ const TakeTherapy = () => {
     try {
       const response = await axios.get('http://localhost:4000/api/v1/professionals/getPro');
       const data = response.data.message;
+      console.log(data)
 
       let formattedData = [];
       for (let i = 0; i < data.length; i++) {
         const obj = {};
-        obj._id = data[i]._id;
+        obj._id = data[i].userId;
         obj.name = data[i].name;
         obj.specialty = data[i].expertise;
         formattedData.push(obj);
@@ -79,9 +84,54 @@ const TakeTherapy = () => {
     }
   };
 
+    const fetchAppointments = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/v1/appointment');
+      const data = response.data.message;
+
+      let formattedData = [];
+      for (let i = 0; i < data.length; i++) {
+        const obj = {};
+        obj._id = data[i]._id;
+        
+        const [time, modifier] = data[i].time.split(' ');
+        let [hours, minutes] = time.split(':');
+                
+        if (modifier === 'PM' && hours !== '12') {
+          hours = parseInt(hours, 10) + 12;
+        } else if (modifier === 'AM' && hours === '12') {
+          hours = '00';
+        }
+    
+        const formattedTime = `${hours}:${minutes}`;
+        
+        const idx = data[i].date.indexOf("T");
+        obj.date = data[i].date.slice(0, idx);
+        const date = new Date(`${data[i].date.slice(0, idx)}T${formattedTime}`);
+        obj.dateTime = date
+        obj.startTime = `${date.getHours()}:${date.getMinutes()}0`;
+        date.setHours(date.getHours() + 1);
+        obj.endTime = `${date.getHours()}:${date.getMinutes()}0`;
+        obj.time = data[i].time;
+        obj.therapistName = data[i].therapistName;
+        formattedData.push(obj);
+        }
+
+        setUpcomingAppointments(formattedData)
+        setLoadingAppointments(false);
+    } catch (error) {
+      if (error.response && error.response.status === 404 && error.response.data.message === "No appointment Found!!") {
+        
+      }
+    }
+  };
+
+
   useEffect(() => {
     fetchUserDetail();
     fetchProfessionals();
+    fetchAppointments()
+
   }, []);
 
   const updateTimeSlots = () => {
@@ -138,35 +188,87 @@ const TakeTherapy = () => {
     }
   }, [category]);
 
+
   const handleBooking = async () => {
     const currentDateTime = new Date();
-    const selectedDateTime = new Date(`${selectedDate}T${selectedTime}`);
-
-     if (selectedDoctorId === "" || selectedDate === "" || selectedTime === "") {
+    
+    const [time, modifier] = selectedTime.split(' ');
+    let [hours, minutes] = time.split(':');
+    
+    if (modifier === 'PM' && hours !== '12') {
+      hours = parseInt(hours, 10) + 12;
+    } else if (modifier === 'AM' && hours === '12') {
+      hours = '00';
+    }
+    
+    const formattedTime = `${hours}:${minutes}`;
+    const selectedDateTime = new Date(`${selectedDate}T${formattedTime}`);
+    
+    if (selectedDoctorId === "" || selectedDate === "" || selectedTime === "") {
       setError("Please make sure all fields are selected.");
-    } else if (selectedDateTime <= currentDateTime) {
+    } else if (selectedDateTime.getTime() <= currentDateTime.getTime()) {
       setError("The selected date and time must be in the future.");
     } else {
-      setError("");
-      console.log(selectedDoctorId,selectedDate,selectedTime)
-      try {
-      const response = await axios.post('http://localhost:4000/api/v1/appointment/',{
-        therapist:selectedDoctorId,
-        date:selectedDate,
-        time:selectedTime
-      });
+        setError("");
+        try {
+        const response = await axios.post('http://localhost:4000/api/v1/appointment/',{
+          therapist:selectedDoctorId,
+          date:selectedDate,
+          time:selectedTime
+        });
 
-      const data = response.data.message;
-      console.log(data)
+        const data = response.data.message;
+        console.log(data)
 
-     
-    } catch (error) {
-      if (error.response && error.response.status === 500 && error.response.data.message === "Appointment time is not available. Please choose a different time.") {
-        // no therapist
+      
+      } catch (error) {
+        if (error.response && error.response.status === 500 && error.response.data.message === "Appointment time is not available. Please choose a different time.") {
+          // no therapist
+        }
+        setError("Appointment time is not available. Please choose a different time.")
       }
-      setError("Appointment time is not available. Please choose a different time.")
+      }
+  };
+
+    const SkeletonCard = () => (
+    <div className="mb-4 p-2 bg-gray-50 rounded-lg animate-pulse">
+      <div className="h-6 bg-green-200 rounded w-3/4 mb-2"></div>
+      <div className="h-4 bg-green-200 rounded w-1/2 mb-1"></div>
+      <div className="h-4 bg-green-200 rounded w-1/4"></div>
+    </div>
+  );
+
+    const handleJoinAppointmentCall = (id) => {
+    window.location.href = `/therapist/session/${id}`;
+  };
+
+    const isAppointNow = (date, time) => {
+
+
+    const [timeString, modifier] = time.split(' ');
+    let [hours, minutes] = timeString.split(':');
+    hours = parseInt(hours, 10);
+
+    if (modifier === 'PM' && hours !== 12) {
+      hours += 12;
+    } else if (modifier === 'AM' && hours === 12) {
+      hours = 0;
     }
+
+    // Combine date and time
+    const sessionStartTime = new Date(`${date}T${hours.toString().padStart(2, '0')}:${minutes.padStart(2, '0')}:00`);
+    const now = new Date();
+    const sessionEndTime = new Date(sessionStartTime.getTime() + (60 * 60 * 1000));
+
+
+
+    if (now >= sessionStartTime && now <= sessionEndTime) {
+      return 'live';
     }
+    if (now > sessionEndTime) {
+      return 'expired';
+    }
+    return 'upcoming';
   };
 
   return (
@@ -176,8 +278,47 @@ const TakeTherapy = () => {
         <div className="flex flex-col md:flex-row gap-6">
 
           <div className="flex-1 md:flex-none md:w-2/3 bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-2xl font-semibold text-green-700">Upcoming Appointment</h2>
-            {hasUpcomingSession ? (
+            <h2 className="text-2xl font-semibold text-green-700">Your Appointment</h2>
+            <div className="mt-2 max-h-[100vh] overflow-y-auto">
+                {loadingAppointments ? (
+                  <>
+                    <SkeletonCard />
+                    <SkeletonCard />
+                    <SkeletonCard />
+                  </>
+                ) : (
+                  upcomingAppointments.length > 0 ?(
+                  upcomingAppointments.map((appointment, index) => (
+                    <div key={index} className="mb-4 px-2 py-1 mr-1 rounded-lg bg-green-50 ">
+                      <p className="text-lg font-semibold text-green-900 italic ">Dr. {appointment.therapistName}</p>
+                      <p className="text-gray-500 text-xs italic">{appointment.date}</p>
+                      <p className="text-gray-500 text-xs italic flex items-center justify-between mb-1">{appointment.time}
+                        {isAppointNow(appointment.date,appointment.time) === 'live' && (
+                          <p className="mb-1 px-2 py-1 rounded-xl text-xs bg-green-400 text-white border border-green-500 glow-multiple cursor-pointer font-medium"
+                            onClick={() => handleJoinAppointmentCall(appointment._id)}
+                            >
+                            Join Now!
+                          </p>
+                        )}
+                        {isAppointNow(appointment.date,appointment.time) === 'upcoming' && (
+                          <p className="mt-1 px-2 py-1 rounded-xl text-xs bg-gray-300 cursor-default text-white" disabled>
+                            Coming Soon
+                          </p>
+                        )}
+                        {isAppointNow(appointment.date,appointment.time) === 'expired' && (
+                          <p className="mt-1 px-2 py-1 rounded-xl text-xs bg-red-300 text-white" disabled>
+                            Appointment Expired
+                          </p>
+                        )}
+                      </p>
+                    </div>
+                  )))
+                  :(
+                    <p className="text-gray-600 text-center my-10 text-sm ">You currently do not have any appointments booked!</p>
+                  )
+                )}
+              </div>
+            {/* {hasUpcomingSession ? (
               <>
                 <div className="mt-4">
                   <h3 className="text-lg font-medium text-green-600">{upcomingSession.therapist}</h3>
@@ -187,9 +328,9 @@ const TakeTherapy = () => {
               </>
             ) : (
               <p className="text-gray-600">You currently do not have any sessions booked yet!</p>
-            )}
+            )} */}
 
-            <h2 className="text-xl font-semibold text-green-700 mt-6">Past Sessions</h2>
+            {/* <h2 className="text-xl font-semibold text-green-700 mt-6">Past Sessions</h2>
 
             <div className="mt-4 max-h-48 overflow-y-auto">
               {hasPastSessions ? previousSessions.map((session, index) => (
@@ -200,7 +341,7 @@ const TakeTherapy = () => {
               )) : (
                 <p className="text-gray-600">You currently do not have any history of booked sessions!</p>
               )}
-            </div>
+            </div> */}
           </div>
 
           <div className="flex-1 bg-white rounded-lg shadow-md p-6">

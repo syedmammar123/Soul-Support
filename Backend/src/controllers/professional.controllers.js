@@ -1,27 +1,9 @@
-// import { asyncHandler } from "../utils/asyncHandler";
-
-// const createSession = asyncHandler(async (req,res)=>{
-
-// })
-
-// const getAllSessions = asyncHandler(async (req,res)=>{
-
-// })
-
-// const createSession = asyncHandler(async (req,res)=>{
-
-// })
-
-// export {createSession}
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import {asyncHandler} from '../utils/asyncHandler.js'
 import {User} from '../models/user.model.js'
 import { Professional } from '../models/professional.model.js';
 import mongoose from 'mongoose';
-
-
-
 
 
 const registerProo = asyncHandler(async (req, res) => {
@@ -126,7 +108,6 @@ const registerProo = asyncHandler(async (req, res) => {
   }
 });
 
-
 const getProfessionals = asyncHandler(async (req, res) => {
   
 
@@ -148,7 +129,7 @@ const getProfessionals = asyncHandler(async (req, res) => {
         new ApiResponse(200,"You have user details here!",modifiableObj)
     )
     
-})
+});
 
 
 
