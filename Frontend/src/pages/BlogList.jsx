@@ -22,14 +22,19 @@ const BlogList=()=>{
   const [blogs , setBlogs] = useState([]);
   
   const fetchData = async () => {
-    setBlogs(fake)
-    // try {
-    //   const res = await axios.get('http://localhost:4000/blogs');
-    //   setBlogs(res.data);
-    //   console.log(res.data);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    // setBlogs(fake)
+    try {
+      const res = await axios.get('http://localhost:4000/api/v1/blogs');
+      for (let i = 0; i < res.data.data.length; i++) {
+        let slicedContent = (res.data.data[i].content).slice(0,180)
+        res.data.data[i].displaytext = slicedContent
+        
+      }
+      setBlogs(res.data.data);
+      console.log(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
   var fake = [{
     blogid:1,
@@ -165,17 +170,17 @@ const shapeFill = {
           </div>  
           
           <div className="flex items-center justify-around  w-[95%] m-auto flex-wrap">
-            {blogs.reverse().map((item)=>(            
-                <div className="group rounded border border-gray-200 text-center w-[30%] p-4 py-4 flex justify-between items-center flex-col h-[500px] my-4">
+            {blogs.reverse().map((item,index)=>(            
+                <div key={index} className="group rounded border border-gray-200 text-center w-[30%] p-4 py-4 flex justify-between items-center flex-col h-[500px] my-4">
                   <div className="w-72 h-52 bg-red-500 overflow-hidden rounded-lg" >
-                    <img src={item.img} alt="" className="w-full h-full object-cover transform transition-transform duration-300 ease-in-out group-hover:scale-105 rounded-lg" />
+                    <img src={item.bannerPhoto} alt="" className="w-full h-full object-cover transform transition-transform duration-300 ease-in-out group-hover:scale-105 rounded-lg" />
                   </div>
-                  <h6 className="text-start font-semibold">{item.blogtitle}</h6>
+                  <h6 className="text-start font-semibold">{item.title}</h6>
                   
-                  <p className="text-start w-full" >{item.displaytext}</p>
+                  <p className="text-start w-full" >{item.displaytext}...</p>
                   
                   <div className="border p-2 hover:bg-green-100 ">
-                    <button onClick={()=>navigate(`/blog/${item.blogid}`)}>Read More</button>
+                    <button onClick={()=>navigate(`/blog/${item._id}`)}>Read More</button>
                   </div>
                 </div>
             ))}

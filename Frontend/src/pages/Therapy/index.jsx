@@ -318,30 +318,7 @@ const TakeTherapy = () => {
                   )
                 )}
               </div>
-            {/* {hasUpcomingSession ? (
-              <>
-                <div className="mt-4">
-                  <h3 className="text-lg font-medium text-green-600">{upcomingSession.therapist}</h3>
-                  <p className="text-gray-600">{upcomingSession.date}, {upcomingSession.time}</p>
-                  <button disabled className="mt-2 px-4 py-2 bg-gray-300 text-white rounded cursor-not-allowed">Join</button>
-                </div>
-              </>
-            ) : (
-              <p className="text-gray-600">You currently do not have any sessions booked yet!</p>
-            )} */}
-
-            {/* <h2 className="text-xl font-semibold text-green-700 mt-6">Past Sessions</h2>
-
-            <div className="mt-4 max-h-48 overflow-y-auto">
-              {hasPastSessions ? previousSessions.map((session, index) => (
-                <div key={index} className="mb-4 p-2 bg-gray-100 rounded-lg">
-                  <h3 className="text-lg font-medium text-green-600">{session.therapist}</h3>
-                  <p className="text-gray-600">{session.date}, {session.time}</p>
-                </div>
-              )) : (
-                <p className="text-gray-600">You currently do not have any history of booked sessions!</p>
-              )}
-            </div> */}
+         
           </div>
 
           <div className="flex-1 bg-white rounded-lg shadow-md p-6">
