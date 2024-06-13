@@ -132,9 +132,4 @@ const getProfessionals = asyncHandler(async (req, res) => {
 });
 
 
-
-
-
-
-
 export {getProfessionals}

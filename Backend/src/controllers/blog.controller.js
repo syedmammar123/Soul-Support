@@ -1,4 +1,6 @@
 import { Blog } from "../models/blog.model.js";
+import { Professional } from "../models/professional.model.js";
+import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../utils/Cloudinary.js";
@@ -54,6 +56,52 @@ const getBlogs = asyncHandler(async (req,res)=>{
     if(!blogs || blogs.length === 0){
         throw new ApiError(400,"No blog found!")
     }    
+
+    let modifiableObj = blogs.map((blog)=>blog.toObject())
+
+    for(let i=0 ; i<modifiableObj.length ; i++){
+        let currentBlog = modifiableObj[i]
+                    
+        const author = await User.find({_id:currentBlog.author}).select("fName lName")
+        const authorPic = await Professional.find({userId:currentBlog.author}).select("profilePic")
+        
+        let name = author[0].fName + " " +author[0].lName
+        modifiableObj[i].name =  name 
+
+        let picUrl = authorPic[0].profilePic
+        modifiableObj[i].picUrl =  picUrl 
+    
+    } 
+
+
+    return res.status(200).json(
+        new ApiResponse(200,modifiableObj)
+     )
+})
+const getProBlogs = asyncHandler(async (req,res)=>{
+    
+    const blogs = await Blog.find({author:req.user._id});
+
+    if(!blogs || blogs.length === 0){
+        throw new ApiError(400,"No blog found!")
+    }    
+
+    // let modifiableObj = blogs.map((blog)=>blog.toObject())
+
+    // for(let i=0 ; i<modifiableObj.length ; i++){
+    //     let currentBlog = modifiableObj[i]
+                    
+    //     const author = await User.find({_id:currentBlog.author}).select("fName lName")
+    //     const authorPic = await Professional.find({userId:currentBlog.author}).select("profilePic")
+        
+    //     let name = author[0].fName + " " +author[0].lName
+    //     modifiableObj[i].name =  name 
+
+    //     let picUrl = authorPic[0].profilePic
+    //     modifiableObj[i].picUrl =  picUrl 
+    
+    // } 
+
 
     return res.status(200).json(
         new ApiResponse(200,blogs)
@@ -163,4 +211,4 @@ const searchBlog = asyncHandler(async (req,res)=>{
 })
 
 
-export {createBlog,getBlogs,getBlog,updateBlog,deleteBlog,searchBlog};
+export {createBlog,getBlogs,getBlog,updateBlog,deleteBlog,searchBlog,getProBlogs};
