@@ -229,7 +229,7 @@ const Therapist = () => {
             <h2 className="text-base font-semibold text-green-700 mt-1 italic">Your Blogs:</h2>
             <div className="mt-0 max-h-80 overflow-y-auto">
               
-              {loadingBlogs ? (
+              {loadingBlogs? (
                   <>
                     <SkeletonCard />
                     <SkeletonCard />
