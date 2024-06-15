@@ -7,23 +7,20 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useParams,useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import Test from "../components/Test";
 
 
 const BlogWrite = () => {
-    const state = useLocation().state;
-    const [blogContent, setBlogContent] = useState(state?.blogcontent || '' );
-    const[blogTitle,setBlogTitle]= useState(state?.blogtitle  || '');
+    const location = useLocation();
+    const state = location.state;
+
+    console.log(state)
+    const [blogContent, setBlogContent] = useState(state?.content || '' );
+    const[blogTitle,setBlogTitle]= useState(state?.title  || '');
     const [imageUpload, setImageUpload] = useState( null);
-    const [url,setUrl] = useState( state?.img  || null);
+    const [url,setUrl] = useState( state?.picUrl  || null);
     const navigate = useNavigate()
     
-
-    // const name = Cookies.get("username")
-    // const role = Cookies.get("role")
-    // useEffect(()=>{
-        
-    // },[])
-
 
 
     const uploadImage = ()=>{
@@ -60,7 +57,7 @@ const BlogWrite = () => {
     return (
         <>
 
-        <Navbar/>
+        <Test/>
         <div className="write-main-container">
             <div className="add">
                 <div className="content">

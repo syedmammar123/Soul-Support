@@ -1036,7 +1036,7 @@ body {
   background: linear-gradient(
     to bottom right,
     rgb(254, 255, 255),
-    rgb(57, 190, 235)
+    rgba(57, 235, 102, 0.445)
   );
   height: 100vh;
   overflow: hidden;
