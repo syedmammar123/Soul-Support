@@ -15,8 +15,8 @@ router.route("/").post(protect,upload.fields([
 
 router.route("/search").get(searchBlog)
 router.route("/").get(getBlogs) ////get all blogs
-router.route("/pro").get(protect,getProBlogs) ////get all blogs of a professional
 router.route("/:id").get(getBlog)//get a blog
+router.route("/pro").get(protect,getProBlogs) ////get all blogs of a professional
 router.route("/:id").put(protect,updateBlog)
 router.route("/:id").delete(protect,deleteBlog)
 

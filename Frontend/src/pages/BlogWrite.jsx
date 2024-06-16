@@ -4,22 +4,64 @@ import {v4} from 'uuid'
 import {ref,uploadBytes,getDownloadURL} from "firebase/storage"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useParams,useNavigate, useLocation } from "react-router-dom";
+import { useParams,useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import axios from "axios";
-import Navbar from "../components/Navbar";
 import Test from "../components/Test";
 
 
 const BlogWrite = () => {
     const location = useLocation();
-    const state = location.state;
+    const searchParams = new URLSearchParams(location.search);
+    const query = searchParams.get('edit');
+    const state = ""
 
-    console.log(state)
     const [blogContent, setBlogContent] = useState(state?.content || '' );
     const[blogTitle,setBlogTitle]= useState(state?.title  || '');
     const [imageUpload, setImageUpload] = useState( null);
     const [url,setUrl] = useState( state?.picUrl  || null);
     const navigate = useNavigate()
+
+    const fetchData = async () => {
+        try {
+        const res = await axios.get(`http://localhost:4000/api/v1/blogs/${query}`);
+        const blogData = res.data.data
+        
+
+        setBlog(foundBlog || {});
+        } catch (err) {
+        console.error(err);
+        setError("Failed to fetch data");
+        }
+    };
+
+    const fetchUserDetail = async () => {
+        try {
+            const response = await axios.get('http://localhost:4000/api/v1/users/getUser');
+            const data = response.data.message;
+            if (data.role === "pro") {
+                data._id === blog?.author
+                setShowControls(true)        
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                setShowControls(false)
+                try {
+                await axios.post('http://localhost:4000/api/v1/users/refresh-token');
+                await fetchUserDetail();
+                } catch (refreshError) {
+                
+                // no user loggedIn
+                }
+            } else {
+                console.error('Error occurred:', error);
+            }
+        }
+    };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
     
 
 

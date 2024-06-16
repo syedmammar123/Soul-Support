@@ -78,6 +78,7 @@ const getBlogs = asyncHandler(async (req,res)=>{
         new ApiResponse(200,modifiableObj)
      )
 })
+
 const getProBlogs = asyncHandler(async (req,res)=>{
     
     const blogs = await Blog.find({author:req.user._id});
@@ -109,7 +110,6 @@ const getProBlogs = asyncHandler(async (req,res)=>{
 })
 
 const getBlog = asyncHandler(async (req,res)=>{
-
     const blogId = req.params.id;
 
     if(!blogId){
