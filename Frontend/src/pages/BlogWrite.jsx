@@ -151,14 +151,14 @@ import Test from "../components/Test";
 
 const BlogWrite = () => {
     const location = useLocation();
+    const state = location.state;
     const searchParams = new URLSearchParams(location.search);
     const query = searchParams.get('edit');
-    const state = "";
 
     const [blogContent, setBlogContent] = useState(state?.content || '');
     const [blogTitle, setBlogTitle] = useState(state?.title || '');
     const [imageUpload, setImageUpload] = useState(null);
-    const [url, setUrl] = useState(state?.picUrl || null);
+    const [url, setUrl] = useState(state?.bannerPhoto || null);
     const navigate = useNavigate();
 
     const fetchData = async () => {
@@ -196,9 +196,7 @@ const BlogWrite = () => {
         }
     };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+
 
     const uploadImage = () => {
         if (imageUpload == null) return;
@@ -221,10 +219,19 @@ const BlogWrite = () => {
         
         try {
             const body = { blogTitle, blogContent, url };
-            state
-                ? await axios.put(`http://localhost:4000/blogs/${state?.blogid}`, { blogTitle, blogContent })
-                : await axios.post("http://localhost:4000/blogs", body);
-            window.location = "/";
+
+            if (state) {
+                await axios.put(`http://localhost:4000/api/v1/blogs/${state?._id}`, { blogTitle, blogContent });
+                
+            } else {
+                await axios.post("http://localhost:4000/api/v1/blogs", body);
+                toast("Blog Uploaded Successfully!");
+            }
+            toast(`${state ? "Blog Updated Successful!" : "Blog Uploaded Successfully!"}`);
+            setTimeout(()=>{
+                navigate("/therapist");
+            },2000)
+            
         } catch (err) {
             console.log(err.message);
         }

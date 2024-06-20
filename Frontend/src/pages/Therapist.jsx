@@ -119,6 +119,7 @@ const Therapist = () => {
 
   const fetchBlogs = async () => {
     try {
+      
       const res = await axios.get(`http://localhost:4000/api/v1/blogs/pro`);
       const blogData = res.data.data
       setBlogs(blogData);
@@ -250,7 +251,7 @@ const Therapist = () => {
                       </button>
                       <button
                         className="px-1 py-0 rounded-xl text-xs bg-sky-400 text-white border border-green-100 "
-                        onClick={() => navigate(`/write?edit=${blog?._id}`)}
+                        onClick={() => navigate(`/write?edit=${blog?._id}`,{state:blog})}
                         style={{ minWidth: "3rem" }}
                       >
                         Edit
@@ -291,25 +292,25 @@ const Therapist = () => {
                     <div key={index} className="mb-4 px-2 py-1 mr-1 rounded-lg bg-green-50">
                       <p className="text-lg font-semibold text-green-900 italic">{appointment.patientName}</p>
                       <p className="text-gray-500 text-xs italic">{appointment.date}</p>
-                      <p className="text-gray-500 text-xs italic flex items-center justify-between">{appointment.startTime} - {appointment.endTime}
-                        {isAppointNow(appointment.date,appointment.time) === 'live' && (
-                          <p className="mb-1 px-2 py-1 rounded-xl text-xs bg-green-400 text-white border border-green-500 glow-multiple cursor-pointer font-medium"
-                            onClick={() => handleJoinAppointmentCall(appointment._id)}
-                            >
-                            Join Now!
-                          </p>
-                        )}
-                        {isAppointNow(appointment.date,appointment.time) === 'upcoming' && (
-                          <p className="mt-1 px-2 py-1 rounded-xl text-xs bg-gray-300 cursor-default text-white" disabled>
-                            Coming Soon
-                          </p>
-                        )}
-                        {isAppointNow(appointment.date,appointment.time) === 'expired' && (
-                          <p className="mt-1 px-2 py-1 rounded-xl text-xs bg-red-300 text-white" disabled>
-                            Appointment Expired
-                          </p>
-                        )}
-                      </p>
+                      <p className="text-gray-500 text-xs italic flex items-center justify-between">
+                      {appointment.startTime} - {appointment.endTime}
+                      {isAppointNow(appointment.date, appointment.time) === 'live' && (
+                        <span className="mb-1 px-2 py-1 rounded-xl text-xs bg-green-400 text-white border border-green-500 glow-multiple cursor-pointer font-medium"
+                              onClick={() => handleJoinAppointmentCall(appointment._id)}>
+                          Join Now!
+                        </span>
+                      )}
+                      {isAppointNow(appointment.date, appointment.time) === 'upcoming' && (
+                        <span className="mt-1 px-2 py-1 rounded-xl text-xs bg-gray-300 cursor-default text-white" disabled>
+                          Coming Soon
+                        </span>
+                      )}
+                      {isAppointNow(appointment.date, appointment.time) === 'expired' && (
+                        <span className="mt-1 px-2 py-1 rounded-xl text-xs bg-red-300 text-white" disabled>
+                          Appointment Expired
+                        </span>
+                      )}
+                    </p>
                     </div>
                   )))
                   :(
@@ -337,24 +338,26 @@ const Therapist = () => {
                     <div key={index} className="mb-4 px-2 py-1 rounded-lg bg-green-50 mr-1">
                       <p className="text-lg font-semibold text-green-900 italic">{session.topic}</p>
                       <p className="text-gray-500 text-xs italic">{session.date}</p>
-                      <p className="text-gray-500 text-xs italic flex items-center justify-between">{session.startTime} - {session.endTime}
+                      <p className="text-gray-500 text-xs italic flex items-center justify-between">
+                        {session.startTime} - {session.endTime}
                         {isSessionNow(session.dateTime) === 'live' && (
-                          <p className="mb-1 px-2 py-1 rounded-xl text-xs bg-green-400 text-white border border-green-500 glow-multiple cursor-pointer font-medium"
-                            onClick={() => handleJoin(session._id)}>
+                          <span className="mb-1 px-2 py-1 rounded-xl text-xs bg-green-400 text-white border border-green-500 glow-multiple cursor-pointer font-medium"
+                                onClick={() => handleJoin(session._id)}>
                             Join Now!
-                          </p>
+                          </span>
                         )}
                         {isSessionNow(session.dateTime) === 'upcoming' && (
-                          <p className="mt-1 px-2 py-1 rounded-xl text-xs bg-gray-300 cursor-default text-white" disabled>
+                          <span className="mt-1 px-2 py-1 rounded-xl text-xs bg-gray-300 cursor-default text-white" disabled>
                             Coming Soon
-                          </p>
+                          </span>
                         )}
                         {isSessionNow(session.dateTime) === 'expired' && (
-                          <p className="mt-1 px-2 py-1 rounded-xl text-xs bg-red-300 text-white" disabled>
+                          <span className="mt-1 px-2 py-1 rounded-xl text-xs bg-red-300 text-white" disabled>
                             Session Expired
-                          </p>
+                          </span>
                         )}
                       </p>
+
                     </div>
                   )))
                   :(

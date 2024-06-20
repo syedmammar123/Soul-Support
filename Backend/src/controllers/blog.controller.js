@@ -87,6 +87,7 @@ const getProBlogs = asyncHandler(async (req,res)=>{
         throw new ApiError(400,"No blog found!")
     }    
 
+
     // let modifiableObj = blogs.map((blog)=>blog.toObject())
 
     // for(let i=0 ; i<modifiableObj.length ; i++){
@@ -129,51 +130,106 @@ const getBlog = asyncHandler(async (req,res)=>{
     )
 })
 
-const updateBlog = asyncHandler(async (req,res)=>{
+// const updateBlog = asyncHandler(async (req,res)=>{
+    
+//     const blogId = req.params.id;
+
+//     if(!blogId){
+//         res.status(404)
+//         throw new ApiError(404,"Invalid blog id !")
+//     }
+    
+//     const { blogTitle, blogContent } = req.body;
+
+//     let data = [blogTitle, blogContent]    
+
+//     if(data.some((field)=>field?.trim()==="")){
+//         res.status(400)
+//         throw new ApiError(400,"Fill all fields!")
+//     }
+
+//     const bannerPhotoLocalPath = req.files?.bannerPhoto[0]?.path;
+
+//     let updatedBlog;
+//     if(bannerPhotoLocalPath){
+//         const newPic = await uploadOnCloudinary(bannerPhotoLocalPath)
+
+//         if(!newPic){
+//             res.status()
+//             throw new ApiError(500, "Error failed to upload Picture on cloud!")
+//         }
+                
+//         updatedBlog = await Blog.findByIdAndUpdate(blogId, {
+//             title,
+//             bannerPhoto:newPic.url,
+//             content
+//         })
+
+//     }else{
+//         updatedBlog = await Blog.findByIdAndUpdate(blogId, {blogTitle, blogContent})
+//     }
+
+    
+//     if(!updatedBlog){
+//         throw new ApiError(500,"Failed to create Blog!")
+//     }
+//     console.log(updateBlog)
+
+//     return res.status(200).json(
+//         new ApiResponse(200,"Blog updated!",updatedBlog)
+//     )
+// })
+const updateBlog = asyncHandler(async (req, res) => {
     const blogId = req.params.id;
 
-    if(!blogId){
-        res.status(404)
-        throw new ApiError(404,"Invalid blog id !")
-    }
-    
-    const { title, content } = req.body;
-    let data = [title,content]    
-
-    if(data.some((field)=>field?.trim()==="")){
-        res.status(400)
-        throw new ApiError(400,"Fill all fields!")
+    if (!blogId) {
+        res.status(404);
+        throw new ApiError(404, "Invalid blog id!");
     }
 
-    const bannerPhotoLocalPath = req.files?.bannerPhoto[0]?.path;
+    const { blogTitle, blogContent } = req.body;
+
+    let data = [blogTitle, blogContent];
+
+    if (data.some((field) => field?.trim() === "")) {
+        res.status(400);
+        throw new ApiError(400, "Fill all fields!");
+    }
+
+    const bannerPhotoLocalPath = req.files?.bannerPhoto?.[0]?.path;
 
     let updatedBlog;
-    if(bannerPhotoLocalPath){
-        const newPic = await uploadOnCloudinary(bannerPhotoLocalPath)
+    if (bannerPhotoLocalPath) {
+        const newPic = await uploadOnCloudinary(bannerPhotoLocalPath);
 
-        if(!newPic){
-            res.status()
-            throw new ApiError(500, "Error failed to upload Picture on cloud!")
+        if (!newPic) {
+            res.status(500);
+            throw new ApiError(500, "Error failed to upload Picture on cloud!");
         }
-                
-        updatedBlog = await Blog.findByIdAndUpdate(blogId, {
-            title,
-            bannerPhoto:newPic.url,
-            content
-        })
 
-    }else{
-        updatedBlog = await Blog.findByIdAndUpdate(blogId, {title,content})
+        updatedBlog = await Blog.findByIdAndUpdate(blogId, {
+            title: blogTitle,
+            bannerPhoto: newPic.url,
+            content: blogContent
+        }, { new: true });
+
+    } else {
+        updatedBlog = await Blog.findByIdAndUpdate(blogId, {
+            title: blogTitle,
+            content: blogContent
+        }, { new: true });
     }
-    
-    if(!updatedBlog){
-        throw new ApiError(500,"Failed to create Blog!")
+
+    if (!updatedBlog) {
+        res.status(500);
+        throw new ApiError(500, "Failed to update Blog!");
     }
 
     return res.status(200).json(
-        new ApiResponse(200,"Blog updated!",updatedBlog)
-    )
-})
+        new ApiResponse(200, "Blog updated!", updatedBlog)
+    );
+});
+
 
 const deleteBlog = asyncHandler(async (req,res)=>{
     const blogId = req.params.id
