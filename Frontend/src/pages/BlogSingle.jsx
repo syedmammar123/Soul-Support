@@ -60,13 +60,15 @@ const BlogSingle = () => {
     }
   };
 
+
+
   const handleDelete = async () => {
     const confirmed = window.confirm("Are you sure you want to delete this blog?");
     if (!confirmed) return;
 
     try {
-      // await axios.delete(`http://localhost:4000/blogs/${id}`);
-      navigate("/blogs");
+      await axios.delete(`http://localhost:4000/api/v1/blogs/${blog._id}`);
+      navigate("/therapist");
     } catch (err) {
       console.error(err);
     }

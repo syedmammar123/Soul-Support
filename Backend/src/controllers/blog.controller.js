@@ -236,9 +236,9 @@ const deleteBlog = asyncHandler(async (req,res)=>{
 
     if(!blogId){
         res.status(404)
-        throw new ApiError(404,"Invalid blog id !")
+        throw new ApiError(404,"Invalid blog id!")
     }
-
+    
     const deletedBlog = await Blog.findByIdAndDelete(blogId);
 
     if(!deletedBlog){

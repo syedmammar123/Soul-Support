@@ -199,13 +199,18 @@ const Therapist = () => {
     </div>
   );
 
-    const handleDelete = async () => {
+    const handleDelete = async (id) => {
       const confirmed = window.confirm("Are you sure you want to delete this blog?");
       if (!confirmed) return;
 
+
       try {
-        // await axios.delete(`http://localhost:4000/blogs/${id}`);
-        navigate("/blogs");
+         
+      
+        let res = await axios.delete(`http://localhost:4000/api/v1/blogs/${id}`);
+        fetchBlogs()
+        
+        // navigate("/blogs");
       } catch (err) {
         console.error(err);
       }
@@ -258,7 +263,7 @@ const Therapist = () => {
                       </button>
                       <button
                         className="px-1 py-0 rounded-xl text-xs bg-red-400 text-white border border-green-100"
-                        onClick={handleDelete}
+                        onClick={()=>handleDelete(blog._id)}
                         style={{ minWidth: "3rem" }} 
                       >
                         Delete
