@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 import styles from "./index.module.css"
 import Test from '../../components/Test';
 import { useNavigate, useParams } from 'react-router-dom';
+import GaugeComponent from 'react-gauge-component'
+import Footer from '../../components/Footer';
+
 
 const AssessmentCategory = () => {
 
@@ -114,17 +117,12 @@ const AssessmentCategory = () => {
   return (
     <>
     <Test/>
-    <div className="w-[80%] m-auto h-[87vh] flex flex-col items-center justify-evenly">
+    <div className="w-[80%] m-auto h-[87vh] flex flex-col items-center justify-evenly mb-10">
         <div className={`${styles.MainHeading}`}>
             <h1> {AssessmentCategory} Assessment</h1>
-            {/* <span></span> */}
+           
         </div>
-        {/* { result.length>0?
-        <div className={`${styles.MainHeading}`}>
-            <h1>{result[0].diagnosis}</h1>
-            <span>{result[0].recommendation}</span>
-        </div>:null
-        } */}
+      
         {currentQuestion<1?
         (
         <div className="w-[80%] m-auto">
@@ -198,19 +196,46 @@ const AssessmentCategory = () => {
         ):
         ( result.length>0 ?
             <>
-                <div className={`sm:w-[70%] md:w-[60%] lg:w-[50%] ${styles.question}`}>
-                    <h1>Your score is {score}/{questions.length*3}</h1>
-                    <h1>{result[0].diagnosis}</h1>
-                    <span>{result[0].recommendation}</span>   
-
-                    <button
-                    className='bg-green-500 rounded-xl p-2 m-9 text-white'
+                <div className={`sm:w-[70%] md:w-[60%] lg:w-[50%] flex flex-col justify-center items-center  ${styles.question}`}>
+                    <div>
+                        <GaugeComponent
+                        type="semicircle"
+                        labels={{
+                            valueLabel: {matchColorWithArc:true}
+                        }}
+                        arc={{
+                            colorArray: ['#00FF15', '#FF2121'],
+                            padding: 0.02,
+                            subArcs:
+                            [
+                                { limit: 10 },
+                                { limit: 20 },
+                                { limit: 30 },
+                                { limit: 50 },
+                                {},
+                                {},
+                            ]
+                        }}
+                        pointer={{type: "blob", animationDelay: 1 }}
+                        value={score/(questions.length*3)*100}
+                        />
+                    </div>
+                    {/* <h1>Your score is {score}/{questions.length*3}</h1> */}
+                    <h1 className='font-bold text-2xl mt-4 mb-4'>{result[0].diagnosis}</h1>
+                    <span className='font-mono text-justify text-sm  mt-4 '>{result[0].recommendation}</span>   
+                    
+                    <div className='flex items-center justify-evenly w-full mt-4 '>
+                        <button
+                    className='bg-green-500 rounded-xl p-2  text-white font-semibold'
                     onClick={()=>navigate("/")}
                     >Book Appointment</button>             
                     <button
-                    className='bg-green-500 rounded-2xl p-2 m-4 text-white'
+                    className='bg-green-500 rounded-xl p-2  text-white font-semibold'
                     onClick={()=>navigate("/ai-chat")}
-                    >AI-Support</button>             
+                    >AI-Support</button>  
+
+                    </div>
+                               
                 </div>
             </>
         :
@@ -225,6 +250,7 @@ const AssessmentCategory = () => {
         )
         }
     </div>
+        <Footer/>
     </>
   )
 

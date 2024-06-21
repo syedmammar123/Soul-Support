@@ -2465,7 +2465,7 @@ input[type="file"] {
   align-items: start;
 }
 
-/* QUESTION/TIMER/LEFT SECTION */
+
 .question-section {
   /* margin-top: 2vw; */
   width: 90%;
@@ -2514,67 +2514,6 @@ input[type="file"] {
   outline: none;
 }
 
-/* <div>
-            <div className='appp'>    
-                <div className='question-section'>
-                   Question {number + 1}: {questions[number].questionText}
-                </div>
-                <div className='answer-section'>
-                {questions[number].answerOptions.map((answerOptions) => (
-                    <button className='Ques_btn' onClick={() => handleAnswerButtonClick(answerOptions.isCorrect)}>{answerOptions.answerText}</button>
-                ))}
-                </div>
-            </div>
-        </div> */
-
-/* 
-        <div className='Body'>
-        {showResult===true && score<=30? (
-            <div className='score-section'>
-                You Have {(score*100)/30}% of following disease
-            </div>
-        ): 
-        <div>
-            <div className='appp'>    
-                <div className='question-section'>
-                   Question {number + 1}: {questions[number].questionText}
-                </div>
-                <div className='answer-section'>
-                {questions[number].answerOptions.map((answerOptions) => (
-                    <button className='Ques_btn' onClick={() => handleAnswerButtonClick(answerOptions.isCorrect)}>{answerOptions.answerText}</button>
-                ))}
-                </div>
-            </div>
-        </div>
-        }
-      
-      
-    </div> */
-/* 
-    if(showResult===true && {0<score <= 6}){
-        <div className='score-section'>
-            {result[0].stage};
-            {result[0].message};
-        </div>
-    } 
-    else if(showResult===true && {6<score <= 12}){
-        <div className='score-section'>
-            {result[0].stage};
-            {result[0].message};
-        </div>
-    } 
-    else if(showResult===true && {12<score <= 21}){
-        <div className='score-section'>
-            {result[0].stage};
-            {result[0].message};
-        </div>
-    } 
-    else-if(showResult===true && {21<score <= 30}){
-        <div className='score-section'>
-           {result[0].stage};
-            {result[0].message};
-        </div>
-    }  */
 
 /* Quiiz------------------------------------------------------ */
 .ag-format-container {

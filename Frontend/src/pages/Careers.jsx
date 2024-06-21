@@ -33,11 +33,13 @@ const Careers = () => {
 
       <footer className="footer py-4">
         <h4>Connect with Us</h4>
+        <br />
         <p>
           Stay connected with us on social media to receive updates, resources, and inspiration for your mental well-being journey.
           <br />
           Follow us on Facebook, Instagram, Twitter, and LinkedIn to join our supportive community.
         </p>
+        <br />
         <div className="icons">
           <Facebook />
           <Instagram />

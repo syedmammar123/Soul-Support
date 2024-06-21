@@ -65,7 +65,9 @@ const Login = () => {
             navigate(`/${redirect!=undefined?redirect:""}`)
           }
           if(userData.role == 'pro'){
-            navigate('/therapist')
+            navigate(`/${redirect!=undefined?redirect:"/therapist"}`)
+
+            // navigate('/therapist')
           }
           if(response.data.role == 'instructor'){
             navigate('/instructor/session')
