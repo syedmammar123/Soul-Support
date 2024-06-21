@@ -11,7 +11,9 @@ router.route("/").post(protect,upload.fields([
             name: "bannerPhoto",
             maxCount: 1
         }, 
-    ]),createBlog) 
+    ])
+    
+    ,createBlog) 
 
 router.route("/search").get(searchBlog)
 router.route("/pro").get(protect,getProBlogs) ////get all blogs of a professional

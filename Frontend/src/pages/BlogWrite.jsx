@@ -159,6 +159,7 @@ const BlogWrite = () => {
     const [blogTitle, setBlogTitle] = useState(state?.title || '');
     const [imageUpload, setImageUpload] = useState(null);
     const [url, setUrl] = useState(state?.bannerPhoto || null);
+    const [previewBanner, setPreviewBanner] = useState("");
     const navigate = useNavigate();
 
     const fetchData = async () => {
@@ -177,22 +178,39 @@ const BlogWrite = () => {
         try {
             const response = await axios.get('http://localhost:4000/api/v1/users/getUser');
             const data = response.data.message;
-            if (data.role === "pro") {
-                data._id === blog?.author
-                setShowControls(true);
+            if (data.role !== "pro") {
+                navigate("/blogs")
             }
+
+            if(data._id === blog?.author){
+                navigate("/therapist")
+            }
+
         } catch (error) {
             if (error.response && error.response.status === 401) {
-                setShowControls(false);
+                
                 try {
                     await axios.post('http://localhost:4000/api/v1/users/refresh-token');
                     await fetchUserDetail();
                 } catch (refreshError) {
-                    // No user logged in
+                    navigate(`/login/therapist`);
+                    
                 }
             } else {
                 console.error('Error occurred:', error);
             }
+        }
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        
+        if (file) {
+            setImageUpload(file);
+            // let temp = URL.createObjectURL(file)
+            // setPreviewBanner(file)
+            // setUrl(temp)
+            
         }
     };
 
@@ -201,14 +219,20 @@ const BlogWrite = () => {
     const uploadImage = () => {
         if (imageUpload == null) return;
         toast("Uploading Image");
-        const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-        uploadBytes(imageRef, imageUpload).then((url) => {
-            getDownloadURL(url.ref).then((url) => {
-                console.log(url);
-                setUrl(url);
-            });
-        });
+        
+        setUrl(URL.createObjectURL(imageUpload))
     };
+    // const uploadImage = () => {
+    //     if (imageUpload == null) return;
+    //     toast("Uploading Image");
+    //     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    //     uploadBytes(imageRef, imageUpload).then((url) => {
+    //         getDownloadURL(url.ref).then((url) => {
+    //             console.log(url);
+    //             setUrl(url);
+    //         });
+    //     });
+    // };
 
     useEffect(() => {
         uploadImage();
@@ -216,15 +240,29 @@ const BlogWrite = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const formData = new FormData()
+        formData.append("title",blogTitle)
+        formData.append("content",blogContent)
+        formData.append("category",["Depression"])
+        if (imageUpload) {
+            formData.append('bannerPhoto', imageUpload);
+        }
+        
+        
         
         try {
-            const body = { blogTitle, blogContent, url };
+            
+            const body = formData;
 
             if (state) {
                 await axios.put(`http://localhost:4000/api/v1/blogs/${state?._id}`, { blogTitle, blogContent });
                 
             } else {
-                await axios.post("http://localhost:4000/api/v1/blogs", body);
+                await axios.post("http://localhost:4000/api/v1/blogs", body,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
                 toast("Blog Uploaded Successfully!");
             }
             toast(`${state ? "Blog Updated Successful!" : "Blog Uploaded Successfully!"}`);
@@ -260,10 +298,11 @@ const BlogWrite = () => {
                             {url ? (
                                 <div className="item">
                                     <img src={url} alt="" />
+                                    
                                 </div>
                             ) : (
                                 <div>
-                                    <input type="file" id="file" onChange={(e) => setImageUpload(e.target.files[0])} />
+                                    <input type="file" id="file" onChange={handleImageChange} />
                                     <label className="file" htmlFor="file">Upload Image</label>
                                 </div>
                             )}
