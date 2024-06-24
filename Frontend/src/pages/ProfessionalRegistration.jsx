@@ -206,11 +206,13 @@
 // };
 
 // export default ProfessionalRegistration;
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+
+import React, { useState,useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
+const expertiseOptions = ['Depression', 'Anxiety', 'PTSD', 'OCD', 'Stress'];
 const validTimings = [
   'Mon-Wed-Fri: 11am-4pm',
   'Tue-Thu-Sat: 4pm-9pm',
@@ -228,11 +230,12 @@ const specializationOptions = [
 
 const ProfessionalRegistration = () => {
   const [step, setStep] = useState(1);
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [fName, setFName] = useState('');
   const [lName, setLName] = useState('');
+  const [expertise, setExpertise] = useState('');
   const [licenseNo, setLicenseNo] = useState('');
   const [timings, setTimings] = useState('');
   const [specialization, setSpecialization] = useState('');
@@ -241,21 +244,36 @@ const ProfessionalRegistration = () => {
   const [gender, setGender] = useState('');
   const [profilePic, setProfilePic] = useState(null);
   const [cv, setCv] = useState(null);
+  const [profilePicPreview, setProfilePicPreview] = useState(null);
   const navigate = useNavigate();
+  const  {emailCode }  = useParams();
+
+  const decodeEmail = ()=>{
+    setEmail(atob(emailCode))
+  }
+
+  useEffect(()=>{
+    decodeEmail()
+  },[])
 
   const handleRegistration = async () => {
-    if (!username || !password || !email || !fName || !lName || !licenseNo || !timings || !specialization || !experience || !feePerSession || !gender || !profilePic || !cv) {
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    if (!confirmPassword || !password || !email || !fName || !lName || !expertise || !licenseNo || !timings || !specialization || !experience || !feePerSession || !gender || !profilePic || !cv) {
       alert("Please fill all fields before registering.");
       return;
     }
 
     try {
       const formData = new FormData();
-      formData.append('username', username);
       formData.append('password', password);
       formData.append('email', email);
       formData.append('fName', fName);
       formData.append('lName', lName);
+      formData.append('expertise', expertise);
       formData.append('licenseNo', licenseNo);
       formData.append('timings', timings);
       formData.append('specialization', specialization);
@@ -280,7 +298,14 @@ const ProfessionalRegistration = () => {
   };
 
   const handleProfilePicChange = (e) => {
-    setProfilePic(e.target.files[0]);
+    const file = e.target.files[0];
+    setProfilePic(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setProfilePicPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleCvChange = (e) => {
@@ -301,10 +326,10 @@ const ProfessionalRegistration = () => {
         return (
           <CSSTransition key="step1" timeout={300} classNames="slide">
             <div>
-              <h1 className="text-2xl font-bold mb-4">Register as Professional</h1>
-              <input className="mb-2 p-2 border border-gray-300 rounded w-full" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-              <input className="mb-2 p-2 border border-gray-300 rounded w-full" type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+              <h1 className="text-2xl font-bold mb-4">Register as Therapist</h1>
+              <input className="mb-2 p-2 border border-gray-300 rounded w-full" type="email" disabled  placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
               <input className="mb-4 p-2 border border-gray-300 rounded w-full" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <input className="mb-2 p-2 border border-gray-300 rounded w-full" type="text" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
               <button className="bg-blue-500 text-white p-2 rounded" onClick={nextStep}>Next</button>
             </div>
           </CSSTransition>
@@ -313,9 +338,15 @@ const ProfessionalRegistration = () => {
         return (
           <CSSTransition key="step2" timeout={300} classNames="slide">
             <div>
-              <h1 className="text-2xl font-bold mb-4">Register as Professional</h1>
+              <h1 className="text-2xl font-bold mb-4">Register as Therapist</h1>
               <input className="mb-2 p-2 border border-gray-300 rounded w-full" type="text" placeholder="First Name" value={fName} onChange={(e) => setFName(e.target.value)} />
               <input className="mb-2 p-2 border border-gray-300 rounded w-full" type="text" placeholder="Last Name" value={lName} onChange={(e) => setLName(e.target.value)} />
+              <select className="mb-2 p-2 border border-gray-300 rounded w-full" value={expertise} onChange={(e) => setExpertise(e.target.value)}>
+                <option value="" disabled>Select Expertise</option>
+                {expertiseOptions.map((opt, index) => (
+                  <option key={index} value={opt}>{opt}</option>
+                ))}
+              </select>
               <input className="mb-4 p-2 border border-gray-300 rounded w-full" type="text" placeholder="License No." value={licenseNo} onChange={(e) => setLicenseNo(e.target.value)} />
               <div className="flex justify-between">
                 <button className="bg-gray-500 text-white p-2 rounded" onClick={prevStep}>Back</button>
@@ -328,21 +359,21 @@ const ProfessionalRegistration = () => {
         return (
           <CSSTransition key="step3" timeout={300} classNames="slide">
             <div>
-              <h1 className="text-2xl font-bold mb-4">Register as Professional</h1>
+              <h1 className="text-2xl font-bold mb-4">Register as Therapist</h1>
               <select className="mb-2 p-2 border border-gray-300 rounded w-full" value={timings} onChange={(e) => setTimings(e.target.value)}>
-                <option value="">Select Timings</option>
+                <option value="" disabled>Select Preferred Timings</option>
                 {validTimings.map((opt, index) => (
                   <option key={index} value={opt}>{opt}</option>
                 ))}
               </select>
               <select className="mb-2 p-2 border border-gray-300 rounded w-full" value={specialization} onChange={(e) => setSpecialization(e.target.value)}>
-                <option value="">Select Specialization</option>
+                <option value="" disabled>Select Specialization</option>
                 {specializationOptions.map((opt, index) => (
                   <option key={index} value={opt}>{opt}</option>
                 ))}
               </select>
               <select className="mb-2 p-2 border border-gray-300 rounded w-full" value={experience} onChange={(e) => setExperience(e.target.value)}>
-                <option value="">Select Experience</option>
+                <option value="" disabled>Select Experience</option>
                 {experienceOptions.map((opt, index) => (
                   <option key={index} value={opt}>{opt}</option>
                 ))}
@@ -359,14 +390,21 @@ const ProfessionalRegistration = () => {
         return (
           <CSSTransition key="step4" timeout={300} classNames="slide">
             <div>
-              <h1 className="text-2xl font-bold mb-4">Register as Professional</h1>
+              <h1 className="text-2xl font-bold mb-4">Register as Therapist</h1>
               <select className="mb-2 p-2 border border-gray-300 rounded w-full" value={gender} onChange={(e) => setGender(e.target.value)}>
-                <option value="">Select Gender</option>
+                <option value="" disabled>Select Gender</option>
                 {genderOptions.map((opt, index) => (
                   <option key={index} value={opt}>{opt}</option>
                 ))}
               </select>
+              <label className="mb-2">Profile Picture</label>
               <input className="mb-2 p-2 border border-gray-300 rounded w-full" type="file" onChange={handleProfilePicChange} />
+              {profilePicPreview && (
+                <div className="mb-2">
+                  <img src={profilePicPreview} alt="Profile Preview" className="w-32 h-32 object-cover rounded-full" />
+                </div>
+              )}
+              <label className="mb-2">CV</label>
               <input className="mb-4 p-2 border border-gray-300 rounded w-full" type="file" onChange={handleCvChange} />
               <div className="flex justify-between">
                 <button className="bg-gray-500 text-white p-2 rounded" onClick={prevStep}>Back</button>

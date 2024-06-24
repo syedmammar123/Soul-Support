@@ -19,6 +19,8 @@ import JoinLiveSession from './pages/Session/JoinLiveSession'
 import TakeLiveSession from './pages/Session/TakeLiveSession'
 import TakeTherapy from './pages/Therapy'
 import ProfessionalRegistration from './pages/ProfessionalRegistration'
+import AdminPage from './pages/Admin'
+
 // import CallRoom from './components/CallRoom/CallRoom'
 
 
@@ -63,8 +65,9 @@ function App() {
         {/* <Route path='/therapist/room/:roomId' element={<CallRoom/>} /> */}
           
           <Route path='/login/:redirect?' element={<Login/>} />
-          <Route path='/registerprofessional/:redirect?' element={<ProfessionalRegistration/>} />
+          <Route path='/register/:emailCode' element={<ProfessionalRegistration/>} />
          
+          <Route path='/admin' element={<AdminPage/>} />
           <Route path='/jokes' element={<Jokes/>} />
 
 
