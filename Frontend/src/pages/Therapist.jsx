@@ -69,6 +69,7 @@ const Therapist = () => {
     } catch (error) {
       if (error.response && error.response.status === 404 && error.response.data.message === "No Session Found!!") {
         // no sessions for the therapist
+        setLoadingSessions(false);
       }
     }
   };
@@ -112,6 +113,7 @@ const Therapist = () => {
       setLoadingAppointments(false);
     } catch (error) {
       if (error.response && error.response.status === 404 && error.response.data.message === "No appointment Found!!") {
+        setLoadingAppointments(false);
         
       }
     }
@@ -128,7 +130,7 @@ const Therapist = () => {
     } catch (error) {
       console.error(error)
       if (error.response && error.response.status === 404 && error.response.data.message === "No blog found!") {
-        
+        setLoadingBlogs(false);
       }
     }
   };

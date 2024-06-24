@@ -66,7 +66,6 @@ const registerUser = asyncHandler( async (req,res)=>{
 
 const registerPro = asyncHandler( async (req,res)=>{
 
-
     const {fName,lName,email,
         password,expertise,
         licenseNo,timings,
@@ -81,6 +80,7 @@ const registerPro = asyncHandler( async (req,res)=>{
         res.status(400)
         throw new ApiError(400,"All fields are required!")
     }
+    
 
     const profilePicLocalPath = req.files?.profilePic[0]?.path;
     const cvLocalPath = req.files?.cv[0]?.path;
@@ -287,8 +287,8 @@ const authUser = asyncHandler( async (req,res)=>{
 const loginUser = asyncHandler(async (req,res)=>{
 
   // const {email,password} = req.body;
-  const {username,password} = req.body;
-  const email = username
+  const {email,password} = req.body;
+  // const email = username
   
   
   if(!email){

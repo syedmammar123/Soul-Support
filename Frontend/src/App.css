@@ -2333,14 +2333,14 @@ input[type="file"] {
 }
 
 .loooginButton {
-  width: 40%;
+  width: 100px;
   height: 2em;
-  background-color: #3ef619;
+  background-color: #3fff3cc0;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.2s;
-  border-radius: 30px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -2356,7 +2356,7 @@ input[type="file"] {
   align-items: center;
   flex-direction: column;
   /* background-color: red; */
-  margin-top: -3%;
+  margin-top: 1%;
 }
 
 /* --------------------------- MOBILE VERSION ------------------------------ */

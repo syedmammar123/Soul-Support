@@ -21,10 +21,6 @@ const professionalSchema = new mongoose.Schema({
     trim: true,
     required: true
   },
-  // timings: {
-  //   type: Object,
-  //   required: true
-  // },
   timings: {
     type: String,
     required: true,

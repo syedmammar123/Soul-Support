@@ -84,9 +84,8 @@ const getProBlogs = asyncHandler(async (req,res)=>{
     const blogs = await Blog.find({author:req.user._id});
 
     if(!blogs || blogs.length === 0){
-        throw new ApiError(400,"No blog found!")
+        throw new ApiError(404,"No blog found!")
     }    
-
 
     // let modifiableObj = blogs.map((blog)=>blog.toObject())
 

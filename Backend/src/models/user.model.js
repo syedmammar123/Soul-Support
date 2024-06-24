@@ -38,6 +38,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         enum : ['male','female'],
         required:true,
+        lowercase: true,
     },
     refreshToken:{
         type:String,

@@ -121,7 +121,7 @@ const TakeTherapy = () => {
         setLoadingAppointments(false);
     } catch (error) {
       if (error.response && error.response.status === 404 && error.response.data.message === "No appointment Found!!") {
-        
+        setLoadingAppointments(false);
       }
     }
   };
@@ -218,7 +218,6 @@ const TakeTherapy = () => {
         });
 
         const data = response.data.message;
-        console.log(data)
 
       
       } catch (error) {

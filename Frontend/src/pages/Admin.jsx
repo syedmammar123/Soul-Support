@@ -44,7 +44,6 @@ const AdminPage = () => {
 
       alert('Registration link sent!');
       navigate("/")
-      // Optionally, you can navigate or perform any action after sending the email
     } catch (error) {
       console.error('Error sending email:', error);
       alert('Failed to send email.');
