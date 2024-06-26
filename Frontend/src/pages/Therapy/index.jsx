@@ -263,11 +263,10 @@ const TakeTherapy = () => {
   );
 
     const handleJoinAppointmentCall = (id) => {
-    window.location.href = `/therapist/session/${id}`;
-  };
+      window.location.href = `/therapyCall/${id}`;
+    };
 
     const isAppointNow = (date, time) => {
-
 
     const [timeString, modifier] = time.split(' ');
     let [hours, minutes] = timeString.split(':');

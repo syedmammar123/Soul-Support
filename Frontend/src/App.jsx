@@ -20,6 +20,8 @@ import TakeLiveSession from './pages/Session/TakeLiveSession'
 import TakeTherapy from './pages/Therapy'
 import ProfessionalRegistration from './pages/ProfessionalRegistration'
 import AdminPage from './pages/Admin'
+import JoinLiveCall from './pages/Appointment/JoinLiveCall'
+import TakeLiveCall from './pages/Appointment/TakeLiveCall'
 
 // import CallRoom from './components/CallRoom/CallRoom'
 
@@ -61,6 +63,8 @@ function App() {
         <Route path='/therapy/:category?' element={<TakeTherapy/>} /> 
         {/* <Route path='/therapy/room/:roomId' element={<CallRoom/>} /> */}
         <Route path='/therapist' element={<Therapist/>} />
+        <Route path='/therapyCall/:roomId' element={<JoinLiveCall/>} />
+        <Route path='/therapist/therapyCall/:roomId' element={<TakeLiveCall/>} />
 
         {/* <Route path='/therapist/room/:roomId' element={<CallRoom/>} /> */}
           

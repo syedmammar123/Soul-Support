@@ -19,6 +19,7 @@ function LiveSession() {
         
         const data = response.data.message
         data[0].dateTime = new Date()
+        console.log(data[0].dateTime)
         setSessionData(data)
         
 
@@ -71,7 +72,7 @@ function LiveSession() {
                         <img className={styles.spkimg} src={item.picUrl} alt="" />
                     </div>
                     <div className={styles.spk1text}>
-                    <h1 className={styles.spktexth1}>{item.name}</h1>
+                    <h1 className={`${styles.spktexth1}`}>{item.name}</h1>
                     <div className={styles.spktopic}>
                         <p>
                         WEBINAR : <br /> <span>{item.title}</span>

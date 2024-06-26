@@ -113,7 +113,7 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
         time,
       });
 
-      console.log('Appointment booked successfully!');
+      console.log('Appointment booked successfully! withoutwebhook');
     } catch (error) {
       console.error('Error booking appointment:', error);
     }

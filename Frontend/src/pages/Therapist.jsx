@@ -48,7 +48,8 @@ const Therapist = () => {
     try {
       const response = await axios.get('http://localhost:4000/api/v1/session/one');
       const data = response.data.message;
-
+      data[0].dateTime = new Date().toISOString()
+      console.log(data[0].dateTime)
 
       let formattedData = [];
       for (let i = 0; i < data.length; i++) {
@@ -102,9 +103,9 @@ const Therapist = () => {
         obj.date = data[i].date.slice(0, idx);
         const date = new Date(`${data[i].date.slice(0, idx)}T${formattedTime}`);
         obj.dateTime = date
-        obj.startTime = `${date.getHours()}:${date.getMinutes()}0`;
+        obj.startTime = `${date.getHours()}:${date.getMinutes()}`;
         date.setHours(date.getHours() + 1);
-        obj.endTime = `${date.getHours()}:${date.getMinutes()}0`;
+        obj.endTime = `${date.getHours()}:${date.getMinutes()}`;
         obj.time = data[i].time;
         obj.patientName = data[i].patientName;
         formattedData.push(obj);
@@ -190,7 +191,7 @@ const Therapist = () => {
     window.location.href = `/therapist/session/${id}`;
   };
   const handleJoinAppointmentCall = (id) => {
-    window.location.href = `/therapist/session/${id}`;
+    window.location.href = `/therapist/therapyCall/${id}`;
   };
 
   const SkeletonCard = () => (
