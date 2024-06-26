@@ -4,6 +4,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js"
 
+
 const getAppointments = asyncHandler(async (req,res)=>{
 
     const {_id,role} = req.user;
@@ -38,6 +39,31 @@ const getAppointments = asyncHandler(async (req,res)=>{
     )
 })
 
+const validateAppointments = asyncHandler(async (req,res)=>{
+    const {therapist,date,time} = req.body;
+    const patient=req.user._id
+    
+
+    if(therapist=="" || date=="" || time==""){
+        res.status(400)
+        throw new ApiError(400,"Please provide all fields");
+    }
+
+    const therapistAppointmentExists = await Appointment.findOne({therapist,date,time})
+    const patientAppointmentExists = await Appointment.findOne({patient,date,time})
+
+    if(therapistAppointmentExists || patientAppointmentExists){
+        res.status(500);
+        throw new ApiError(500,"Appointment time is not available. Please choose a different time.")
+    }
+
+
+    return res.status(200).json(
+        new ApiResponse(200,"Appointment slot is available!")
+    )
+    
+})
+
 const createAppointment = asyncHandler(async (req,res)=>{
     const {therapist,date,time} = req.body;
     // console.log(req.user._id,therapist,date,time)
@@ -66,4 +92,4 @@ const createAppointment = asyncHandler(async (req,res)=>{
     
 })
 
-export {getAppointments,createAppointment};
+export {getAppointments,createAppointment ,validateAppointments};

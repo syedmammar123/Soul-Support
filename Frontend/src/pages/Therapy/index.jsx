@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Test from '../../components/Test';
 import axios from 'axios';
+import {loadStripe} from '@stripe/stripe-js';
+
+
 
 const TakeTherapy = () => {
   const { category } = useParams();
@@ -66,7 +69,6 @@ const TakeTherapy = () => {
     try {
       const response = await axios.get('http://localhost:4000/api/v1/professionals/getPro');
       const data = response.data.message;
-      console.log(data)
 
       let formattedData = [];
       for (let i = 0; i < data.length; i++) {
@@ -211,20 +213,43 @@ const TakeTherapy = () => {
     } else {
         setError("");
         try {
-        const response = await axios.post('http://localhost:4000/api/v1/appointment/',{
+        const response = await axios.post('http://localhost:4000/api/v1/appointment/validate',{
           therapist:selectedDoctorId,
           date:selectedDate,
           time:selectedTime
         });
 
-        const data = response.data.message;
+        if(response.status === 200 && response.data.data === "Appointment slot is available!"){
 
+        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLUSH_KEY);
+
+          const checkoutSessionResponse = await axios.post('http://localhost:4000/api/v1/payment/create-checkout-session',{
+            therapist:selectedDoctorId,
+            date:selectedDate,
+            time:selectedTime,
+            amount:2500,
+          })
+
+
+        const session =  checkoutSessionResponse.data.sessionId
+
+
+        const result = await stripe.redirectToCheckout({
+            sessionId:session
+        });
+
+         
+        }else{
+          setError("Appointment time is not available. Please choose a different time.");
+        }
+        
       
       } catch (error) {
         if (error.response && error.response.status === 500 && error.response.data.message === "Appointment time is not available. Please choose a different time.") {
-          // no therapist
-        }
-        setError("Appointment time is not available. Please choose a different time.")
+          setError("Appointment time is not available. Please choose a different time.")
+        }else{
+          setError("unknown error occured. Please try again.")     
+        }   
       }
       }
   };
