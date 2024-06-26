@@ -22,6 +22,7 @@ import ProfessionalRegistration from './pages/ProfessionalRegistration'
 import AdminPage from './pages/Admin'
 import JoinLiveCall from './pages/Appointment/JoinLiveCall'
 import TakeLiveCall from './pages/Appointment/TakeLiveCall'
+import HeroSection from './components/HeroSection'
 
 // import CallRoom from './components/CallRoom/CallRoom'
 
@@ -34,7 +35,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/test" element={<Test/>}/>
+          <Route path="/test" element={<HeroSection/>}/>
 
           <Route path="/" element={<Home/>}/>
           <Route path="/home" element={<Home/>}/>

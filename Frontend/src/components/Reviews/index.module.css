@@ -1,0 +1,155 @@
+/* Reviews------------------------------------------------------ */
+
+.reviews {
+  /* margin-bottom: 100px; */
+  width: 100%;
+  height: 120vh;
+  /* background-size: 1400% 1400%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading {
+  /* margin-top: 1vh; */
+  align-items: center;
+  display: flex;
+  text-align: center;
+  width: 40vw;
+  height: 25vh;
+  flex-direction: column;
+  /* background-color: antiquewhite; */
+}
+.heading h1 {
+  color: #001147;
+  font-weight: 600;
+  font-size: 45px;
+  line-height: 50px;
+}
+.heading h2 {
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 40px;
+}
+.starimg {
+  width: 50%;
+  height: 29%;
+  object-fit: contain;
+}
+.fullBoxer {
+  display: flex;
+  /* width: 200vw; */
+  height: 48vh;
+  animation-timing-function: ease-out;
+  /* background-color: #0b0f11b9; */
+  /* position: relative; */
+  animation: scroll 20s linear infinite;
+  /* padding-bottom: 3%;*/
+  /* padding-top: 2%;  */
+  transform: translateX(5px);
+}
+.fullBoxer:hover {
+  animation-play-state: paused;
+}
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-180px * 15));
+  }
+}
+.slider {
+  display: flex;
+  order: 2;
+  width: 93vw;
+  height: 70vh;
+  overflow: hidden;
+  margin-top: 20px;
+}
+/* .slider::before, .slider::after{
+  content: '';
+  height: 100%;
+  position: absolute;
+  width: 15%;
+  z-index: 2;
+}
+.slider::before{
+  left: 0;
+  top: 0;
+} */
+.boxTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-direction: row;
+}
+
+.commentBox {
+  /* background: rgba( 255, 255, 255, 0.15 ); */
+  background-color: rgba(255, 255, 255, 0.774);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  /* z-index: 10; */
+  color: whitesmoke;
+  width: 280px;
+  height: 260px;
+  margin: 20px;
+  cursor: pointer;
+  box-shadow: 3px 3px 15px #001147;
+  align-items: center;
+  /* transition: transform 1s; */
+  position: relative;
+}
+
+.commentBox:hover {
+  transform: translateZ(20px);
+}
+
+.Profile {
+  display: flex;
+  align-items: center;
+}
+
+.profileIImage {
+  width: 70px;
+  height: 70px;
+  box-shadow: 1px 1px 5px #001147;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profileIImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.Name {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.Name strong {
+  color: black;
+  font-size: 18px;
+}
+
+.Name span {
+  color: gray;
+  margin-top: 2px;
+}
+
+.comment p {
+  color: #001147;
+  font-size: 14px;
+  font-weight: 400;
+}

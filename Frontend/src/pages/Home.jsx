@@ -2,13 +2,13 @@
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import HowItWorks from "../components/HowItWorks";
-import Reviews from '../components/Reviews';
 import Chatbot from "../components/chatbot";
 import Livesession from "../components/Livesession";
 import Blog from "../components/Blog";
-import Instructor from "../components/Instructor";
 import Footer from "../components/Footer";
 import Test from "../components/Test";
+import Reviews from "../components/Reviews";
+import SoulfulSessions from "../components/SoulfulSessions";
 
 function Home() {
     return(
@@ -17,10 +17,10 @@ function Home() {
         <Test/>
         <HeroSection />
         <Blog/>
-        {/* <Livesession/> */}
+        <Livesession/>
         <HowItWorks/>
         {/* <Chatbot/> */}
-       <Instructor/>
+       <SoulfulSessions/>
          <Reviews/> 
         <Footer/>
         </>

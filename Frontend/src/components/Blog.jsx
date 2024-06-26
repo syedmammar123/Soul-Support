@@ -4,7 +4,7 @@ function Blog() {
   const navigate = useNavigate();
 
   return (
-    <section className="blog3">
+    <section className=" blog3" style={{marginBottom:"128px", marginTop:"128px"}}>
       <div className="section3">
         <img src="images\bll.jpg" alt="" />
         <div className="overlay">

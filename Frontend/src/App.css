@@ -1886,8 +1886,9 @@ input[type="file"] {
 }
 
 .Text {
+  width: 40%;
   padding-top: 20vh;
-  margin-top: 0px;
+  margin-top: 10px;
   margin-left: 70px;
   animation-name: slide1;
   animation-duration: 2s;
@@ -2108,171 +2109,6 @@ input[type="file"] {
 }
 
 /* instructor.module.css ------------------------------------------------- */
-.pageeBody {
-  margin-top: 4%;
-  height: 100%;
-  width: 100%;
-  margin-bottom: 4%;
-}
-.maiiin {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-wrap: wrap;
-  line-height: 23px;
-}
-.instruct {
-  /* display: flex; */
-  flex-basis: 30%;
-  /* padding-left: 10%; */
-  padding-right: 0;
-  order: 1;
-}
-.contentt {
-  /* order: 3; */
-  display: flex;
-  flex-direction: column;
-  color: #001147;
-  font-family: sans-serif;
-  /* width: 50%; */
-  padding-right: 0px;
-  /* padding-left: 600px; */
-  justify-content: space-between;
-  /* background-color: #175c62; */
-}
-.headingg {
-  font-size: 50px;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  padding-left: 0;
-  line-height: 53px;
-  letter-spacing: 0.8px;
-  margin-bottom: 15px;
-  text-align: left;
-}
-#para {
-  max-width: 550px;
-  font-size: 20px;
-  line-height: 30px;
-}
-.subhead {
-  font-size: 25px;
-  font-style: italic;
-  line-height: 30px;
-}
-@media screen and (max-width: 850px) {
-  .main {
-    display: flex;
-    flex-direction: column-reverse;
-    flex-wrap: wrap;
-  }
-  .contentt {
-    margin: 80%;
-    width: 100%;
-    padding-left: 10%;
-  }
-  .heading {
-    text-align: center;
-  }
-  #para {
-    text-align: center;
-  }
-  .instruct {
-    display: none;
-  }
-}
-
-#vid {
-  min-width: 90%;
-  min-height: 100%;
-  position: relative;
-  border-radius: 10px;
-  width: 10vw;
-  padding-left: 5%;
-  height: 10vh;
-}
-.topicList {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  margin-bottom: 0;
-  padding-left: 0;
-  margin-top: 30px;
-  list-style-position: initial;
-  list-style-image: initial;
-  list-style-type: none;
-  height: 190px;
-  justify-content: space-between;
-}
-
-.listItem {
-  color: #914d8e;
-  letter-spacing: 0.1px;
-  margin-right: 20px;
-
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 31px;
-}
-.btn1 {
-  text-align: center;
-  letter-spacing: 0.8px;
-  border-radius: 9px;
-  background-color: #175c62;
-  color: white;
-  font-weight: 700;
-  padding-top: 10px;
-  margin-top: 40px;
-  margin-left: 15%;
-  margin-bottom: 20px;
-}
-.btn1:hover {
-  color: white;
-}
-
-.heroooooBtn {
-  position: absolute;
-  border-radius: 1vw;
-  width: 150px;
-  left: 48vw;
-  margin-top: 60vh;
-  border: 2px solid transparent;
-  padding: 0.3em 0.8em;
-  font-size: 1em;
-  font-family: inherit;
-  cursor: pointer;
-  transition: border-color 0.25s;
-  border-color: #001147;
-  color: #001147;
-  background-color: white;
-  box-shadow: 2px 2px 5px gray;
-  font-weight: 600;
-  text-decoration: none;
-  animation-name: slidebutn;
-  animation-duration: 2s;
-}
-.heroooooBtn:hover {
-  background-color: #001147;
-  color: white !important;
-}
-.heroooooBtn:focus,
-.heroooooBtn:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-.heroooooBtn a {
-  text-decoration: none;
-}
-
-@keyframes slidebutn {
-  from {
-    /* pushes the sun down past the viewport */
-    transform: translatex(-6vw);
-  }
-  to {
-    /* returns the sun to its default position */
-    transform: translateX(0);
-  }
-}
 
 /* liveSessionJoined.css ------------------------------------------------------ */
 * {
@@ -2656,11 +2492,12 @@ z
 
 /* Reviews------------------------------------------------------ */
 
-.Reviews {
+.reviews {
+  margin-top: 1000px;
   /* margin-bottom: 100px; */
-  width: 100vw;
+  width: 100%;
   height: 120vh;
-  background: #d9eff8;
+  background-color: red;
   /* background-size: 1400% 1400%; */
   display: flex;
   flex-direction: column;

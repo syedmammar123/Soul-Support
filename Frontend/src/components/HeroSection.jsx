@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 
 function HeroSection() {
   return (
-    <section id="header" className="Hero">
+    <section id="header" className="Hero ">
       <div className="HeroPg">
         <div className="Text">
           <h1 className="Hero_h1">
             Transforming Lives, Restoring Hope
           </h1>
-          <h2 className="Hero_h2">
+          <h2 className="Hero_h2 mt-4 mb-4">
             Welcome to Soul Support, your destination for comprehensive mental
             health resources and support. Explore a wealth of knowledge on
             various mental health topics, including symptoms, tips, and
