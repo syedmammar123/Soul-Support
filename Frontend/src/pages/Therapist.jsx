@@ -49,7 +49,6 @@ const Therapist = () => {
       const response = await axios.get('http://localhost:4000/api/v1/session/one');
       const data = response.data.message;
       data[0].dateTime = new Date().toISOString()
-      console.log(data[0].dateTime)
 
       let formattedData = [];
       for (let i = 0; i < data.length; i++) {
@@ -59,9 +58,9 @@ const Therapist = () => {
         const idx = data[i].dateTime.indexOf("T");
         obj.date = data[i].dateTime.slice(0, idx);
         const date = new Date(data[i].dateTime);
-        obj.startTime = `${date.getHours()}:${date.getMinutes()}`;
+        obj.startTime = `${date.getHours()>9?"":"0"}${date.getHours()}:${date.getMinutes()}${date.getMinutes()>9?"":"0"}`;
         date.setHours(date.getHours() + 1);
-        obj.endTime = `${date.getHours()}:${date.getMinutes()}`;
+        obj.endTime = `${date.getHours()>9?"":"0"}${date.getHours()}:${date.getMinutes()}${date.getMinutes()>9?"":"0"}`;
         obj.dateTime = data[i].dateTime;
         formattedData.push(obj);
       }
@@ -103,9 +102,11 @@ const Therapist = () => {
         obj.date = data[i].date.slice(0, idx);
         const date = new Date(`${data[i].date.slice(0, idx)}T${formattedTime}`);
         obj.dateTime = date
-        obj.startTime = `${date.getHours()}:${date.getMinutes()}`;
+        
+        
+        obj.startTime = `${date.getHours()>9?"":"0"}${date.getHours()}:${date.getMinutes()}${date.getMinutes()>9?"":"0"}`;
         date.setHours(date.getHours() + 1);
-        obj.endTime = `${date.getHours()}:${date.getMinutes()}`;
+        obj.endTime = `${date.getHours()>9?"":"0"}${date.getHours()}:${date.getMinutes()}${date.getMinutes()>9?"":"0"}`;
         obj.time = data[i].time;
         obj.patientName = data[i].patientName;
         formattedData.push(obj);
