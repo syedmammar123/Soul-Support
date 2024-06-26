@@ -19,14 +19,14 @@ const Careers = () => {
             <p className="mb-2">
               Make a difference in the lives of others by joining our team of dedicated therapists. As a therapist at our mental health website, youll have the opportunity to connect with clients worldwide, provide professional support, and contribute to the growth and well-being of individuals seeking therapy. Join us and be part of a community committed to making a positive impact on mental health.
             </p>
-            <a href="" className="heroBtn redBtn">
+            <a href="#" className="heroBtn redBtn" onClick={(event) => event.preventDefault()}>
               Join Us!
             </a>
             <br />
-            <p className='italic'>Send Your Resume at <a href='#'>SoulSupport@gmail.com</a></p>
+            <p className='italic '>Send Your Resume at <span href='#' className='text-lg underline font-semibold text-green-400'>SoulSupport@gmail.com</span></p>
           </div>
-          <div className="aboutCol">
-            <img src={url} alt="About" />
+          <div className="aboutCol ">
+            <img src={url} className='rounded-md shadow-lg' alt="About" />
           </div>
         </div>
       </section>
