@@ -22,7 +22,6 @@ import ProfessionalRegistration from './pages/ProfessionalRegistration'
 import AdminPage from './pages/Admin'
 import JoinLiveCall from './pages/Appointment/JoinLiveCall'
 import TakeLiveCall from './pages/Appointment/TakeLiveCall'
-import ChatBot from './components/chatbot'
 
 // import CallRoom from './components/CallRoom/CallRoom'
 
@@ -35,7 +34,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/test" element={<ChatBot/>}/>
+          <Route path="/test" element={<Test/>}/>
 
           <Route path="/" element={<Home/>}/>
           <Route path="/home" element={<Home/>}/>

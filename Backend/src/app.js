@@ -1,9 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import bodyParser from 'body-parser';
+
 
 const app = express();
+
+import webHookRoute from './routes/webHook.routes.js';
+app.use("/api/v1/webhook", express.raw({type: 'application/json'}), webHookRoute);
+
 
 app.use(cors({
     origin: ['http://localhost:5173', 'http://localhost:3001', 'http://localhost:3000'],
@@ -22,7 +26,6 @@ import professionalRoutes from './routes/professionals.routes.js';
 import sessionRoutes from './routes/session.routes.js';
 import appointmentRoutes from './routes/appointment.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
-import webHookRoute from './routes/webHook.routes.js';
 import chatRoutes from './routes/supportGpt.routes.js';
 import quizRoutes from './routes/quiz.routes.js';
 
@@ -36,8 +39,6 @@ app.use("/api/v1/payment", paymentRoutes);
 app.use("/api/v1/chat", chatRoutes);
 app.use("/api/v1/quiz", quizRoutes);
 
-// Use raw body parser for Stripe webhook
-app.post('/webhook', bodyParser.raw({ type: 'application/json' }), webHookRoute);
 
 //http:localhost:3000/users/register
 

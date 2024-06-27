@@ -104,20 +104,19 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
       cancel_url: `http://localhost:5173/therapy`,
     });
 
-    try {
-      // Save the appointment to your database
-      await Appointment.create({
-        patient,
-        therapist,
-        date,
-        time,
-      });
+    // try {
+    //   // Save the appointment to your database
+    //   await Appointment.create({
+    //     patient,
+    //     therapist,
+    //     date,
+    //     time,
+    //   });
 
-      console.log('Appointment booked successfully! withoutwebhook');
-    } catch (error) {
-      console.error('Error booking appointment:', error);
-    }
-
+    //   console.log('Appointment booked successfully! withoutwebhook');
+    // } catch (error) {
+    //   console.error('Error booking appointment:', error);
+    // }
 
     res.status(200).json({ sessionId: session.id });
   } catch (error) {
@@ -126,10 +125,9 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
   }
 });
 
-const endpointSecret = 'whsec_127ba86eb5f7d863aa2af4e048f5870d45b8648e0145667eb079f3db13baa553';
-
+const endpointSecret = process.env.STRIPE_WEBHOOK_KEY;
 const webHook = async (req, res) => {
-  console.log("webhookCalled")
+  
   const sig = req.headers['stripe-signature'];
 
   let event;
@@ -142,9 +140,11 @@ const webHook = async (req, res) => {
   }
 
   if (event.type === 'checkout.session.completed') {
+      console.log("webhookCalled")
+
     const session = event.data.object;
     const { therapist, date, time, patient } = session.metadata;
-
+    
     try {
       // Save the appointment to your database
       await Appointment.create({
