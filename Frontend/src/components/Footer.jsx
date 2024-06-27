@@ -82,7 +82,7 @@ function Footer() {
         </div>
         <br />
         <div className="footerpart">
-          <p>ⓒ2024 SoulSupport All rights reserved</p>
+          <p>ⓒ{new Date().getFullYear()} SoulSupport All rights reserved</p>
         </div>
       </div>
     </>

@@ -113,9 +113,9 @@ function Reviews() {
     <>
       <div className={styles.reviews} id="review">
         <div className={styles.heading}>
-          <h1>Our Happy Clients!</h1>
+          <h1 className='mb-4'>Our Happy Clients!</h1>
           <h2>
-            <span className={styles.spann}> More Than 1000 Clients Rated</span>{" "}
+             More Than 1000 Clients Rated
           </h2>
           <img className={styles.starimg} src="/images/star2.png" />
         </div>

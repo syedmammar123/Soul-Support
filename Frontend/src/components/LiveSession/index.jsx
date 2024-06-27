@@ -19,7 +19,6 @@ function LiveSession() {
         
         const data = response.data.message
         data[0].dateTime = new Date()
-        console.log(data[0].dateTime)
         setSessionData(data)
         
 
