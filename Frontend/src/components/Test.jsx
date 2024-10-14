@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
@@ -10,6 +10,9 @@ const Test = () => {
   const [user, setUser] = useState();
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
+
+  const location = useLocation();
+  console.log(location.pathname);
 
   const handleClick = async (e) => {
     const buttonName = e.innerText;
@@ -33,9 +36,10 @@ const Test = () => {
     }
   }, []);
 
-  const commonLiClass = "bg-green-200 rounded-full w-20 py-1 text-center";
+  const commonLiClass =
+    "bg-green-200 rounded-full w-20 py-1 text-center font-semibold transition-transform duration-300 hover:scale-[1.1] origin-bottom";
   const commonButtonClass =
-    "bg-green-500 rounded-full  text-center text-lg hover:text-xl font-semibold font-mono text-white";
+    "bg-green-500 rounded-full text-center text-lg font-semibold font-mono text-white transition-transform duration-300 hover:scale-[1.1] origin-bottom";
 
   const renderTherapyAndSignUpButtons = () => {
     if (showMediaIcons) {
@@ -92,7 +96,14 @@ const Test = () => {
           <ul>
             {["Home", "AI-Chat", "Quiz", "Blogs", "Careers", "Sessions"].map(
               (item, index) => (
-                <li key={index} className={commonLiClass}>
+                <li
+                  key={index}
+                  className={`${commonLiClass} ${
+                    location.pathname.includes(item.toLowerCase())
+                      ? "text-white bg-green-600"
+                      : ""
+                  }`}
+                >
                   <Link to={`/${item.toLowerCase()}`}>{item}</Link>
                 </li>
               )
