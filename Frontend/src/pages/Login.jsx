@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Test from "../components/Test";
+import useLogin from "../hooks/useLogin";
 // import Cookies from "js-cookie";
 
 const Login = () => {
@@ -13,8 +14,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const navigate = useNavigate();
-
-  const { redirect } = useParams();
 
   axios.defaults.withCredentials = true;
 
@@ -68,39 +67,15 @@ const Login = () => {
     }
   }, []);
 
+  const { login, loading } = useLogin();
+
   const handleLogin = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/users/login",
-        {
-          email,
-          password,
-        }
-      );
-
-      const userData = response.data.data.user;
-
-      localStorage.setItem("soulUser", JSON.stringify(userData));
-
-      if (userData.role == "user") {
-        navigate(`/${redirect != undefined ? redirect : ""}`);
-      }
-      if (userData.role == "pro") {
-        navigate(`/${redirect != undefined ? redirect : "therapist"}`);
-
-        // navigate('/therapist')
-      }
-      if (response.data.role == "instructor") {
-        navigate("/instructor/session");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Error in login!");
-    }
+    login(email, password);
   };
 
   return (
     <div className="max-h-screen overflow-y-hidden">
+      
       {/* <Navbar/> */}
       <Test />
       {!register ? (
@@ -133,9 +108,13 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <div className="loooginButton" onClick={handleLogin}>
+            <button
+              className="loooginButton"
+              onClick={handleLogin}
+              disabled={loading}
+            >
               Login{" "}
-            </div>
+            </button>
 
             <div className="altLogin mt-1 mb-1">
               <p className="text-sm">Not Registered?</p>
@@ -241,6 +220,7 @@ const Login = () => {
           </div>
         </div>
       )}
+  
     </div>
   );
 };

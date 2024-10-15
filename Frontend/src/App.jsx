@@ -21,6 +21,7 @@ import ProfessionalRegistration from "./pages/ProfessionalRegistration";
 import AdminPage from "./pages/Admin";
 import JoinLiveCall from "./pages/Appointment/JoinLiveCall";
 import TakeLiveCall from "./pages/Appointment/TakeLiveCall";
+import PrivateRoute from "./routes/PrivateRoute";
 
 // import CallRoom from './components/CallRoom/CallRoom'
 
@@ -80,6 +81,10 @@ function App() {
 
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/jokes" element={<Jokes />} />
+
+          <Route element={<PrivateRoute />}>
+          
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

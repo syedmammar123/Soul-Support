@@ -12,7 +12,7 @@ const Test = () => {
   axios.defaults.withCredentials = true;
 
   const location = useLocation();
-  console.log(location.pathname);
+ 
 
   const handleClick = async (e) => {
     const buttonName = e.innerText;
