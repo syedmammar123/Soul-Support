@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Test from "../components/Test";
 import useLogin from "../hooks/useLogin";
+import useRegister from "../hooks/useRegister";
 // import Cookies from "js-cookie";
 
 const Login = () => {
@@ -14,45 +14,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const navigate = useNavigate();
-
-  axios.defaults.withCredentials = true;
-
-  const handleRegisteration = async () => {
-    if (password !== confirmPassword) {
-      alert("Passwords do not match.");
-      return;
-    }
-
-    if (
-      !confirmPassword ||
-      !password ||
-      !email ||
-      !fName ||
-      !lName ||
-      !gender
-    ) {
-      alert("Please fill all fields before registering.");
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/users/register",
-        {
-          fName,
-          lName,
-          email,
-          password,
-          gender,
-        }
-      );
-      console.log(response.data);
-      setRegister(false);
-    } catch (error) {
-      console.error(error);
-      alert("error in registeration! Try again");
-    }
-  };
 
   useEffect(() => {
     const storedUser = localStorage.getItem("soulUser");
@@ -68,14 +29,28 @@ const Login = () => {
   }, []);
 
   const { login, loading } = useLogin();
+  const { registeration, registerLoading } = useRegister();
 
-  const handleLogin = async () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     login(email, password);
+  };
+
+  const handleRegisteration = (e) => {
+    e.preventDefault();
+    registeration(
+      fName,
+      lName,
+      email,
+      confirmPassword,
+      password,
+      gender,
+      setRegister
+    );
   };
 
   return (
     <div className="max-h-screen overflow-y-hidden">
-      
       {/* <Navbar/> */}
       <Test />
       {!register ? (
@@ -92,29 +67,33 @@ const Login = () => {
             </p>
           </div>
           <div className="coverrrr flex gap-y-6 p-3 max-lg:min-w-96 max-sm:min-w-72">
-            <h1 className="text-lg mt-2 mb-1 font-bold">Login </h1>
-            <input
-              className="border border-none bg-gray-50 w-full rounded-md text-center p-3 text-base"
-              type="text"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              className="border border-none bg-gray-50 w-full text-center p-3 text-base rounded-md"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <form onSubmit={handleLogin} className="flex gap-5 flex-col w-full items-center">
+              <h1 className="text-lg mt-2 mb-1 font-bold">Login </h1>
+              <input
+                className="border border-none bg-gray-50 w-full rounded-md text-center p-3 text-base"
+                type="text"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <input
+                className="border border-none bg-gray-50 w-full text-center p-3 text-base rounded-md"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
 
-            <button
-              className="loooginButton"
-              onClick={handleLogin}
-              disabled={loading}
-            >
-              Login{" "}
-            </button>
+              <button
+                className="loooginButton"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? "Logging in..." : "Login"}
+              </button>
+            </form>
 
             <div className="altLogin mt-1 mb-1">
               <p className="text-sm">Not Registered?</p>
@@ -145,64 +124,74 @@ const Login = () => {
             </p>
           </div>
           <div className="coverrrr coverrrr flex gap-y-4 p-3 max-lg:min-w-96 max-sm:min-w-72">
-            <h1 className="text-lg mt-2 mb-1 font-bold">Register</h1>
-            <div className="flex max-lg:flex-col justify-between gap-3 w-full">
+            <form onSubmit={handleRegisteration} className="flex gap-5 flex-col w-full items-center">
+              <h1 className="text-lg mt-2 mb-1 font-bold">Register</h1>
+              <div className="flex max-lg:flex-col justify-between gap-3 w-full">
+                <input
+                  className="border border-none bg-50  max-lg:w-full rounded-sm text-center p-2 text-sm"
+                  type="text"
+                  placeholder="First Name"
+                  value={fName}
+                  onChange={(e) => setfName(e.target.value)}
+                />
+                <input
+                  className="border border-none bg-gray-50  max-lg:w-full rounded-sm text-center p-2 text-sm"
+                  type="text"
+                  placeholder="Last Name"
+                  value={lName}
+                  onChange={(e) => setlName(e.target.value)}
+                />
+              </div>
+
               <input
-                className="border border-none bg-50  max-lg:w-full rounded-sm text-center p-2 text-sm"
-                type="text"
-                placeholder="First Name"
-                value={fName}
-                onChange={(e) => setfName(e.target.value)}
+                className="border border-none bg-gray-50  w-full rounded-sm text-center p-2 text-sm"
+                type="email"
+                placeholder="johndoe@yahoo.com"
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
               />
+              <select
+                name="gender"
+                id="gender"
+                className="border border-none bg-gray-50  w-full rounded-sm text-center p-2 text-sm"
+                value={gender}
+                required
+                onChange={(e) => setGender(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select Gender
+                </option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+
               <input
-                className="border border-none bg-gray-50  max-lg:w-full rounded-sm text-center p-2 text-sm"
-                type="text"
-                placeholder="Last Name"
-                value={lName}
-                onChange={(e) => setlName(e.target.value)}
+                className="border border-none bg-gray-50 w-full rounded-sm text-center p-2 text-sm"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
-            </div>
 
-            <input
-              className="border border-none bg-gray-50  w-full rounded-sm text-center p-2 text-sm"
-              type="email"
-              placeholder="johndoe@yahoo.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <select
-              name="gender"
-              id="gender"
-              className="border border-none bg-gray-50  w-full rounded-sm text-center p-2 text-sm"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-            >
-              <option value="" disabled>
-                Select Gender
-              </option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
+              <input
+                className="border border-none bg-gray-50 w-full rounded-sm text-center p-2 text-sm"
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
 
-            <input
-              className="border border-none bg-gray-50 w-full rounded-sm text-center p-2 text-sm"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <input
-              className="border border-none bg-gray-50 w-full rounded-sm text-center p-2 text-sm"
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-
-            <div className="loooginButton " onClick={handleRegisteration}>
-              Register
-            </div>
+              <button
+                className="loooginButton "
+                type="submit"
+                disabled={registerLoading}
+              >
+                {registerLoading ? "Registering..." : "Register"}
+              </button>
+            </form>
 
             <div className="altLogin mt-1 mb-1">
               <p className="text-sm">
@@ -220,7 +209,6 @@ const Login = () => {
           </div>
         </div>
       )}
-  
     </div>
   );
 };
