@@ -4,21 +4,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
 import axios from "axios";
+import { useAuthStore } from "../store/authStore";
 
 const Test = () => {
   const [showMediaIcons, setShowMediaIcons] = useState(false);
   const [user, setUser] = useState();
   const navigate = useNavigate();
+  const setAuthUser = useAuthStore((state) => state.setAuthUser);
   axios.defaults.withCredentials = true;
 
-  const location = useLocation();
- 
+  const {pathname} = useLocation();
 
   const handleClick = async (e) => {
     const buttonName = e.innerText;
 
     if (buttonName === "Logout") {
       localStorage.removeItem("soulUser");
+      setAuthUser(null);
+      
       navigate("/");
       setUser();
       await axios.post("http://localhost:4000/api/v1/users/logout");
@@ -99,12 +102,16 @@ const Test = () => {
                 <li
                   key={index}
                   className={`${commonLiClass} ${
-                    location.pathname.includes(item.toLowerCase())
+                    pathname.includes(item.toLowerCase())
                       ? "text-white bg-green-600"
                       : ""
-                  }`}
+                  } ${pathname === '/' && item === 'Home' ? 'text-white bg-green-600' : ''}`}
                 >
-                  <Link to={`/${item.toLowerCase()}`}>{item}</Link>
+                  {item === "Home" ? (
+                    <Link to={`/`}>{item}</Link>
+                  ) : (
+                    <Link to={`/${item.toLowerCase()}`}>{item}</Link>
+                  )}
                 </li>
               )
             )}

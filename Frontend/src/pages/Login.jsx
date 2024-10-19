@@ -71,7 +71,7 @@ const Login = () => {
               <h1 className="text-lg mt-2 mb-1 font-bold">Login </h1>
               <input
                 className="border border-none bg-gray-50 w-full rounded-md text-center p-3 text-base"
-                type="text"
+                type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

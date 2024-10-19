@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import './App.css'
 import Home from "./pages/Home";
 import Careers from "./pages/Careers";
@@ -22,21 +22,21 @@ import AdminPage from "./pages/Admin";
 import JoinLiveCall from "./pages/Appointment/JoinLiveCall";
 import TakeLiveCall from "./pages/Appointment/TakeLiveCall";
 import PrivateRoute from "./routes/PrivateRoute";
+import { useAuthStore } from "./store/authStore";
 
 // import CallRoom from './components/CallRoom/CallRoom'
 
 // import About from './pages/About'
 
 function App() {
+  const authUser = useAuthStore((state) => state.authUser);
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/test" element={<Test />} />
           <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/careers" element={<Careers />} />
-          <Route path="/ai-chat" element={<Chat />} />
 
           {/* assessment */}
           <Route path="/quiz" element={<Assessments />} />
@@ -61,29 +61,29 @@ function App() {
           />
           <Route path="/LiveSession" element={<LiveSession />} />
 
-          {/* therapy */}
-          <Route path="/therapy/:category?" element={<TakeTherapy />} />
-          {/* <Route path='/therapy/room/:roomId' element={<CallRoom/>} /> */}
-          <Route path="/therapist" element={<Therapist />} />
-          <Route path="/therapyCall/:roomId" element={<JoinLiveCall />} />
-          <Route
-            path="/therapist/therapyCall/:roomId"
-            element={<TakeLiveCall />}
-          />
-
           {/* <Route path='/therapist/room/:roomId' element={<CallRoom/>} /> */}
 
-          <Route path="/login/:redirect?" element={<Login />} />
+          <Route path="/login/:redirect?" element={authUser ? <Navigate to="/" /> : <Login />} />
           <Route
             path="/register/:emailCode"
             element={<ProfessionalRegistration />}
           />
 
-          <Route path="/admin" element={<AdminPage />} />
           <Route path="/jokes" element={<Jokes />} />
 
+          {/* {privateRoute} */}
           <Route element={<PrivateRoute />}>
-          
+            <Route path="/ai-chat" element={<Chat />} />
+            <Route path="/admin" element={<AdminPage />} />
+            {/* therapy */}
+            <Route path="/therapy/:category?" element={<TakeTherapy />} />
+            {/* <Route path='/therapy/room/:roomId' element={<CallRoom/>} /> */}
+            <Route path="/therapist" element={<Therapist />} />
+            <Route path="/therapyCall/:roomId" element={<JoinLiveCall />} />
+            <Route
+              path="/therapist/therapyCall/:roomId"
+              element={<TakeLiveCall />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
