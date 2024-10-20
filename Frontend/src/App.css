@@ -1527,12 +1527,7 @@ input[type="file"] {
   align-items: center;
   position: fixed;
   bottom: 2%;
-  width: 100%;
-}
-.gptInputForm {
-  display: flex;
-  width: 80%;
-  gap: 1%;
+  width: 100vw;
 }
 
 .gptInput {
@@ -1546,21 +1541,6 @@ input[type="file"] {
   box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.gptSendButton {
-  width: 15%;
-  padding: 5px;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  background-color: #313131;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.gptSendButton:hover {
-  opacity: 0.8;
-}
 
 /* chatBot.css=---------------------------------------------------------- */
 /* footer.css----------------------------------------------------------- */
@@ -1590,8 +1570,6 @@ input[type="file"] {
   align-items: center;
   width: 100%;
   justify-content: center;
-  /* height: 15vh; */
-  /* padding-left: 10vw;  */
   flex-direction: row;
 }
 .footerlink {
@@ -1609,20 +1587,17 @@ input[type="file"] {
   list-style: none;
   padding: 0;
   font-weight: 100;
-  font-size: 16px;
 }
 .footerlinks ul {
   text-align: left;
 }
 .icons {
-  /* padding-left: 12%; */
-  /* padding-right: 8%; */
-  /* padding-top: 3%; */
-  /* padding-bottom: 2%; */
-  align-items: center;
-  text-align: center;
   display: flex;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 2rem;
+  gap: 2rem;
   width: 100%;
   /* gap: 8%; */
 }

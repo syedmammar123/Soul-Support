@@ -1,6 +1,5 @@
 import {
   Facebook,
-  Google,
   GooglePlay,
   Instagram,
   Twitter,
@@ -12,7 +11,7 @@ function Footer() {
   return (
     <>
       <div className="footer">
-        <div className="footerlink">
+        <div className="footerlink max-sm:text-sm">
           <div className="footerlinks">
             <ul>
               <li>
@@ -61,25 +60,26 @@ function Footer() {
               </li>
             </ul>
           </div>
-
-          <div className="icons">
-            <Link to="https://www.facebook.com">
-              <Facebook margin="10px" color="royalblue" size={26} />
-            </Link>
-            <Link to="https://www.instagram.com">
-              <Instagram color="#f8369a" size={26} />
-            </Link>
-            <Link to="https://www.twitter.com">
-              <Twitter color="#08a0e9" size={26} />
-            </Link>
-            <Link to="https://play.google.com">
-              <GooglePlay color="#3bccff" size={26} />
-            </Link>
-            <Link to="https://web.whatsapp.com">
-              <Whatsapp color="#4fce5d" size={26} />
-            </Link>
-          </div>
         </div>
+
+        <div className="icons">
+          <Link to="https://www.facebook.com">
+            <Facebook margin="10px" color="royalblue" size={26}/>
+          </Link>
+          <Link to="https://www.instagram.com">
+            <Instagram color="#f8369a" size={26} />
+          </Link>
+          <Link to="https://www.twitter.com">
+            <Twitter color="#08a0e9" size={26} />
+          </Link>
+          <Link to="https://play.google.com">
+            <GooglePlay color="#3bccff" size={26} />
+          </Link>
+          <Link to="https://web.whatsapp.com">
+            <Whatsapp color="#4fce5d" size={26} />
+          </Link>
+        </div>
+
         <br />
         <div className="footerpart">
           <p>ⓒ{new Date().getFullYear()} SoulSupport All rights reserved</p>

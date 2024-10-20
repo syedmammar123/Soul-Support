@@ -68,7 +68,7 @@ const Test = () => {
 
   return (
     <>
-      <nav className="main-nav z-10 min-w-screen">
+      <nav className="main-nav z-10 min-w-screen max-w-screen">
         <header className="logo">
           <img
             src="/images/NavLogo.png"
