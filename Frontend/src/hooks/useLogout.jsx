@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 const useLogout = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+    axios.defaults.withCredentials = true;
+
 
   const setAuthUser = useAuthStore((state) => state.setAuthUser);
 
