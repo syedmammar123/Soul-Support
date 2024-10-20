@@ -1,5 +1,5 @@
 import React from 'react'
-import LiveSession from '../../components/Livesession'
+import LiveSession from '../../components/LiveSession'
 import Test from '../../components/Test'
 
 const Session = () => {
