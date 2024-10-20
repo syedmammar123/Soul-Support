@@ -7,7 +7,6 @@ import BlogList from "./pages/BlogList";
 import BlogSingle from "./pages/BlogSingle";
 import BlogWrite from "./pages/BlogWrite";
 import Login from "./pages/Login";
-import LiveSession from "./components/Livesession";
 import Therapist from "./pages/Therapist";
 import Jokes from "./pages/Jokes";
 import Test from "./components/Test";
@@ -23,6 +22,7 @@ import JoinLiveCall from "./pages/Appointment/JoinLiveCall";
 import TakeLiveCall from "./pages/Appointment/TakeLiveCall";
 import PrivateRoute from "./routes/PrivateRoute";
 import { useAuthStore } from "./store/authStore";
+import LiveSession from "./components/LiveSession";
 
 // import CallRoom from './components/CallRoom/CallRoom'
 

@@ -1,6 +1,6 @@
 import HeroSection from "../components/HeroSection";
 import HowItWorks from "../components/HowItWorks";
-import Livesession from "../components/Livesession";
+import Livesession from "../components/LiveSession";
 import Blog from "../components/Blog";
 import Footer from "../components/Footer";
 import Test from "../components/Test";
