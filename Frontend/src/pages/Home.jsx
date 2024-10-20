@@ -1,12 +1,12 @@
 import HeroSection from "../components/HeroSection";
 import HowItWorks from "../components/HowItWorks";
-import Livesession from "../components/LiveSession";
 import Blog from "../components/Blog";
 import Footer from "../components/Footer";
 import Test from "../components/Test";
 import Reviews from "../components/Reviews";
 import SoulfulSessions from "../components/SoulfulSessions";
 import ChatBot from "../components/ChatBot";
+import LiveSession from "../components/LiveSession";
 
 function Home() {
   return (
@@ -14,7 +14,7 @@ function Home() {
       <Test />
       <HeroSection />
       <Blog />
-      <Livesession />
+      <LiveSession />
       <HowItWorks />
       <ChatBot />
       <SoulfulSessions />
