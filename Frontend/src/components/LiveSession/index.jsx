@@ -15,7 +15,7 @@ function LiveSession() {
 
     const fetchAllSessions = async () => {
         try {
-        const response = await axios.get('http://localhost:4000/api/v1/session/all');
+        const response = await axios.get('/api/v1/session/all');
         
         const data = response.data.message
         data[0].dateTime = new Date()
