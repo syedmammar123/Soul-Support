@@ -24,14 +24,14 @@ const Assessments = () => {
     <div>
       <Test />
       <div className="p-4 flex flex-col items-center justify-center">
-        <h1 className="text-6xl m-10">Take a free mental health test</h1>
-        <p className="text-center w-[42%] m-4">
+        <h1 className="text-6xl mt-10 text-center max-sm:text-3xl">Take a free mental health test</h1>
+        <p className="text-center w-[42%] max-sm:w-full m-4">
           Our short online mental health screening tests will help you determine
           if you should seek help from a licensed mental health professional to
           address mental health issues.
         </p>
       </div>
-      <div className="w-[90%] flex justify-between m-auto my-4 px-4">
+      <div className="w-[90%] flex justify-between gap-5 m-auto my-4 max-lg:flex-col max-lg:items-center">
         {loading ? (
           <>
             <SkeletonCard />
@@ -41,7 +41,7 @@ const Assessments = () => {
         ) : (
           categories.map((item, index) => (
             <div
-              className="max-w-xs overflow-hidden rounded-2xl shadow-sm group relative cursor-pointer"
+              className="lg:max-w-xs max-lg:w-[90%] overflow-hidden rounded-2xl shadow-sm group relative cursor-pointer"
               key={index}
               onClick={() => navigate(`${item}`)}
             >
@@ -51,7 +51,7 @@ const Assessments = () => {
                 alt={item}
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-white group-hover:mb-4 transition-all duration-500 ease-linear">
-                <p className="text-6xl">{item}</p>
+                <p className="text-6xl max-sm:text-3xl">{item}</p>
                 <button className="opacity-0 transition-opacity group-hover:opacity-100 font-bold">
                   Start Test {">"}
                 </button>
