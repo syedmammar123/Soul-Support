@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 
 function HeroSection() {
   return (
-    <section id="header" className="Hero ">
+    <section id="header" className="Hero max-w-screen">
       <div className="HeroPg">
         <div className="Text">
-          <h1 className="Hero_h1">
+          <h1 className="Hero_h1 max-sm:text-base">
             Transforming Lives, Restoring Hope
           </h1>
           <h2 className="Hero_h2 mt-4 mb-4">
@@ -29,7 +29,7 @@ function HeroSection() {
         </div>
         <div className="Image">
           <img
-            className="Hero_img"
+            className="Hero_img max-sm:w-18 max-sm:h-18"
             src="images/v412.png"
             alt="no img"
           />

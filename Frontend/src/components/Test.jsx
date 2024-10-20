@@ -1,43 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import "../App.css";
 import axios from "axios";
 import { useAuthStore } from "../store/authStore";
+import useLogout from "../hooks/useLogout";
 
 const Test = () => {
   const [showMediaIcons, setShowMediaIcons] = useState(false);
-  const [user, setUser] = useState();
   const navigate = useNavigate();
-  const setAuthUser = useAuthStore((state) => state.setAuthUser);
+  const { pathname } = useLocation();
+
+  const authUser = useAuthStore((state) => state.authUser);
   axios.defaults.withCredentials = true;
 
-  const {pathname} = useLocation();
+  const { loading, logout } = useLogout();
 
-  const handleClick = async (e) => {
-    const buttonName = e.innerText;
-
-    if (buttonName === "Logout") {
-      localStorage.removeItem("soulUser");
-      setAuthUser(null);
-      
-      navigate("/");
-      setUser();
-      await axios.post("http://localhost:4000/api/v1/users/logout");
-    } else if (buttonName === "Log In") {
-      navigate("/login");
-    } else {
-      console.log("else");
-    }
+  const handleLogout = () => {
+    logout();
   };
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("soulUser");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
   const commonLiClass =
     "bg-green-200 rounded-full w-20 py-1 text-center font-semibold transition-transform duration-300 hover:scale-[1.1] origin-bottom";
@@ -57,17 +43,18 @@ const Test = () => {
             </button>
           </li>
           <li>
-            {user ? (
+            {authUser ? (
               <button
                 className={`${commonButtonClass} w-40`}
-                onClick={(e) => handleClick(e.target)}
+                onClick={handleLogout}
+                disabled={loading}
               >
                 Logout
               </button>
             ) : (
               <button
                 className={`${commonButtonClass} w-40`}
-                onClick={(e) => handleClick(e.target)}
+                onClick={handleLogin}
               >
                 Log In
               </button>
@@ -81,7 +68,7 @@ const Test = () => {
 
   return (
     <>
-      <nav className="main-nav z-10">
+      <nav className="main-nav z-10 min-w-screen">
         <header className="logo">
           <img
             src="/images/NavLogo.png"
@@ -105,7 +92,11 @@ const Test = () => {
                     pathname.includes(item.toLowerCase())
                       ? "text-white bg-green-600"
                       : ""
-                  } ${pathname === '/' && item === 'Home' ? 'text-white bg-green-600' : ''}`}
+                  } ${
+                    pathname === "/" && item === "Home"
+                      ? "text-white bg-green-600"
+                      : ""
+                  }`}
                 >
                   {item === "Home" ? (
                     <Link to={`/`}>{item}</Link>
@@ -126,17 +117,18 @@ const Test = () => {
           >
             Therapy
           </button>
-          {user ? (
+          {authUser ? (
             <button
               className={`${commonButtonClass} w-24 hideNavBtns`}
-              onClick={(e) => handleClick(e.target)}
+              onClick={handleLogout}
+              disabled={loading}
             >
               Logout
             </button>
           ) : (
             <button
               className={`${commonButtonClass} w-24 hideNavBtns`}
-              onClick={(e) => handleClick(e.target)}
+              onClick={handleLogin}
             >
               Log In
             </button>

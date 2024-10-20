@@ -30,7 +30,6 @@ import { useAuthStore } from "./store/authStore";
 
 function App() {
   const authUser = useAuthStore((state) => state.authUser);
-  console.log(authUser);
   return (
     <>
       <BrowserRouter>

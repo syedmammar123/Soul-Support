@@ -18,7 +18,7 @@ const useLogin = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/v1/users/login",
+        "/api/v1/users/login",
         {
           email,
           password,
@@ -27,8 +27,6 @@ const useLogin = () => {
 
       const userData = response.data.data.user;
       setAuthUser(userData);
-
-      localStorage.setItem("soulUser", JSON.stringify(userData));
 
       if (userData.role == "user") {
         navigate(`/${redirect != undefined ? redirect : ""}`);
