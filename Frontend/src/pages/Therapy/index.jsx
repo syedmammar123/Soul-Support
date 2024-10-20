@@ -57,6 +57,7 @@ const TakeTherapy = () => {
           await fetchUserDetail();
         } catch (refreshError) {
           console.error('Error refreshing token:', refreshError);
+          alert("lol")
           navigate(`/login/therapy`);
         }
       } else {

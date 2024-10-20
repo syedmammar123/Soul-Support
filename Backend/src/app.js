@@ -9,8 +9,12 @@ import webHookRoute from './routes/webHook.routes.js';
 app.use("/api/v1/webhook", express.raw({type: 'application/json'}), webHookRoute);
 
 
+// app.use(cors({
+//     origin: ['http://localhost:5173', 'http://localhost:3001', 'http://localhost:3000'],
+//     credentials: true
+// }));
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3001', 'http://localhost:3000'],
+    origin: ['https://soul-support-rosy.vercel.app/login'],
     credentials: true
 }));
 
