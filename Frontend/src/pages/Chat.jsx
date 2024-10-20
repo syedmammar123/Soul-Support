@@ -26,7 +26,7 @@ function Chat() {
     <>
       {/* <Navbar/> */}
       <Test />
-      <div className="gptMain">
+      <div className="gptMain max-w-screen overflow-x-hidden">
         <div className={"chatMain"}>
           {fetchChatLoading && (
             <div className="h-full w-full text-center">
@@ -58,8 +58,8 @@ function Chat() {
           <div ref={chatMainRef} />
         </div>
 
-        <div className={"gptInput-container"}>
-          <form className={"flex gap-2"} onSubmit={handleSubmit}>
+        <div className={"gptInput-container sm:px-28 max-sm:px-5"}>
+          <form className={"flex gap-2 w-full"} onSubmit={handleSubmit}>
             <input
               className={"gptInput"}
               value={input}

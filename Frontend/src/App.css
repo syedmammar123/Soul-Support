@@ -1527,7 +1527,7 @@ input[type="file"] {
   align-items: center;
   position: fixed;
   bottom: 2%;
-  width: 100%;
+  width: 100vw;
 }
 
 .gptInput {
