@@ -70,11 +70,11 @@ function App() {
           />
 
           <Route path="/jokes" element={<Jokes />} />
+          <Route path="/admin" element={<AdminPage />} />
 
           {/* {privateRoute} */}
           <Route element={<PrivateRoute />}>
             <Route path="/ai-chat" element={<Chat />} />
-            <Route path="/admin" element={<AdminPage />} />
             {/* therapy */}
             <Route path="/therapy/:category?" element={<TakeTherapy />} />
             {/* <Route path='/therapy/room/:roomId' element={<CallRoom/>} /> */}
