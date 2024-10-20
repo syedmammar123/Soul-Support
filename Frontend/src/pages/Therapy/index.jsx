@@ -41,7 +41,7 @@ const TakeTherapy = () => {
 
   const fetchUserDetail = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/v1/users/getUser');
+      const response = await axios.get('/api/v1/users/getUser');
       const data = response.data.message;
       if (data.role == "pro") {
         navigate("/therapist");
@@ -53,7 +53,7 @@ const TakeTherapy = () => {
       }
       if (error.response && error.response.status === 401) {
         try {
-          await axios.post('http://localhost:4000/api/v1/users/refresh-token');
+          await axios.post('/api/v1/users/refresh-token');
           await fetchUserDetail();
         } catch (refreshError) {
           console.error('Error refreshing token:', refreshError);
@@ -67,7 +67,7 @@ const TakeTherapy = () => {
 
   const fetchProfessionals = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/v1/professionals/getPro');
+      const response = await axios.get('/api/v1/professionals/getPro');
       const data = response.data.message;
 
       let formattedData = [];
@@ -88,7 +88,7 @@ const TakeTherapy = () => {
 
     const fetchAppointments = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/v1/appointment');
+      const response = await axios.get('/api/v1/appointment');
       const data = response.data.message;
 
       let formattedData = [];
@@ -213,7 +213,7 @@ const TakeTherapy = () => {
     } else {
         setError("");
         try {
-        const response = await axios.post('http://localhost:4000/api/v1/appointment/validate',{
+        const response = await axios.post('/api/v1/appointment/validate',{
           therapist:selectedDoctorId,
           date:selectedDate,
           time:selectedTime
@@ -223,7 +223,7 @@ const TakeTherapy = () => {
 
         const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLUSH_KEY);
 
-          const checkoutSessionResponse = await axios.post('http://localhost:4000/api/v1/payment/create-checkout-session',{
+          const checkoutSessionResponse = await axios.post('/api/v1/payment/create-checkout-session',{
             therapist:selectedDoctorId,
             date:selectedDate,
             time:selectedTime,

@@ -3,7 +3,6 @@ import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Test from "../../components/Test";
 
 const TakeLiveCall = () => {
     const navigate = useNavigate()
@@ -15,7 +14,7 @@ const TakeLiveCall = () => {
 
   const fetchUserDetail = async () => {
   try {
-    const response = await axios.get('http://localhost:4000/api/v1/users/getUser');
+    const response = await axios.get('/api/v1/users/getUser');
     
     const data = response.data.message; 
 
@@ -36,7 +35,7 @@ const TakeLiveCall = () => {
     if (error.response && error.response.status === 401) {
     try {
       // Send a request to the refresh-token route
-      await axios.post('http://localhost:4000/api/v1/users/refresh-token');
+      await axios.post('/api/v1/users/refresh-token');
       
       // Retry the original request after token refresh
       await fetchUserDetail();
@@ -53,7 +52,7 @@ const TakeLiveCall = () => {
   };
 
   useEffect(()=>{
-        fetchUserDetail();
+      fetchUserDetail();
   },[])
 
  
@@ -125,17 +124,17 @@ const TakeLiveCall = () => {
             role: "Host",
           }
         },
-        	turnOnMicrophoneWhenJoining: false,
-           	turnOnCameraWhenJoining: false,
-           	showMyCameraToggleButton: true,
-           	showMyMicrophoneToggleButton: true,
-           	showAudioVideoSettingsButton: true,
-           	showScreenSharingButton: false,
-           	showTextChat: true,
-           	showUserList: false,
-           	maxUsers: 2,
-           	layout: "Auto",
-           	showLayoutButton: false,
+        turnOnMicrophoneWhenJoining: false,
+        turnOnCameraWhenJoining: false,
+        showMyCameraToggleButton: true,
+        showMyMicrophoneToggleButton: true,
+        showAudioVideoSettingsButton: true,
+        showScreenSharingButton: false,
+        showTextChat: true,
+        showUserList: false,
+        maxUsers: 2,
+        layout: "Auto",
+        showLayoutButton: false,
             branding: {
               logoURL: "/images/NavLogo.png" // The branding LOGO URL.
             },

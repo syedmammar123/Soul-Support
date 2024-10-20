@@ -1,5 +1,5 @@
-import React, { useState,useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import  { useState,useEffect } from "react";
+import {  useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { toast } from "react-toastify";
@@ -80,7 +80,7 @@ const ProfessionalRegistration = () => {
       formData.append('profilePic', profilePic);
       formData.append('cv', cv);
 
-      const response = await axios.post('http://localhost:4000/api/v1/users/applyProfessional', formData, {
+      const response = await axios.post('/api/v1/users/applyProfessional', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

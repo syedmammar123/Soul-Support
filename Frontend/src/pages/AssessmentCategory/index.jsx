@@ -58,7 +58,7 @@ const AssessmentCategory = () => {
       const total = answer.reduce((acc, curr) => acc + curr.answer - 1, 0);
       setScore(total);
       const res = await axios.get(
-        `http://localhost:4000/api/v1/quiz/result/${AssessmentCategory}/${total}`
+        `/api/v1/quiz/result/${AssessmentCategory}/${total}`
       );
 
       setResult(res.data.data.results);
@@ -79,7 +79,7 @@ const AssessmentCategory = () => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/v1/quiz/${AssessmentCategory}`
+          `/api/v1/quiz/${AssessmentCategory}`
         );
 
         setQuestions(response.data.data[0].questions);

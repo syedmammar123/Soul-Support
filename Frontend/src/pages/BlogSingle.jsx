@@ -18,7 +18,7 @@ const BlogSingle = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`http://localhost:4000/api/v1/blogs`);
+      const res = await axios.get(`/api/v1/blogs`);
       const blogData = res.data.data.map(blog => ({
         ...blog,
         displaytext: blog.content.slice(0, 180),
@@ -38,7 +38,7 @@ const BlogSingle = () => {
 
     const fetchUserDetail = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/v1/users/getUser');
+      const response = await axios.get('/api/v1/users/getUser');
       const data = response.data.message;
       if (data.role === "pro") {
         data._id === blog?.author
@@ -48,7 +48,7 @@ const BlogSingle = () => {
       if (error.response && error.response.status === 401) {
         setShowControls(false)
         try {
-          await axios.post('http://localhost:4000/api/v1/users/refresh-token');
+          await axios.post('api/v1/users/refresh-token');
           await fetchUserDetail();
         } catch (refreshError) {
           
@@ -67,7 +67,7 @@ const BlogSingle = () => {
     if (!confirmed) return;
 
     try {
-      await axios.delete(`http://localhost:4000/api/v1/blogs/${blog._id}`);
+      await axios.delete(`/api/v1/blogs/${blog._id}`);
       navigate("/therapist");
     } catch (err) {
       console.error(err);

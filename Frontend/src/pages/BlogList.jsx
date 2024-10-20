@@ -1,7 +1,6 @@
-import { Link,  useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import {   useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import Navbar from "../components/Navbar";
 import Test from "../components/Test";
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -13,7 +12,7 @@ import 'swiper/css/effect-creative';
 
 
 // import './styles.css';
-import { Autoplay, EffectFade, Pagination, Navigation, EffectCreative } from 'swiper/modules';
+import { Autoplay, EffectFade, Pagination, Navigation } from 'swiper/modules';
 import Footer from "../components/Footer";
 
 
@@ -24,7 +23,7 @@ const BlogList=()=>{
   const fetchData = async () => {
     // setBlogs(fake)
     try {
-      const res = await axios.get('http://localhost:4000/api/v1/blogs');
+      const res = await axios.get('/api/v1/blogs');
       for (let i = 0; i < res.data.data.length; i++) {
         let slicedContent = (res.data.data[i].content).slice(0,180)
         res.data.data[i].displaytext = slicedContent

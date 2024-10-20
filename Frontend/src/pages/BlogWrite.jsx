@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import { storage } from "../service/firebase";
-import { v4 } from 'uuid';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useParams, useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import {  useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Test from "../components/Test";
 
@@ -18,12 +15,11 @@ const BlogWrite = () => {
     const [blogTitle, setBlogTitle] = useState(state?.title || '');
     const [imageUpload, setImageUpload] = useState(null);
     const [url, setUrl] = useState(state?.bannerPhoto || null);
-    const [previewBanner, setPreviewBanner] = useState("");
     const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
-            const res = await axios.get(`http://localhost:4000/api/v1/blogs/${query}`);
+            const res = await axios.get(`/api/v1/blogs/${query}`);
             const blogData = res.data.data;
 
             setBlog(foundBlog || {});
@@ -35,7 +31,7 @@ const BlogWrite = () => {
 
     const fetchUserDetail = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/api/v1/users/getUser');
+            const response = await axios.get('/api/v1/users/getUser');
             const data = response.data.message;
             if (data.role !== "pro") {
                 navigate("/blogs")
@@ -49,7 +45,7 @@ const BlogWrite = () => {
             if (error.response && error.response.status === 401) {
                 
                 try {
-                    await axios.post('http://localhost:4000/api/v1/users/refresh-token');
+                    await axios.post('/api/v1/users/refresh-token');
                     await fetchUserDetail();
                 } catch (refreshError) {
                     navigate(`/login/therapist`);
@@ -114,10 +110,10 @@ const BlogWrite = () => {
             const body = formData;
 
             if (state) {
-                await axios.put(`http://localhost:4000/api/v1/blogs/${state?._id}`, { blogTitle, blogContent });
+                await axios.put(`/api/v1/blogs/${state?._id}`, { blogTitle, blogContent });
                 
             } else {
-                await axios.post("http://localhost:4000/api/v1/blogs", body,{
+                await axios.post("/api/v1/blogs", body,{
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
