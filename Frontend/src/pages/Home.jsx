@@ -13,11 +13,11 @@ function Home() {
     <>
       <Test />
       <HeroSection />
-      <Blog />
-      <LiveSession />
       <HowItWorks />
-      <ChatBot />
-      <SoulfulSessions />
+      <LiveSession />
+      {/* <Blog /> */}
+      {/* <ChatBot /> */}
+      {/* <SoulfulSessions /> */}
       <Reviews />
       <Footer />
     </>

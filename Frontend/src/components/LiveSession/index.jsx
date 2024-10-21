@@ -39,7 +39,7 @@ function LiveSession() {
   };
 
   return (
-    <div className={styles.liveMain}>
+    <div className={`${styles.liveMain} `}>
       <div className={styles.carouselContainerrr}>
         {loading && (
           <div className="h-full w-full flex items-center justify-center">
@@ -55,9 +55,10 @@ function LiveSession() {
               
               <div className={`${styles.spk1text} mt-[4rem] max-lg:w-full max-lg:block max-lg:pb-24`}>
                 <h1 className={`${styles.spktexth1} text-[40px] line-clamp-1 max-sm:text-2xl`}>{item.name}</h1>
+                <br />
                 <div className={`${styles.spktopi}  w-[30vw] max-lg:w-full`}>
                   <p>
-                    WEBINAR : <br /> <span>{item.title}</span>
+                    WEBINAR : {item.title.length<27?<br/>:null} <span>{item.title}</span>
                   </p>
                 </div>
                 <p className={styles.date}>{formatTime(item.dateTime)}</p>
