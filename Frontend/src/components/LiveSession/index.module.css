@@ -95,8 +95,6 @@
   /* padding: 1.5rem; */
   z-index: 10;
   color: whitesmoke;
-  width: 70vw;
-  height: 100%;
   display: flex;
   margin: 0px 5px;
 }
@@ -107,17 +105,9 @@
     "Lucida Sans", Arial, sans-serif;
   letter-spacing: 0px;
   font-weight: 100;
-  width: 30vw;
-  /* height: 6rem; */
-  /* box-shadow: 10px 8px 10px  rgba(15, 22, 110, 0.986);
-  backdrop-filter: blur( 18px );
-  -webkit-backdrop-filter: blur( 18px );
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
-  border-radius: 1rem; */
   color: #001147;
   margin: 20px 0px;
   padding: 0.01rem 0.5rem 0 0rem;
-  /* background-color: red; */
 }
 
 .date {
@@ -130,8 +120,6 @@
 .spk1 {
   padding: 0px;
   position: relative;
-  width: 30vw;
-  height: 55vh;
   margin: auto;
   display: flex;
   align-items: center;
@@ -140,8 +128,7 @@
 }
 .spkimg {
   position: relative;
-  width: 25vw;
-  height: 52vh;
+ 
   border-radius: 10px;
 }
 .spk1text {
@@ -153,8 +140,6 @@
 }
 
 .spktexth1 {
-  margin-top: 4rem;
-  font-size: 40px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   font-weight: bolder;
@@ -206,10 +191,7 @@
   border-radius: 52px;
   color: blue;
   cursor: pointer;
-  position: absolute;
   z-index: 1;
-  left: 32vw;
-  margin-top: 50vh;
   background-color: rgb(213, 241, 0);
   animation: neonGlow 3s infinite alternate;
   transition: all 1s;
@@ -223,10 +205,8 @@
   border-radius: 52px;
   color: white;
   cursor: pointer;
-  position: absolute;
+  
   z-index: 1;
-  left: 32vw;
-  margin-top: 50vh;
   background-color: rgba(175, 175, 173, 0.738);
   font-size: 16px;
 }
