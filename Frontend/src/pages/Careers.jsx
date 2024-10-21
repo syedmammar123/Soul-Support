@@ -9,7 +9,7 @@ const Careers = () => {
   return (
     <>
       <Test />
-      <header className="backImg">
+      <header className="backImg h-[70vh] max-sm:max-h-[40vh]">
         <h1 className="car">Careers</h1>
       </header>
       <section className="w-[80%] m-auto">
@@ -51,10 +51,10 @@ const Careers = () => {
         </div>
       </section>
 
-      <footer className="footer py-4">
+      <footer className="footer py-4 ">
         <h4>Connect with Us</h4>
         <br />
-        <p>
+        <p className="max-sm:text-sm max-sm:px-5">
           Stay connected with us on social media to receive updates, resources,
           and inspiration for your mental well-being journey.
           <br />

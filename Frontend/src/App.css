@@ -1377,7 +1377,6 @@ input[type="file"] {
 /* careers.module.css ------------------------------------------------------ */
 .backImg {
   width: 100%;
-  min-height: 70vh;
   background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
     url("https://img.freepik.com/free-photo/woman-therapist-taking-notes-man-therapy-office-with-mask_23-2148759138.jpg?w=900&t=st=1689673611~exp=1689674211~hmac=795fba31563db5ee887578b1b6f74335807e09223e519b7664eaf120fa6592d3");
   background-position: bottom;
