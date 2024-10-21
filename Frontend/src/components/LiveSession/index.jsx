@@ -1,34 +1,14 @@
 import { useEffect, useState } from "react";
 import styles from "./index.module.css";
-import axios from "axios";
+import useLiveSession from "../../hooks/useLiveSession";
 
 function LiveSession() {
   const [sessionData, setSessionData] = useState([]);
 
-  axios.defaults.withCredentials = true;
-
-  const fetchAllSessions = async () => {
-    try {
-      const response = await axios.get(
-        "/api/v1/session/all"
-      );
-
-      const data = response.data.message;
-      data[0].dateTime = new Date();
-      setSessionData(data);
-    } catch (error) {
-      if (
-        error.response &&
-        error.response.status === 404 &&
-        error.response.data.message === "No Session Found!!"
-      ) {
-        alert("no data in database :(");
-      }
-    }
-  };
+  const { fetchAllSessions, loading } = useLiveSession();
 
   useEffect(() => {
-    fetchAllSessions();
+    fetchAllSessions(setSessionData);
   }, []);
 
   const formatTime = (time) => {
@@ -61,9 +41,14 @@ function LiveSession() {
   return (
     <div className={styles.liveMain}>
       <div className={styles.carouselContainerrr}>
-        <div className={styles.carousel}>
+        {loading && (
+          <div className="h-full w-full flex items-center justify-center">
+            <p>Loading...</p>
+          </div>
+        )}
+        <div className={`${styles.carousel} h-[80%] w-[80%]`}>
           {sessionData.map((item, index) => (
-            <div key={index} id={index} className={styles.carddd}>
+            <div key={index} id={index} className={`${styles.carddd} max-lg:flex max-lg:flex-col`}>
               <div className={styles.spk1}>
                 <img className={styles.spkimg} src={item.picUrl} alt="" />
               </div>
@@ -111,6 +96,7 @@ function LiveSession() {
                   </div>
                 </div>
               </div>
+
             </div>
           ))}
         </div>
