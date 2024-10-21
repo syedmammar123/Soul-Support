@@ -6,15 +6,14 @@ import { useNavigate } from "react-router-dom";
 const useLogout = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-    axios.defaults.withCredentials = true;
-
+  axios.defaults.withCredentials = true;
 
   const setAuthUser = useAuthStore((state) => state.setAuthUser);
 
   const logout = async () => {
     setLoading(true);
     try {
-      await axios.post(`https://soulsupportapi.onrender.com/api/v1/users/logout`);
+      await axios.post(`/api/v1/users/logout`);
       setAuthUser(null);
       navigate("/");
     } catch (error) {
