@@ -14,7 +14,7 @@ app.use("/api/v1/webhook", express.raw({type: 'application/json'}), webHookRoute
 //     credentials: true
 // }));
 app.use(cors({
-    origin: ['https://soul-support-rosy.vercel.app'],
+    origin: ['http://localhost:5173'],
     credentials: true
 }));
 
