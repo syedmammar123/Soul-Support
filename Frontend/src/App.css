@@ -1620,10 +1620,7 @@ input[type="file"] {
   color: black;
   font-weight: 400;
   font-family: monospace;
-}
-
-/* heroSection.module.css--------------------------------------- */
-
+}/* Hero Section Styling */
 .btnn {
   font-weight: 500;
   color: #001147;
@@ -1646,27 +1643,20 @@ input[type="file"] {
   background-color: white;
   box-shadow: 2px 3px 8px gray;
 }
+
 .Hero_btn:hover {
   background-color: #d9eff8;
 }
+
 .Hero_btn:focus,
 .Hero_btn:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-#soul {
-  padding-top: 0.9rem;
-  height: 3.9rem;
-}
 
 .HeroPg {
-  /* padding-top: 10vh; */
-  /* border-top-left-radius: 2vw; */
-  /* border-top-right-radius: 2vw; */
-  margin-top: -10vh;
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: left;
+  align-items: center;
+  justify-content: space-between;
   background: linear-gradient(
     230deg,
     #d9eff8,
@@ -1679,7 +1669,9 @@ input[type="file"] {
   );
   -webkit-animation: gradient 40s ease infinite;
   animation: gradient 40s ease infinite;
+  padding: 20px;
 }
+
 @-webkit-keyframes gradient {
   0% {
     background-position: 0% 65%;
@@ -1691,6 +1683,7 @@ input[type="file"] {
     background-position: 0% 65%;
   }
 }
+
 @keyframes gradient {
   0% {
     background-position: 0% 65%;
@@ -1705,13 +1698,13 @@ input[type="file"] {
 
 .Text {
   width: 40%;
-  padding-top: 20vh;
   margin-top: 10px;
   margin-left: 70px;
   animation-name: slide1;
-  animation-duration: 2s;
+  animation-duration: 3s;
   animation-timing-function: ease-in-out;
 }
+
 @keyframes slide1 {
   from {
     transform: translateX(-4vw);
@@ -1721,43 +1714,130 @@ input[type="file"] {
   }
 }
 
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.Image {
+  animation: float 3s ease-in-out infinite;
+}
+
 .Hero_h1 {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 50px;
   line-height: 1.1;
   margin-bottom: 0;
   color: #001147;
+  font-weight: 700;
 }
+
 .Hero_h2 {
-  margin-top: 11;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 100;
+  margin-top: 40px;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 300;
   color: #001147;
 }
+
 .Hero_img {
-  margin-top: 12vh;
-  margin-left: 4vw;
-  width: 750px;
-  height: 550px;
-  margin-right: 0px;
+  margin-top: 10vh;
+  width: 500px;
+  height: 450px;
 }
+
 .Image {
   margin-right: 3vw;
   padding-top: -5vh;
 }
-@media screen and (max-width: 520px) {
+
+/* Media Query for Mobile Screens */
+@media screen and (max-width: 768px) {
+  .HeroPg {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .Text {
+    width: 100%;
+    margin-left: 0;
+    /* padding-top: 5vh; */
+  }
+
   .Hero_h1 {
-    padding: 10px 20px;
+    font-size: 36px;
+    line-height: 1.2;
+    margin-top: 20px;
   }
+
   .Hero_h2 {
-    font-size: 1.1.rem;
-    padding: 0 0 2rem 0;
+    font-size: 14px;
+    margin-top: 20px;
   }
+
+  .Hero_btn {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
   .Hero_img {
-    src: "";
+    width: 300px;
+    height: auto;
+    margin-top: 20px;
   }
 }
+
+@media screen and (max-width: 520px) {
+  .Hero_h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 0px;
+    color: #001147;
+  }
+
+  .Hero_h2 {
+    font-size: 12px;
+    font-weight: 300;
+    font-style: italic;
+    margin-top: 10px;
+  }
+
+  .Hero_img {
+    width: 200px;
+    height: 180px;
+    margin-top: 20px;
+  }
+
+  .Text {
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  .Hero_btn{
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .Image {
+    display: flex;
+    justify-content: center;
+    margin-right: 0;
+    margin-left: 0;
+    padding-top: 10px;
+    animation:none;
+    
+  }
+}
+
 
 /* HowWorks.css----------------------------------------------------------------- */
 .How_Works {

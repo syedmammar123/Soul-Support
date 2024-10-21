@@ -1,10 +1,9 @@
-
 import { Link } from 'react-router-dom';
 
 
 function HeroSection() {
   return (
-    <section id="header" className="Hero max-w-screen">
+    <section id="header" className="Hero max-w-screen bg-ck">
       <div className="HeroPg">
         <div className="Text">
           <h1 className="Hero_h1 max-sm:text-base">
