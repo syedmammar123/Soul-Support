@@ -22,7 +22,7 @@ const protectOld = asyncHandler(async (req,res,next)=>{
 })
 
 const protect = asyncHandler( async( req, _ , next)=>{
-    console.log(req.cookies );
+    console.log('Cookies: ',req.cookies );
     console.log(req.header("Authorization") );
     
     try {

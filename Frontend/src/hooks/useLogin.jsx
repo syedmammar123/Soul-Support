@@ -18,7 +18,7 @@ const useLogin = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `https://soulsupportapi.onrender.com/api/v1/users/login`,
+        `/api/v1/users/login`,
         {
           email,
           password,
