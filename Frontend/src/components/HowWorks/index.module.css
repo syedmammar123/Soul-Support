@@ -1,0 +1,74 @@
+
+.Hero_button {
+  width: 20%;
+  border-radius: 22px;
+  border: 2px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  border-color: #001147;
+  color: #001147;
+  background-color: white;
+  margin: 0 auto;
+  /* margin-top: -20vh; */
+  box-shadow: 2px 3px 8px gray;
+}
+.Hero_button:hover {
+  background-color: #d9eff8;
+}
+.Hero_button:focus,
+.Hero_btn:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+.butn {
+  font-weight: 500;
+  color: #001147;
+  text-decoration: inherit;
+}
+
+
+.mtButton{
+    margin-top: 7vh !important;
+    animation: float 3s ease-in-out infinite;
+
+}
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+@media screen and (max-width: 550px) {
+
+  .Hero_button {
+        width: 40%;
+        border-radius: 22px;
+        border: 2px solid transparent;
+        padding: 0.5em 1em;
+        font-size: 1em;
+        font-family: inherit;
+        cursor: pointer;
+        transition: border-color 0.25s;
+        border-color: #001147;
+        color: #001147;
+        background-color: white;
+        margin: 0 auto;
+        /* margin-top: 10vh; */
+        box-shadow: 2px 3px 8px gray;
+    }
+
+    .butn {
+        font-weight: 500;
+        color: #001147;
+        text-decoration: inherit;
+    }
+}
