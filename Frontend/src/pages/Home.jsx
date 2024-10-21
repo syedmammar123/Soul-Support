@@ -18,7 +18,7 @@ function Home() {
       {/* <HowItWorks /> */}
       {/* <ChatBot /> */}
       {/* <SoulfulSessions /> */}
-      {/* <Reviews /> */}
+      <Reviews />
       <Footer />
     </>
   );

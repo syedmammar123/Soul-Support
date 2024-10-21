@@ -115,7 +115,7 @@ function Reviews() {
         <div className={styles.heading}>
           <h1 className='mb-4'>Our Happy Clients!</h1>
           <h2>
-             More Than 1000 Clients Rated
+             Positively rated by 1000+ clients
           </h2>
           <img className={styles.starimg} src="/images/star2.png" />
         </div>
