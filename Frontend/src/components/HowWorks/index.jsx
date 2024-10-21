@@ -1,46 +1,5 @@
-// import React from "react";
-// import { Link } from "react-router-dom";
-// import styles from "./index.module.css"; // Import the CSS module
-
-// function HowItWorks() {
-//   return (
-//     <div className={styles.How_Works}>
-//       <div className={styles.How_Text}>
-//         <h1 className={styles.How_h1}>How Soul Support Works</h1>
-//       </div>
-//       <div className={styles.Cards}>
-//         <div className={styles.Card1}>
-//           <img src="images/reptile.png" alt="" />
-//           <h1>Self-Assessment</h1>
-//           <h3>Answer a few questions and receive personalized feedback instantly</h3>
-//         </div>
-//         <img className={styles.arrow} src="images/arrow.png" alt="" />
-//         <div className={styles.Card2}>
-//           <img src="images/thera1.png" alt="" />
-//           <h1>Personalized Match</h1>
-//           <h3>Discover the right therapist for you, tailored to your mental health needs.</h3>
-//         </div>
-//         <img className={styles.arrow} src="images/arrow.png" alt="" />
-//         <div className={styles.Card3}>
-//           <img src="images/start1.png" alt="" />
-//           <h1>Start Therapy</h1>
-//           <h3>Begin your healing journey with Online Therapy Sessions</h3>
-//         </div>
-//       </div>
-//       <button className={styles.Hero_button}>
-//         <Link to="/quiz" className={styles.butn}>
-//           Get Started
-//         </Link>
-//       </button>
-//     </div>
-//   );
-// }
-
-// export default HowItWorks;
-
 import { Link } from 'react-router-dom';
-import styles from "./index.module.css"; // Import the CSS module
-
+import styles from "./index.module.css"; 
 function HowItWorks() {
   return (
     <div className="How_Works bg-white pt-10 px-4 md:px-16 text-center">
