@@ -42,10 +42,9 @@
   }
 }
 
-
 .carouselContainerrr {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
   width: 90%;
   height: 80vh;
   overflow: hidden;
@@ -56,8 +55,6 @@
 
 .carousel {
   display: flex;
-  width: 80%;
-  height: 90%;
   animation: sliding 30s infinite;
   animation-timing-function: ease-out;
   position: absolute;
@@ -83,7 +80,7 @@
   70% {
     transform: translateX(-310%);
   }
- 
+
   90% {
     transform: translateX(0%);
   }
@@ -104,8 +101,7 @@
   margin: 0px 5px;
 }
 .spktopic {
-
-  background: rgba( 255, 255, 255, 0.15 );
+  background: rgba(255, 255, 255, 0.15);
   font-size: 20px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -147,7 +143,6 @@
   width: 25vw;
   height: 52vh;
   border-radius: 10px;
-
 }
 .spk1text {
   color: #001147;
@@ -183,15 +178,23 @@
   margin-top: 50vh;
 }
 
-
 @keyframes neonGlow {
-  0%, 100% {
-    box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 10px #00ff00, 0 0 90px #00ff00, 0 0 10px #00ff00, 0 0 0px #00ff00;
-    text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 10px #00ff00, 0 0 90px #00ff00, 0 0 10px #00ff00, 0 0 0px #00ff00;
+  0%,
+  100% {
+    box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00,
+      0 0 40px #00ff00, 0 0 10px #00ff00, 0 0 90px #00ff00, 0 0 10px #00ff00,
+      0 0 0px #00ff00;
+    text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00,
+      0 0 40px #00ff00, 0 0 10px #00ff00, 0 0 90px #00ff00, 0 0 10px #00ff00,
+      0 0 0px #00ff00;
   }
   50% {
-    box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 10px #00ffff, 0 0 90px #00ffff, 0 0 10px #00ffff, 0 0 0px #00ffff;
-    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 10px #00ffff, 0 0 90px #00ffff, 0 0 10px #00ffff, 0 0 0px #00ffff;
+    box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff,
+      0 0 40px #00ffff, 0 0 10px #00ffff, 0 0 90px #00ffff, 0 0 10px #00ffff,
+      0 0 0px #00ffff;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff,
+      0 0 40px #00ffff, 0 0 10px #00ffff, 0 0 90px #00ffff, 0 0 10px #00ffff,
+      0 0 0px #00ffff;
   }
 }
 
@@ -226,9 +229,7 @@
   margin-top: 50vh;
   background-color: rgba(175, 175, 173, 0.738);
   font-size: 16px;
-
 }
-
 
 @keyframes move {
   0% {
@@ -372,5 +373,3 @@
   left: 45%;
   top: -50%;
 }
-
-
