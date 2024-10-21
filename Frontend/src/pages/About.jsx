@@ -1,7 +1,13 @@
+import Footer from "../components/Footer";
+import HeroSection from "../components/HeroSection";
+import Test from "../components/Test";
+
 function About() {
     return(
         <>
-        <h1></h1>
+            <Test/>
+            <HeroSection/>
+            <Footer />
         </>
     )
 }

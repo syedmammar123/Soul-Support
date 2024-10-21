@@ -26,7 +26,7 @@ import LiveSession from "./components/LiveSession";
 
 // import CallRoom from './components/CallRoom/CallRoom'
 
-// import About from './pages/About'
+import About from './pages/About'
 
 function App() {
   const authUser = useAuthStore((state) => state.authUser);
@@ -50,7 +50,7 @@ function App() {
           <Route path="/blog/:id" element={<BlogSingle />} />
           <Route path="/write" element={<BlogWrite />} />
 
-          {/* <Route path="/about" element={<About/>}/> */}
+          <Route path="/about" element={<About/>}/>
 
           {/* info session */}
           <Route path="/sessions" element={<Session />} />

@@ -15,30 +15,27 @@ function Footer() {
           <div className="footerlinks">
             <ul>
               <li>
-                <Link to="/about">About Us</Link>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/background">Background</Link>
+                <Link to="/ai-chat">AI-Chat</Link>
               </li>
               <li>
-                <Link to="/team">Team</Link>
+                <Link to="/sessions">Sessions</Link>
               </li>
-              <li>
-                <Link to="/benefits">Benefits</Link>
-              </li>
+              
+
             </ul>
           </div>
           <div className="footerlinks">
             <ul>
               <li>
-                <Link to="/services">Services</Link>
+                <Link to="/">Services</Link>
               </li>
               <li>
-                <Link to="/assessment">Assessment</Link>
+                <Link to="/quiz">Assessment</Link>
               </li>
-              <li>
-                <Link to="/appointment">Appointment</Link>
-              </li>
+              
               <li>
                 <Link to="/therapy">Therapy</Link>
               </li>
@@ -47,17 +44,14 @@ function Footer() {
           <div className="footerlinks">
             <ul>
               <li>
-                <Link to="/blog">Blog</Link>
+                <Link to="/blogs">Blog</Link>
               </li>
               <li>
-                <Link to="/science">Science</Link>
+                <Link to="/therapy">Appointment</Link>
               </li>
               <li>
-                <Link to="/psychological">Psychological</Link>
-              </li>
-              <li>
-                <Link to="/nutrition">Nutrition</Link>
-              </li>
+                <Link to="/about">About Us</Link>
+              </li>                       
             </ul>
           </div>
         </div>
@@ -75,7 +69,7 @@ function Footer() {
           <Link to="https://play.google.com">
             <GooglePlay color="#3bccff" size={26} />
           </Link>
-          <Link to="https://web.whatsapp.com">
+          <Link to="https://whatsapp.com">
             <Whatsapp color="#4fce5d" size={26} />
           </Link>
         </div>
