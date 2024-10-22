@@ -1,6 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import axios from "axios"
 import  { useState } from 'react'
+import { backendUrl } from "../../constants"
 
 
 const CARD_OPTIONS = {
@@ -37,7 +38,7 @@ const PayementForms = () => {
         if(!error) {
             try {
                 const {id} = paymentMethod
-                const response = await axios.post("http://localhost:4000/payment", {
+                const response = await axios.post(`${backendUrl}/payment`, {
                     amount: 1280,
                     id
                 })

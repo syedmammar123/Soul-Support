@@ -2,6 +2,7 @@ import  { useEffect, useState } from 'react';
 import Test from '../components/Test';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { backendUrl } from '../constants';
 
 const Therapist = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const Therapist = () => {
 
   const fetchUserDetail = async () => {
     try {
-      const response = await axios.get('/api/v1/users/getUser');
+      const response = await axios.get(`${backendUrl}/api/v1/users/getUser`);
       const data = response.data.message;
       setLoadingUser(false);
 
@@ -32,7 +33,7 @@ const Therapist = () => {
 
       if (error.response && error.response.status === 401) {
         try {
-          await axios.post('/api/v1/users/refresh-token');
+          await axios.post(`${backendUrl}/api/v1/users/refresh-token`);
           await fetchUserDetail();
         } catch (refreshError) {
           console.error('Error refreshing token:', refreshError);
@@ -46,7 +47,7 @@ const Therapist = () => {
 
   const fetchSessions = async () => {
     try {
-      const response = await axios.get('/api/v1/session/one');
+      const response = await axios.get(`${backendUrl}/api/v1/session/one`);
       const data = response.data.message;
       data[0].dateTime = new Date().toISOString()
 
@@ -77,7 +78,7 @@ const Therapist = () => {
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get('/api/v1/appointment');
+      const response = await axios.get(`${backendUrl}/api/v1/appointment`);
       const data = response.data.message;    
       
 
@@ -130,7 +131,7 @@ const Therapist = () => {
   const fetchBlogs = async () => {
     try {
       
-      const res = await axios.get(`/api/v1/blogs/pro`);
+      const res = await axios.get(`/${backendUrl}api/v1/blogs/pro`);
       const blogData = res.data.data
       setBlogs(blogData);
       setLoadingBlogs(false);
@@ -220,7 +221,7 @@ const Therapist = () => {
       try {
          
       
-        let res = await axios.delete(`/api/v1/blogs/${id}`);
+        let res = await axios.delete(`${backendUrl}/api/v1/blogs/${id}`);
         fetchBlogs()
         
         // navigate("/blogs");

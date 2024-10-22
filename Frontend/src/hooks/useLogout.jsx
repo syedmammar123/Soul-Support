@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuthStore } from "../store/authStore";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { backendUrl } from "../constants";
 
 const useLogout = () => {
   const [loading, setLoading] = useState(false);
@@ -13,7 +14,7 @@ const useLogout = () => {
   const logout = async () => {
     setLoading(true);
     try {
-      await axios.post(`/api/v1/users/logout`);
+      await axios.post(`${backendUrl}/api/v1/users/logout`);
       setAuthUser(null);
       navigate("/");
     } catch (error) {

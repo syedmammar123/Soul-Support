@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { backendUrl } from "../constants";
 
 const useChat = () => {
   axios.defaults.withCredentials = true;
@@ -11,7 +12,7 @@ const useChat = () => {
   const fetchChatLog = async (setMessages) => {
     try {
       setFetchChatLoading(true);
-      const response = await axios.get("/api/v1/chat");
+      const response = await axios.get(`${backendUrl}/api/v1/chat`);
 
       const data = response.data.message[0].messages;
       const combinedArray = data.map((item) => ({
@@ -37,7 +38,7 @@ const useChat = () => {
       if (error.response && error.response.status === 401) {
         try {
           // Send a request to the refresh-token route
-          await axios.post("/api/v1/users/refresh-token");
+          await axios.post(`${backendUrl}/api/v1/users/refresh-token`);
 
           // Retry the original request after token refresh
           await fetchChatLog();
@@ -62,7 +63,7 @@ const useChat = () => {
 
     setInput("");
 
-    const response = await axios.post("/api/v1/chat", {
+    const response = await axios.post(`${backendUrl}/api/v1/chat`, {
       message: input,
     });
 

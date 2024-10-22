@@ -3,6 +3,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
+import { backendUrl } from "../constants";
 
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const useLogin = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `/api/v1/users/login`,
+        `${backendUrl}/api/v1/users/login`,
         {
           email,
           password,
