@@ -1,11 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { backendUrl } from '../constants'
 
 const Jokes = () => {
     const [jokes,setJokes] = useState([])
 
     useEffect(()=>{
-        axios.get('/api/jokes')
+        axios.get(`${backendUrl}/api/jokes`)
         .then((response)=>{
             setJokes(response.data)
         })

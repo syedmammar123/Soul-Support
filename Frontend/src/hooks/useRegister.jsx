@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { backendUrl } from "../constants";
 
 const useRegister = () => {
   const [registerLoading, setRegisterLoading] = useState(false);
@@ -34,7 +35,7 @@ const useRegister = () => {
     try {
       setRegisterLoading(true);
       const response = await axios.post(
-        "/api/v1/users/register",
+        `${backendUrl}/api/v1/users/register`,
         {
           fName,
           lName,

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { backendUrl } from "../constants";
 
 
 const useLiveSession = () => {
@@ -9,7 +10,7 @@ const useLiveSession = () => {
   const fetchAllSessions = async (setSessionData) => {
     setLoading(true)
     try {
-      const response = await axios.get("/api/v1/session/all");
+      const response = await axios.get(`${backendUrl}/api/v1/session/all`);
 
       const data = response.data.message;
       data[0].dateTime = new Date();
