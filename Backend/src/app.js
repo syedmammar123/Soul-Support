@@ -14,7 +14,7 @@ app.use("/api/v1/webhook", express.raw({type: 'application/json'}), webHookRoute
 //     credentials: true
 // }));
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: '*',
     credentials: true
 }));
 
