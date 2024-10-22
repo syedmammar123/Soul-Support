@@ -131,7 +131,7 @@ const Therapist = () => {
   const fetchBlogs = async () => {
     try {
       
-      const res = await axios.get(`/${backendUrl}api/v1/blogs/pro`);
+      const res = await axios.get(`${backendUrl}/api/v1/blogs/pro`);
       const blogData = res.data.data
       setBlogs(blogData);
       setLoadingBlogs(false);
