@@ -104,19 +104,19 @@ const createCheckoutSession = asyncHandler(async (req, res) => {
       cancel_url: `http://localhost:5173/therapy`,
     });
 
-    // try {
-    //   // Save the appointment to your database
-    //   await Appointment.create({
-    //     patient,
-    //     therapist,
-    //     date,
-    //     time,
-    //   });
+    try {
+      // Save the appointment to your database
+      await Appointment.create({
+        patient,
+        therapist,
+        date,
+        time,
+      });
 
-    //   console.log('Appointment booked successfully! withoutwebhook');
-    // } catch (error) {
-    //   console.error('Error booking appointment:', error);
-    // }
+      console.log('Appointment booked successfully! withoutwebhook');
+    } catch (error) {
+      console.error('Error booking appointment:', error);
+    }
 
     res.status(200).json({ sessionId: session.id });
   } catch (error) {

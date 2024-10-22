@@ -49,7 +49,7 @@ function Chat() {
                   <div className={"message max-sm:text-sm rounded-xl"}>
                     <b>AI</b>
                     <br />
-                    {"gptMessage"}
+                    {/* {"gptMessage"} */}
                     {message.gptMessage}
                   </div>
                 </div>
@@ -68,7 +68,7 @@ function Chat() {
             />
             <button
               className={
-                "p-2 rounded-md border-none outline-none bg-[#313131] text-white cursor-pointer shadow-md hover:opacity-80"
+                "p-2 rounded-md border-none outline-none bg-[#1ed159] text-white cursor-pointer shadow-md hover:opacity-80"
               }
               type="submit"
               disabled={!input.trim()}

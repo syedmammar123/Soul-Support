@@ -103,6 +103,7 @@ function LiveSession() {
           ))}
         </div>
       </div>
+      
     </div>
   );
 }

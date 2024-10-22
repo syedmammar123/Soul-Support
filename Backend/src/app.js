@@ -31,6 +31,7 @@ import sessionRoutes from './routes/session.routes.js';
 import appointmentRoutes from './routes/appointment.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import chatRoutes from './routes/supportGpt.routes.js';
+import messageRoutes from './routes/message.routes.js';
 import quizRoutes from './routes/quiz.routes.js';
 
 // Routes declaration
@@ -42,6 +43,7 @@ app.use("/api/v1/appointment", appointmentRoutes);
 app.use("/api/v1/payment", paymentRoutes);
 app.use("/api/v1/chat", chatRoutes);
 app.use("/api/v1/quiz", quizRoutes);
+app.use("/api/v1/message", messageRoutes);
 
 
 //http:localhost:3000/users/register

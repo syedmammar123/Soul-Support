@@ -1,3 +1,4 @@
+import Footer from '../../components/Footer'
 import LiveSession from '../../components/LiveSession'
 import Test from '../../components/Test'
 
@@ -7,7 +8,8 @@ const Session = () => {
         <Test/>
         {/* Happening now! */}
         <br />
-        <LiveSession/>
+          <LiveSession/>
+        <Footer/>
     </div>
   )
 }

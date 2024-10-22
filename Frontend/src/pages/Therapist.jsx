@@ -64,6 +64,7 @@ const Therapist = () => {
         obj.dateTime = data[i].dateTime;
         formattedData.push(obj);
       }
+      
       setUpcomingSessions(formattedData);
       setLoadingSessions(false);
     } catch (error) {
@@ -77,7 +78,8 @@ const Therapist = () => {
   const fetchAppointments = async () => {
     try {
       const response = await axios.get('/api/v1/appointment');
-      const data = response.data.message;
+      const data = response.data.message;    
+      
 
       let formattedData = [];
       for (let i = 0; i < data.length; i++) {
@@ -109,8 +111,12 @@ const Therapist = () => {
         obj.endTime = `${date.getHours()>9?"":"0"}${date.getHours()}:${date.getMinutes()}${date.getMinutes()>9?"":"0"}`;
         obj.time = data[i].time;
         obj.patientName = data[i].patientName;
+        obj.therapistId = data[i].therapist;
+        obj.patientId = data[i].patient;
         formattedData.push(obj);
       }
+      formattedData.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+
       setUpcomingAppointments(formattedData)
       setLoadingAppointments(false);
     } catch (error) {
@@ -193,6 +199,9 @@ const Therapist = () => {
   };
   const handleJoinAppointmentCall = (id) => {
     window.location.href = `/therapist/therapyCall/${id}`;
+  };
+  const handleJoinChat = (patientId,therapistId) => {
+    window.location.href = `chat/${patientId}/${therapistId}`;
   };
 
   const SkeletonCard = () => (
@@ -300,7 +309,12 @@ const Therapist = () => {
                   upcomingAppointments.map((appointment, index) => (
                     <div key={index} className="mb-4 px-2 py-1 mr-1 rounded-lg bg-green-50">
                       <p className="text-lg font-semibold text-green-900 italic">{appointment.patientName}</p>
-                      <p className="text-gray-500 text-xs italic">{appointment.date}</p>
+                      <p className="text-gray-500 text-xs italic flex items-center justify-between">{appointment.date}
+                         <span className="mb-1 px-2 py-1 rounded-xl text-xs bg-green-200 text-blue-800 border border-green-500  cursor-pointer "
+                              onClick={() => handleJoinChat(appointment.patientId,appointment.therapistId)}>
+                          Chat Now!
+                        </span>
+                      </p>
                       <p className="text-gray-500 text-xs italic flex items-center justify-between">
                       {appointment.startTime} - {appointment.endTime}
                       {isAppointNow(appointment.date, appointment.time) === 'live' && (
@@ -319,6 +333,7 @@ const Therapist = () => {
                           Appointment Expired
                         </span>
                       )}
+                       
                     </p>
                     </div>
                   )))

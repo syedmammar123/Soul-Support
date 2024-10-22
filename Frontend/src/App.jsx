@@ -27,6 +27,7 @@ import LiveSession from "./components/LiveSession";
 // import CallRoom from './components/CallRoom/CallRoom'
 
 import About from './pages/About'
+import SendText from "./pages/SendText";
 
 function App() {
   const authUser = useAuthStore((state) => state.authUser);
@@ -83,6 +84,10 @@ function App() {
             <Route
               path="/therapist/therapyCall/:roomId"
               element={<TakeLiveCall />}
+            />
+            <Route
+              path="chat/:patientId?/:therapistId?"
+              element={<SendText />}
             />
           </Route>
         </Routes>

@@ -105,8 +105,14 @@ const TakeTherapy = () => {
         obj.endTime = `${date.getHours()}:${date.getMinutes()}0`;
         obj.time = data[i].time;
         obj.therapistName = data[i].therapistName;
+        obj.therapistId = data[i].therapist;
+        obj.patientId = data[i].patient;
         formattedData.push(obj);
       }
+
+      formattedData.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+
+      
 
       setUpcomingAppointments(formattedData);
       setLoadingAppointments(false);
@@ -327,6 +333,10 @@ const TakeTherapy = () => {
     return "upcoming";
   };
 
+  const handleJoinChat = (patientId,therapistId) => {
+    window.location.href = `chat/${patientId}/${therapistId}`;
+  };
+
   return (
     <div className="min-h-screen bg-green-50">
       <Test />
@@ -348,12 +358,17 @@ const TakeTherapy = () => {
                   <div
                     key={index}
                     className="mb-4 px-2 py-1 mr-1 rounded-lg bg-green-50 "
-                  >
+                  >{console.log(appointment)
+                  }
                     <p className="text-lg font-semibold text-green-900 italic ">
                       Dr. {appointment.therapistName}
                     </p>
-                    <p className="text-gray-500 text-xs italic">
+                    <p className="text-gray-500 text-xs italic flex items-center justify-between">
                       {appointment.date}
+                      <span className="mb-1 px-2 py-1 rounded-xl text-xs bg-green-200 text-blue-800 border border-green-500  cursor-pointer "
+                              onClick={() => handleJoinChat(appointment.patientId,appointment.therapistId)}>
+                          Chat Now!
+                        </span>
                     </p>
                     <p className="text-gray-500 text-xs italic flex items-center justify-between mb-1">
                       {appointment.time}
