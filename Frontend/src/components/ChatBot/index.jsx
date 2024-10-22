@@ -5,7 +5,7 @@ function ChatBot() {
   return (
     <div className={styles.picture}>
       <img className={styles.bgimg} src="images/back2.png" alt="yyyy" />
-      <div className={styles.chatinner}>
+      <div className={styles.chatinner+' px-[65px]'}>
         <div className={styles.chattext}>
           <h1 className={styles.chath1}>Welcome to Chatty</h1>
           <h2 className={styles.chath2}>How can I help you today?</h2>
@@ -19,7 +19,7 @@ function ChatBot() {
           </button>
         </div>
         <div className={styles.chatimg}>
-          <img className={styles.cimage} src="/images/4nh9qbf8.png" alt="" />
+          <img className={styles.cimage + ' hidden md:block'} src="/images/4nh9qbf8.png" alt="" />
         </div>
       </div>
     </div>
