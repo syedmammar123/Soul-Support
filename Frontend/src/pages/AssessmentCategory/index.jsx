@@ -5,6 +5,7 @@ import Test from "../../components/Test";
 import { useNavigate, useParams } from "react-router-dom";
 import GaugeComponent from "react-gauge-component";
 import Footer from "../../components/Footer";
+import { backendUrl } from "../../constants";
 
 const AssessmentCategory = () => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const AssessmentCategory = () => {
       const total = answer.reduce((acc, curr) => acc + curr.answer - 1, 0);
       setScore(total);
       const res = await axios.get(
-        `/api/v1/quiz/result/${AssessmentCategory}/${total}`
+        `${backendUrl}/api/v1/quiz/result/${AssessmentCategory}/${total}`
       );
 
       setResult(res.data.data.results);
@@ -79,7 +80,7 @@ const AssessmentCategory = () => {
     const fetchQuestions = async () => {
       try {
         const response = await axios.get(
-          `/api/v1/quiz/${AssessmentCategory}`
+          `${backendUrl}/api/v1/quiz/${AssessmentCategory}`
         );
 
         setQuestions(response.data.data[0].questions);

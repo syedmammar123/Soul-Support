@@ -3,6 +3,7 @@ import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { backendUrl } from "../../constants";
 
 
 
@@ -15,7 +16,7 @@ const JoinLiveCall = () => {
 
   const fetchUserDetail = async () => {
   try {
-    const response = await axios.get('/api/v1/users/getUser');
+    const response = await axios.get(`${backendUrl}/api/v1/users/getUser`);
     
     const data = response.data.message; 
 
@@ -32,7 +33,7 @@ const JoinLiveCall = () => {
     if (error.response && error.response.status === 401) {
     try {
       // Send a request to the refresh-token route
-      await axios.post('/api/v1/users/refresh-token');
+      await axios.post(`${backendUrl}/api/v1/users/refresh-token`);
       
       // Retry the original request after token refresh
       await fetchUserDetail();

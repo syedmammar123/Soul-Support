@@ -67,7 +67,10 @@ const Login = () => {
             </p>
           </div>
           <div className="coverrrr flex gap-y-6 p-3 max-lg:min-w-96 max-sm:min-w-72">
-            <form onSubmit={handleLogin} className="flex gap-5 flex-col w-full items-center">
+            <form
+              onSubmit={handleLogin}
+              className="flex gap-5 flex-col w-full items-center"
+            >
               <h1 className="text-lg mt-2 mb-1 font-bold">Login </h1>
               <input
                 className="border border-none bg-gray-50 w-full rounded-md text-center p-3 text-base"
@@ -124,7 +127,10 @@ const Login = () => {
             </p>
           </div>
           <div className="coverrrr coverrrr flex gap-y-4 p-3 max-lg:min-w-96 max-sm:min-w-72">
-            <form onSubmit={handleRegisteration} className="flex gap-5 flex-col w-full items-center">
+            <form
+              onSubmit={handleRegisteration}
+              className="flex gap-5 flex-col w-full items-center"
+            >
               <h1 className="text-lg mt-2 mb-1 font-bold">Register</h1>
               <div className="flex max-lg:flex-col justify-between gap-3 w-full">
                 <input

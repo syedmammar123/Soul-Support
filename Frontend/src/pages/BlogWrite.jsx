@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {  useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Test from "../components/Test";
+import { backendUrl } from "../constants";
 
 const BlogWrite = () => {
     const location = useLocation();
@@ -19,7 +20,7 @@ const BlogWrite = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get(`/api/v1/blogs/${query}`);
+            const res = await axios.get(`${backendUrl}/api/v1/blogs/${query}`);
             const blogData = res.data.data;
 
             setBlog(foundBlog || {});
@@ -31,7 +32,7 @@ const BlogWrite = () => {
 
     const fetchUserDetail = async () => {
         try {
-            const response = await axios.get('/api/v1/users/getUser');
+            const response = await axios.get(`${backendUrl}/api/v1/users/getUser`);
             const data = response.data.message;
             if (data.role !== "pro") {
                 navigate("/blogs")
@@ -45,7 +46,7 @@ const BlogWrite = () => {
             if (error.response && error.response.status === 401) {
                 
                 try {
-                    await axios.post('/api/v1/users/refresh-token');
+                    await axios.post(`${backendUrl}/api/v1/users/refresh-token`);
                     await fetchUserDetail();
                 } catch (refreshError) {
                     navigate(`/login/therapist`);
@@ -110,10 +111,10 @@ const BlogWrite = () => {
             const body = formData;
 
             if (state) {
-                await axios.put(`/api/v1/blogs/${state?._id}`, { blogTitle, blogContent });
+                await axios.put(`${backendUrl}/api/v1/blogs/${state?._id}`, { blogTitle, blogContent });
                 
             } else {
-                await axios.post("/api/v1/blogs", body,{
+                await axios.post(`${backendUrl}/api/v1/blogs`, body,{
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
