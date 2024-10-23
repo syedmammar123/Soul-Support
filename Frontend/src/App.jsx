@@ -64,7 +64,7 @@ function App() {
 
           {/* <Route path='/therapist/room/:roomId' element={<CallRoom/>} /> */}
 
-          <Route path="/login/:redirect?" element={authUser ? <Navigate to="/" /> : <Login />} />
+          <Route path="/login" element={authUser ? <Navigate to="/" /> : <Login />} />
           <Route
             path="/register/:emailCode"
             element={<ProfessionalRegistration />}

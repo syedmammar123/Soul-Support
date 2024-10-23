@@ -41,7 +41,7 @@ function SendText() {
   }, []);
 
   useEffect(() => {
-    chatMainRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    chatMainRef.current?.scrollIntoView({ behavior: "smooth"});
   }, [Messages]);
 
   const handleSubmit = async (e) => {

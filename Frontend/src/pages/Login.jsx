@@ -15,6 +15,7 @@ const Login = () => {
   const [gender, setGender] = useState("");
   const navigate = useNavigate();
 
+
   useEffect(() => {
     const storedUser = localStorage.getItem("soulUser");
     if (storedUser) {
