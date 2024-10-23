@@ -72,7 +72,7 @@
   }
 }
 .chath1 {
-  font-size: 50px;
+  font-size: 40px;
   /* line-height: 1.1px; */
   animation-name: roll;
   animation-duration: 2s;
@@ -83,7 +83,7 @@
   font: 26px sans-serif;
   font-weight: 400;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  margin-top: 20px;
+  margin-top: 15px;
   animation-name: slide;
   animation-duration: 2s;
   animation-timing-function: ease-in-out;
@@ -101,7 +101,7 @@
   font: 14px sans-serif;
   font-weight: 100;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  margin-top: 0px;
+  margin-top: 10px;
   animation-name: slidee;
   animation-duration: 2s;
   animation-timing-function: ease-in-out;
@@ -127,9 +127,8 @@
   }
 }
 .Heroo_button {
-  width: 30%;
+  width: 250px;
   align-self: center;
-
   border-radius: 22px;
   border: 2px solid transparent;
   padding: 0.6em 1.2em;
@@ -165,5 +164,16 @@
   to {
     /* returns the sun to its default position */
     transform: translateX(0);
+  }
+}
+
+
+@media screen and (max-width: 500px) and (min-width: 350px) {
+  .Heroo_button{
+    width: 200px;
+    margin-top: 50px;
+  }
+  .chath3{
+    margin-top: 10px;
   }
 }
