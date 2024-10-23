@@ -1,8 +1,8 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { Message } from "../models/chat.js"; 
+import { Message } from "../models/chat.model.js"; 
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-
+import { io } from '../index.js';
 
 const sendMessage = asyncHandler(async (req, res) => {
   const { message, senderId, receiverId } = req.body;
@@ -15,11 +15,13 @@ const sendMessage = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Failed to send message");
   }
 
+  // Emit the message to all connected clients via socket, filteration handled in backend as we don't except alot of users using the chat feature. 
+  io.emit('receiveMessage', savedMessage);
+
   return res.status(201).json(
     new ApiResponse(201, "Message sent successfully", savedMessage)
   );
 });
-
 
 const getMessages = asyncHandler(async (req, res) => {
   const { userId, otherUserId } = req.query;
@@ -40,7 +42,5 @@ const getMessages = asyncHandler(async (req, res) => {
     new ApiResponse(200, "Messages fetched successfully", messages)
   );
 });
-
-
 
 export {sendMessage,getMessages}

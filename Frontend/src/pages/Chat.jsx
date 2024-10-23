@@ -46,8 +46,8 @@ function Chat() {
                   </div>
                 ) : null}
                 <div className={"assistant-message"}>
-                  <div className={"message max-sm:text-sm rounded-xl"}>
-                    <b>AI</b>
+                  <div className={"message max-sm:text-sm rounded-xl ml-1"}>
+                    <b>Luna</b>
                     <br />
                     {/* {"gptMessage"} */}
                     {message.gptMessage}
@@ -55,7 +55,8 @@ function Chat() {
                 </div>
               </React.Fragment>
             ))}
-          <div ref={chatMainRef} />
+          <div className="mt-16" ref={chatMainRef} />
+
         </div>
 
         <div className={"gptInput-container sm:px-28 max-sm:px-5"}>

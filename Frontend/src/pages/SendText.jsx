@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios"; // Import Axios
+import axios from "axios";
+import { io } from "socket.io-client"; // Import socket.io-client
 import Test from "../components/Test";
 import { useParams } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
@@ -9,14 +10,15 @@ function SendText() {
   const [Messages, setMessages] = useState([]);
   const [fetchChatLoading, setFetchChatLoading] = useState(true);
   const chatMainRef = useRef(null);
-  const {patientId,therapistId} = useParams();
+  const { patientId, therapistId } = useParams();
   const authUser = useAuthStore((state) => state.authUser);
-    
+
   const senderId = authUser._id;
-  const receiverId = authUser._id===patientId?therapistId:patientId;
-  const my_role = authUser.role; 
+  const receiverId = authUser._id === patientId ? therapistId : patientId;
+  const my_role = authUser.role;
 
-
+  // Initialize Socket.IO connection
+  const socket = useRef(null);
 
   // Fetch chat log from the server
   const fetchChatLog = async () => {
@@ -37,38 +39,50 @@ function SendText() {
   };
 
   useEffect(() => {
+    socket.current = io("http://localhost:4000"); 
+
+    // Listen for incoming messages
+    socket.current.on("receiveMessage", (newMessage) => {
+      if((newMessage.senderId==patientId || newMessage.senderId==therapistId) && (newMessage.receiverId==patientId || newMessage.receiverId==therapistId))
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+    });
+
     fetchChatLog();
+
+    return () => {
+      socket.current.disconnect();
+    };
   }, []);
 
+  // Scroll to the latest message
   useEffect(() => {
     chatMainRef.current?.scrollIntoView({ behavior: "smooth"});
   }, [Messages]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!input.trim()) return; // Prevent sending empty messages
+    if (!input.trim()) return; 
 
     try {
       // Sending message to the server
-      await axios.post('http://localhost:4000/api/v1/message', {
+      const response = await axios.post('http://localhost:4000/api/v1/message', {
         message: input,
-        senderId, // current user ID
-        receiverId, // other user's ID (in this case, the therapist)
+        senderId, 
+        receiverId, 
       });
 
-      // Clear the input field after sending
       setInput("");
 
-      // Refetch messages after sending
-      fetchChatLog();
+      // Emit the new message to the socket
+      socket.current.emit("sendMessage", response.data.data);
+
     } catch (error) {
       console.error("Failed to send message", error);
     }
   };
 
- return (
+  return (
     <>
-      {/* <Navbar/> */}
       <Test />
       <div className="gptMain max-w-screen overflow-x-hidden">
         <div className={"chatMain"}>
@@ -80,33 +94,56 @@ function SendText() {
           {Messages &&
             Messages.map((message, index) => (
               <React.Fragment key={index}>
-                {message.senderId===senderId  ? (
+                {message.senderId === senderId ? (
                   <div className={"user-message !bg-green-100 "}>
                     <div className={"message max-sm:text-sm rounded-xl "}>
                       <b>You</b>
                       <br />
-                      {/* {my_id==message.senderId?message.message:null} */}
                       {message.message}
                     </div>
+                    <p className="text-xs italic text-gray-400 ml-1 mt-1">
+                      {new Date(message.createdAt).toLocaleString(undefined, {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                      })}
+                    </p>
                   </div>
-                ) : <div className={"assistant-message !bg-orange-100"}>
-                  <div className={"message max-sm:text-sm rounded-xl"}>
-                    <b>{my_role=="pro"?"Patient":"Therapist"}</b>
-                    <br />
-                     {message.message}
-                  </div>
-                </div>}
-                
+                ) : (
+                  <>{ message.message!=null && 
+                  <div className={"assistant-message !bg-orange-100"}>
+                    <div className={"message max-sm:text-sm rounded-xl  ml-1"}>
+                      <b>{my_role === "pro" ? "Patient" : "Therapist"}</b>
+                      <br />
+                      {message.message}
+                    </div>
+                    <p className="text-xs italic text-gray-400 ml-1 mt-1">
+                      {new Date(message.createdAt).toLocaleString(undefined, {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                      })}
+                    </p>
+                 
+                  </div>}
+                  </>
+                )}
               </React.Fragment>
             ))}
-          {Messages?.length<1 && !fetchChatLoading && (
-            <div className="h-full w-full flex items-center justify-center italic  text-gray-600 ">
+          {Messages?.length < 1 && !fetchChatLoading && (
+            <div className="h-full w-full flex items-center justify-center italic text-gray-600 ">
               <p>No chats, send the text to start the chat...</p>
             </div>
           )}
+
+          <div className="mt-16" ref={chatMainRef} />
           
-          <div ref={chatMainRef} />
         </div>
+        
 
         <div className={"gptInput-container sm:px-28 max-sm:px-5"}>
           <form className={"flex gap-2 w-full"} onSubmit={handleSubmit}>
@@ -127,6 +164,7 @@ function SendText() {
             </button>
           </form>
         </div>
+        
       </div>
     </>
   );
