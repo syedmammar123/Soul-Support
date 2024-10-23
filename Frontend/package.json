@@ -21,7 +21,7 @@
     "@stripe/stripe-js": "^3.5.0",
     "@zegocloud/zego-uikit-prebuilt": "^1.8.13",
     "axios": "^1.6.0",
-    "firebase": "^10.5.2",
+    "firebase": "^10.14.1",
     "font-awesome": "^4.7.0",
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
