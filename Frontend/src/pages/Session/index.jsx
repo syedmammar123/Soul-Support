@@ -1,17 +1,17 @@
-import Footer from '../../components/Footer'
-import LiveSession from '../../components/LiveSession'
-import Test from '../../components/Test'
+import Footer from "../../components/Footer";
+import LiveSession from "../../components/LiveSession";
+import Test from "../../components/Navbar";
 
 const Session = () => {
   return (
     <div>
-        <Test/>
-        {/* Happening now! */}
-        <br />
-          <LiveSession/>
-        <Footer/>
+      <Test />
+      {/* Happening now! */}
+      <br />
+      <LiveSession />
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Session
+export default Session;

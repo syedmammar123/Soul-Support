@@ -1,6 +1,6 @@
 import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
 
-import Test from "../components/Test";
+import Test from "../components/Navbar";
 
 const url =
   "https://img.freepik.com/free-photo/medium-shot-smiley-doctor-with-crossed-arms_23-2149355015.jpg?w=900&t=st=1689674186~exp=1689674786~hmac=5321cfcea761752bf2bcf7515d26d7a67a7c7b97f412fe55009400bd75dc4fd7";

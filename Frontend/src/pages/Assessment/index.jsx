@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Faq from "../../components/FAQs";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
-import Test from "../../components/Test";
+import Test from "../../components/Navbar";
 import { faqData, images } from "../../utils/faqData";
 import useAssessment from "../../hooks/useAssessment";
 
@@ -24,7 +24,9 @@ const Assessments = () => {
     <div>
       <Test />
       <div className="p-4 flex flex-col items-center justify-center">
-        <h1 className="text-6xl mt-10 text-center max-sm:text-3xl">Take a free mental health test</h1>
+        <h1 className="text-6xl mt-10 text-center max-sm:text-3xl">
+          Take a free mental health test
+        </h1>
         <p className="text-center w-[42%] max-sm:w-full m-4">
           Our short online mental health screening tests will help you determine
           if you should seek help from a licensed mental health professional to

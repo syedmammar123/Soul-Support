@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Test from "../components/Test";
+import Test from "../components/Navbar";
 import useLogin from "../hooks/useLogin";
 import useRegister from "../hooks/useRegister";
 import GoogleAuth from "../components/GoogleAuth";
@@ -15,7 +15,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const storedUser = localStorage.getItem("soulUser");
@@ -98,7 +97,7 @@ const Login = () => {
               >
                 {loading ? "Logging in..." : "Login"}
               </button>
-              <GoogleAuth/>
+              <GoogleAuth />
             </form>
 
             <div className="altLogin mt-1 mb-1">

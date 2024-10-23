@@ -9,7 +9,7 @@ import BlogWrite from "./pages/BlogWrite";
 import Login from "./pages/Login";
 import Therapist from "./pages/Therapist";
 import Jokes from "./pages/Jokes";
-import Test from "./components/Test";
+import Test from "./components/Navbar";
 import Assessments from "./pages/Assessment";
 import AssessmentCategory from "./pages/AssessmentCategory";
 import Session from "./pages/Session";
@@ -26,7 +26,7 @@ import LiveSession from "./components/LiveSession";
 
 // import CallRoom from './components/CallRoom/CallRoom'
 
-import About from './pages/About'
+import About from "./pages/About";
 import SendText from "./pages/SendText";
 
 function App() {
@@ -51,7 +51,7 @@ function App() {
           <Route path="/blog/:id" element={<BlogSingle />} />
           <Route path="/write" element={<BlogWrite />} />
 
-          <Route path="/about" element={<About/>}/>
+          <Route path="/about" element={<About />} />
 
           {/* info session */}
           <Route path="/sessions" element={<Session />} />
@@ -64,7 +64,10 @@ function App() {
 
           {/* <Route path='/therapist/room/:roomId' element={<CallRoom/>} /> */}
 
-          <Route path="/login" element={authUser ? <Navigate to="/" /> : <Login />} />
+          <Route
+            path="/login"
+            element={authUser ? <Navigate to="/" /> : <Login />}
+          />
           <Route
             path="/register/:emailCode"
             element={<ProfessionalRegistration />}

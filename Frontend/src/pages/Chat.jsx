@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Test from "../components/Test";
+import Test from "../components/Navbar";
 import useChat from "../hooks/useChat";
 
 function Chat() {
@@ -56,7 +56,6 @@ function Chat() {
               </React.Fragment>
             ))}
           <div className="mt-16" ref={chatMainRef} />
-
         </div>
 
         <div className={"gptInput-container sm:px-28 max-sm:px-5"}>

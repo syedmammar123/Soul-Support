@@ -1,100 +1,148 @@
-import{ useEffect, useState, } from 'react';
-import { Link,Navigate, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faCircleInfo, faBriefcase, faAddressBook } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios'
-// import Cookies from 'js-cookie';
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import "../App.css";
+import axios from "axios";
+import { useAuthStore } from "../store/authStore";
+import useLogout from "../hooks/useLogout";
 
-function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate()
+const Navbar = () => {
+  const [showMediaIcons, setShowMediaIcons] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-//   const username=Cookies.get("username")
-//   const role=Cookies.get("role")
+  const authUser = useAuthStore((state) => state.authUser);
+  axios.defaults.withCredentials = true;
 
-// useEffect(()=>{
-//   if(Cookies.get("role")){
-//     setIsLoggedIn(true)
-//   }
-// },[])
+  const { loading, logout } = useLogout();
 
+  const handleLogout = () => {
+    logout();
+  };
 
-  
-//    const logout =  () => {
-//     try {
-//       // const response = await axios.post('http://localhost:4000/logout');
-  
-//       // if (response.status === 200) {
-//         Cookies.remove("username");
-//         Cookies.remove("role");
-//         setIsLoggedIn(false);
-//         navigate('/');
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
+  const commonLiClass =
+    "bg-green-200 rounded-full w-20 py-1 text-center font-semibold transition-transform duration-300 hover:scale-[1.1] origin-bottom";
+  const commonButtonClass =
+    "bg-green-500 rounded-full text-center text-lg font-semibold font-mono text-white transition-transform duration-300 hover:scale-[1.1] origin-bottom";
 
-  const signup = ()=>{
-    navigate('/login')
-  }
-  
+  const renderTherapyAndSignUpButtons = () => {
+    if (showMediaIcons) {
+      return (
+        <>
+          <li>
+            <button
+              className={`${commonButtonClass} w-40`}
+              onClick={() => navigate("/therapy")}
+            >
+              Therapy
+            </button>
+          </li>
+          <li>
+            {authUser ? (
+              <button
+                className={`${commonButtonClass} w-40`}
+                onClick={handleLogout}
+                disabled={loading}
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                className={`${commonButtonClass} w-40`}
+                onClick={handleLogin}
+              >
+                Log In
+              </button>
+            )}
+          </li>
+        </>
+      );
+    }
+    return null;
+  };
 
   return (
-    <nav className="navbar">
-      <div className="logo" >
-        <Link to="#">
-          <img id="soul" src="images/NavLogo.png" alt=""   />
-        </Link>
-      </div>
+    <>
+      <nav className="main-nav z-10 min-w-screen max-w-screen">
+        <header className="logo">
+          <img
+            src="/images/NavLogo.png"
+            className="w-36 cursor-pointer"
+            alt=""
+            onClick={() => navigate("/")}
+          />
+        </header>
 
-      <ul className="navitem">
-        {/* {(role=='user' || role==null) ? */}
-        <>
-        <li>
-          <Link className="navlinks" to="/">
-            <FontAwesomeIcon icon={faHouse} />Home
-          </Link>
-        </li>
-        <li>
-          <Link className="navlinks" to="/chat">
-            <FontAwesomeIcon icon={faHouse} />Chats
-          </Link>
-        </li>
-        <li>
-          <Link className="navlinks" to="/careers">
-            <FontAwesomeIcon icon={faCircleInfo} />Careers
-          </Link>
-        </li>
-        <li>
-          <Link className="navlinks" to="/blogs">
-            <FontAwesomeIcon icon={faHouse} />Blogs
-          </Link>
-        </li>
-        <li>
-          <Link className="navlinks" to="/quiz">
-            <FontAwesomeIcon icon={faCircleInfo} />Quiz
-          </Link>
-        </li>
-        <li>
-         
-        </li>
-        <li>
-          <Link className="navlinks" to="/therapy">
-            <FontAwesomeIcon icon={faAddressBook} />Therapy
-          </Link>
-        </li>
-        </> 
-        {/* :null} */}
-        {/* {!isLoggedIn ?( */}
-          <button className="signup signup2`" onClick={signup}>Sign up</button>
-      {/* //   ):
-      //   (<button className={`${stylea.signup} ${stylea.signup2}`} onClick={logout}>Logout</button>
-      //   )
-      // } */}
-      </ul>
-    </nav>
+        <div
+          className={
+            showMediaIcons ? "menu-link mobile-menu-link" : "menu-link"
+          }
+        >
+          <ul>
+            {["Home", "AI-Chat", "Quiz", "Blogs", "Careers", "Sessions"].map(
+              (item, index) => (
+                <li
+                  key={index}
+                  className={`${commonLiClass} ${
+                    pathname.includes(item.toLowerCase())
+                      ? "text-white bg-green-600"
+                      : ""
+                  } ${
+                    pathname === "/" && item === "Home"
+                      ? "text-white bg-green-600"
+                      : ""
+                  }`}
+                >
+                  {item === "Home" ? (
+                    <Link to={`/`}>{item}</Link>
+                  ) : (
+                    <Link to={`/${item.toLowerCase()}`}>{item}</Link>
+                  )}
+                </li>
+              )
+            )}
+            {renderTherapyAndSignUpButtons()}
+          </ul>
+        </div>
+
+        <div className="nav-CTA">
+          <button
+            className={`${commonButtonClass} w-24 hideNavBtns mr-2 `}
+            onClick={() => navigate("/therapy")}
+          >
+            Therapy
+          </button>
+          {authUser ? (
+            <button
+              className={`${commonButtonClass} w-24 hideNavBtns`}
+              onClick={handleLogout}
+              disabled={loading}
+            >
+              Logout
+            </button>
+          ) : (
+            <button
+              className={`${commonButtonClass} w-24 hideNavBtns`}
+              onClick={handleLogin}
+            >
+              Log In
+            </button>
+          )}
+
+          <div className="hamburger-menu">
+            <Link href="#" onClick={() => setShowMediaIcons(!showMediaIcons)}>
+              <FontAwesomeIcon icon={faBars} />
+            </Link>
+          </div>
+        </div>
+      </nav>
+    </>
   );
-}
+};
 
 export default Navbar;

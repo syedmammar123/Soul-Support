@@ -1,6 +1,6 @@
 import HeroSection from "../components/HeroSection";
 import Footer from "../components/Footer";
-import Test from "../components/Test";
+import Test from "../components/Navbar";
 import Reviews from "../components/Reviews";
 import SoulfulSessions from "../components/SoulfulSessions";
 import ChatBot from "../components/ChatBot";
