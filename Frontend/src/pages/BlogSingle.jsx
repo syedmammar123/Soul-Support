@@ -29,15 +29,14 @@ const BlogSingle = () => {
 
       const foundBlog = blogData.find((item) => item._id === id);
       setBlog(foundBlog || {});
-      if (authUser._id===foundBlog?.author) {
-        setShowControls(true)   
-             
-  }
+      if (authUser?._id===foundBlog?.author) {
+        setShowControls(true)           
+      }
       setLoading(false);
     } catch (err) {
       console.error(err);
       setError("Failed to fetch data");
-      setLoading(false);
+        setLoading(false);
     }
   };
 
