@@ -1,7 +1,7 @@
 
 /* Blog.module.css -----------------------------------------------------*/
 .blog3 {
-  margin-top: 20vh;
+  margin-top: 10vh;
   height: 50vh;
   margin: 10vh 10vw 10vh 10vw;
 }
@@ -37,7 +37,7 @@
   margin-bottom: 5vh;
 }
 .Heroooo_button {
-  width: 25%;
+  width: 250px;
   border-radius: 22px;
   border: 2px solid transparent;
   padding: 0.6em 1.2em;
@@ -48,7 +48,6 @@
   border-color: #001147;
   color: #001147;
   background-color: white;
-  margin: 0 auto;
   box-shadow: 2px 2px 5px gray;
   font-weight: 500;
   color: #001147;
@@ -81,6 +80,9 @@
   }
   .overlay h1 {
     font-size: 40px;
+  }
+  .Heroooo_button{
+    width: 200px;
   }
 }
 #but {

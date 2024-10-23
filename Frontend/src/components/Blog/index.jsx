@@ -5,9 +5,9 @@ function Blog() {
   const navigate = useNavigate();
 
   return (
-    <section className={styles.blog3} style={{ marginBottom: "128px", marginTop: "128px" }}>
+    <section className={`${styles.blog3 }`} style={{ marginBottom: "128px", marginTop: "128px" }}>
       <div className={styles.section3}>
-        <img src="images/bll.jpg" alt="" />
+        <img src="images/bll.jpg" alt="" className='hidden md:block' />
         <div className={styles.overlay}>
           <h1>Want To Read Something?</h1>
           <h3>
