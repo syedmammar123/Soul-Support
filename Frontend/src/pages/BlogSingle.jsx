@@ -5,6 +5,7 @@ import Test from "../components/Test";
 import Footer from "../components/Footer";
 import { backendUrl } from "../constants";
 import Spinner from "../components/Spinner";
+import { useAuthStore } from "../store/authStore";
 
 
 const BlogSingle = () => {
@@ -15,6 +16,7 @@ const BlogSingle = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showControls, setShowControls] = useState(false);
+  const authUser = useAuthStore((state) => state.authUser);
 
 
 
@@ -30,6 +32,10 @@ const BlogSingle = () => {
 
       const foundBlog = blogData.find(item => item._id === id);
       setBlog(foundBlog || {});
+      if (authUser._id===foundBlog?.author) {
+        setShowControls(true)   
+             
+  }
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -38,14 +44,14 @@ const BlogSingle = () => {
     }
   };
 
+  
+
     const fetchUserDetail = async () => {
     try {
       const response = await axios.get(`${backendUrl}/api/v1/users/getUser`);
       const data = response.data.message;
-      if (data.role === "pro") {
-        data._id === blog?.author
-        console.log(data._id===blog.author);
-        
+      if ((data.role === "pro" && data._id===blog.author) || (authUser._id===blog.author)) {
+        console.log(authUser._id===blog.author)
         setShowControls(true)        
       }
     } catch (error) {
@@ -131,7 +137,7 @@ const BlogSingle = () => {
 
           <br />
           <br />
-          {showControls &&
+          { 
           <>
              <h4 className="font-bold text-2xl">Read More</h4>
           <div className="flex items-center justify-around w-[100%] m-auto flex-wrap">

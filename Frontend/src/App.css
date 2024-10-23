@@ -980,7 +980,7 @@ body {
     rgb(254, 255, 255),
     rgba(57, 235, 102, 0.445)
   );
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 .add {
@@ -1047,12 +1047,12 @@ body {
   margin: 0;
 }
 
-.item .buttons {
+.item .buttonss {
   display: flex;
   justify-content: space-around;
 }
 
-.item .buttons :last-child {
+.item .buttonss :last-child {
   cursor: pointer;
   color: white;
   background-color: teal;
@@ -1063,7 +1063,7 @@ body {
   border-radius: 15px;
 }
 
-.item .buttons :last-child:hover {
+.item .buttonss :last-child:hover {
   box-shadow: rgba(0, 0, 0, 0.15) 0 3px 9px 0;
   transform: translateY(-2px);
 }
@@ -1106,12 +1106,12 @@ body {
     gap: 5px;
   }
 
-  .item .buttons {
+  .item .buttonss {
     display: flex;
     justify-content: space-between;
   }
 
-  .item .buttons :last-child {
+  .item .buttonss :last-child {
     width: 40%;
   }
 }
@@ -1142,7 +1142,7 @@ body {
     gap: 5px;
   }
 
-  .item .buttons {
+  .item .buttonss {
     display: flex;
     justify-content: space-between;
   }
