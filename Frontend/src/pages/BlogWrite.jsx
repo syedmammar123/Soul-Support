@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast from "react-hot-toast";
 import {  useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Test from "../components/Test";
@@ -74,7 +73,7 @@ const BlogWrite = () => {
 
     const uploadImage = () => {
         if (imageUpload == null) return;
-        toast("Uploading Image");
+        toast.success("Uploading Image");
         
         setUrl(URL.createObjectURL(imageUpload))
     };
@@ -119,9 +118,9 @@ const BlogWrite = () => {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
-                toast("Blog Uploaded Successfully!");
+                toast.success("Blog Uploaded Successfully!");
             }
-            toast(`${state ? "Blog Updated Successful!" : "Blog Uploaded Successfully!"}`);
+            toast.success(`${state ? "Blog Updated Successful!" : "Blog Uploaded Successfully!"}`);
             setTimeout(()=>{
                 navigate("/therapist");
             },2000)
@@ -165,7 +164,6 @@ const BlogWrite = () => {
                             <div className="buttons">
                                 <button disabled={url === null} onClick={handleSubmit}>Publish</button>
                             </div>
-                            <ToastContainer />
                         </div>
                     </div>
                 </div>

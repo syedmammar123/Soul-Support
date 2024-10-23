@@ -173,16 +173,16 @@ const BlogList = () => {
             key={index}
             className="group rounded border border-gray-200 text-center w-[30%] p-4 py-4 flex justify-between items-center flex-col h-[500px] my-4 max-lg:w-[90%] max-lg:mx-auto max-lg:shadow-lg"
           >
-            <div className="w-72 h-52 bg-red-500 overflow-hidden rounded-lg">
+            <div className="w-72 h-52 bg-gray-300 overflow-hidden rounded-lg">
               <img
                 src={item.bannerPhoto}
                 alt=""
                 className="w-full h-full object-cover transform transition-transform duration-300 ease-in-out group-hover:scale-105 rounded-lg"
               />
             </div>
-            <h6 className="text-start font-semibold">{item.title}</h6>
+            <h6 className=" font-semibold font-serif text-center">{item.title}</h6>
 
-            <p className="text-start w-full">{item.displaytext}...</p>
+            <p className="text-start w-full font-serif ">{item.displaytext}...</p>
 
             <div className="border p-2 hover:bg-green-100 ">
               <button onClick={() => navigate(`/blog/${item._id}`)}>

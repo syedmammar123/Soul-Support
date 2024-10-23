@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Test from "../components/Test";
 import Footer from "../components/Footer";
@@ -43,6 +43,8 @@ const BlogSingle = () => {
       const data = response.data.message;
       if (data.role === "pro") {
         data._id === blog?.author
+        console.log(data._id===blog.author);
+        
         setShowControls(true)        
       }
     } catch (error) {
@@ -84,6 +86,10 @@ const BlogSingle = () => {
     });
   }, [id]);
 
+  const formatContent = (content) => {
+    return content.replace(/\n/g, '<br />');
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -93,13 +99,13 @@ const BlogSingle = () => {
 
       <div className="single">
         <div className="content1">
-          <h1>{blog?.title}</h1>
+          <h1 className="font-serif !text-2xl lg:!text-5xl !mb-10 underline !text-green-500 font-bold text-center">{blog?.title}</h1>
           <div className="contentImg">
             <img src={blog?.bannerPhoto} alt={blog?.title} />
           </div>
-          <div className="user">
+          <div className="user mb-5 mt-5 sm:mt-0">
             <img src={blog.picUrl} alt="Author" />
-            <div className="info">
+            <div className="info text-blue-950">
               <span>{blog.name}</span>
               <div className="italic text-sm font-normal text-gray-600">{blog?.updatedAt?.slice(0, 10)}</div>
             </div>
@@ -116,12 +122,15 @@ const BlogSingle = () => {
           </div>
 
           <div>
-            <p>{blog?.content}</p>
+             <p
+              className="font-serif text-content"
+              dangerouslySetInnerHTML={{ __html: formatContent(blog?.content) }}
+            />
           </div>
 
           <br />
           <br />
-          {showControls?null:
+          {showControls &&
           <>
              <h4 className="font-bold text-2xl">Read More</h4>
           <div className="flex items-center justify-around w-[100%] m-auto flex-wrap">
@@ -131,8 +140,8 @@ const BlogSingle = () => {
                   <div className="w-72 h-52 overflow-hidden rounded-lg">
                     <img src={item.bannerPhoto} alt="" className="w-full h-full object-cover transform transition-transform duration-300 ease-in-out group-hover:scale-105 rounded-lg" />
                   </div>
-                  <h6 className="text-start font-semibold">{item.title}</h6>
-                  <p className="text-start w-full">{item.displaytext}</p>
+                  <h6 className="text-start font-semibold font-serif">{item.title}</h6>
+                  <p className="text-start w-full font-serif">{item.displaytext}...</p>
                   <div className="border p-2 hover:bg-green-100">
                     <button onClick={() => navigate(`/blog/${item._id}`)}>Read More</button>
                   </div>

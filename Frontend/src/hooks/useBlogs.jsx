@@ -14,7 +14,6 @@ const useBlogs = () => {
         res.data.data[i].displaytext = slicedContent;
       }
       setBlogs(res.data.data);
-      console.log(res.data.data);
     } catch (err) {
       console.log(err);
     } finally {

@@ -5,6 +5,7 @@ import { app } from "../firebase/firebase";
 import { useAuthStore } from "../store/authStore";
 import axios from "axios";
 import { backendUrl } from "../constants";
+import toast from "react-hot-toast";
 
 const useGoogleLogin = () => {
   const navigate = useNavigate();
@@ -44,9 +45,12 @@ const useGoogleLogin = () => {
       const userData = await response.data.data.user;
       setAuthUser(userData);
       navigate("/");
+      toast.success("Logged in successfully!");
     } catch (error) {
       console.log("Could not sign in with google", error);
       setError("Could not sign in with google" + error);
+      toast.error("Could not sign in with google!");
+
     } finally {
       setLoading(false);
     }
