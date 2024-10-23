@@ -19,7 +19,6 @@ const useLogin = () => {
   axios.defaults.withCredentials = true;
 
   const login = async (email, password) => {
-    console.log(redirect);
     setLoading(true);
     try {
       const response = await axios.post(`${backendUrl}/api/v1/users/login`, {
@@ -31,9 +30,11 @@ const useLogin = () => {
       setAuthUser(userData);
 
       if (userData.role === "user") {
-        navigate(redirect ? redirect : "/");
+        
+        // navigate(`/${redirect ? redirect : "/"}`);        
+        navigate("/");        
       } else if (userData.role === "pro") {
-        navigate(`/${redirect != undefined ? redirect : "therapist"}`);
+            navigate(`/therapist"`);
       } else if (response.data.role === "instructor") {
         navigate("/instructor/session");
       }

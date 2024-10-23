@@ -15,20 +15,6 @@ const Login = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("soulUser");
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      if (user.role == "user") {
-        navigate(`/`);
-      }
-      if (user.role == "pro") {
-        navigate("/therapist");
-      }
-    }
-  }, []);
 
   const { login, loading } = useLogin();
   const { registeration, registerLoading } = useRegister();

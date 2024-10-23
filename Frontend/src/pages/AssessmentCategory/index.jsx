@@ -219,7 +219,7 @@ const AssessmentCategory = () => {
               <div className="flex items-center justify-evenly w-full mt-4 ">
                 <button
                   className="bg-green-500 rounded-xl p-2  text-white font-semibold"
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/therapy")}
                 >
                   Book Appointment
                 </button>
