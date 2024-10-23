@@ -4,6 +4,7 @@ import Test from "../components/Test";
 import useLogin from "../hooks/useLogin";
 import useRegister from "../hooks/useRegister";
 import GoogleAuth from "../components/GoogleAuth";
+import Spinner from "../components/Spinner";
 // import Cookies from "js-cookie";
 
 const Login = () => {
@@ -96,7 +97,7 @@ const Login = () => {
                 type="submit"
                 disabled={loading}
               >
-                {loading ? "Logging in..." : "Login"}
+                {loading ? <Spinner/>  : "Login"}
               </button>
               <GoogleAuth/>
             </form>
@@ -198,7 +199,7 @@ const Login = () => {
                 type="submit"
                 disabled={registerLoading}
               >
-                {registerLoading ? "Registering..." : "Register"}
+                {registerLoading ? <Spinner/> : "Register"}
               </button>
             </form>
 
