@@ -8,6 +8,7 @@ import fs from "fs";
 import mongoose from "mongoose";
 import generateToken from "../utils/generateTokens.temp.js";
 import jwt from "jsonwebtoken";
+import bcryptjs from "bcryptjs";
 
 const generateRefreshAndAccessTokens = async (userId) => {
     try {

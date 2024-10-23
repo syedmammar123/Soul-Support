@@ -42,8 +42,6 @@ const useGoogleLogin = () => {
       });
 
       const userData = await response.data.data.user;
-      console.log(userData);
-      console.log("res", response.data);
       setAuthUser(userData);
       navigate("/");
     } catch (error) {
