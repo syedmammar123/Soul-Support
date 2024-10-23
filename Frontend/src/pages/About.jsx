@@ -6,7 +6,7 @@ function About() {
     return(
         <>
             <Test/>
-            <HeroSection/>
+                <HeroSection/>
             <Footer />
         </>
     )
