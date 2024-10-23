@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { backendUrl } from "../constants";
+import toast from "react-hot-toast";
 
 const useRegister = () => {
   const [registerLoading, setRegisterLoading] = useState(false);
@@ -44,11 +45,12 @@ const useRegister = () => {
           gender,
         }
       );
+      toast.success('Registered successfully! Please login to continue');
       console.log(response.data);
       setRegister(false);
     } catch (error) {
       console.error(error);
-      alert("error in registeration! Try again");
+      toast.error("error in registeration! Try again");
     } finally {
       setRegisterLoading(false);
     }
