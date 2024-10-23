@@ -1386,7 +1386,7 @@ input[type="file"] {
   align-items: flex-start;
   justify-content: flex-start;
   width: 95%;
-  height: 85%;
+  /* height: 85%; */
   overflow-y: auto;
   scroll-behavior: smooth;
   /* padding: 10px; */
