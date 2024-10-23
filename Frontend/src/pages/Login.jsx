@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Test from "../components/Test";
 import useLogin from "../hooks/useLogin";
 import useRegister from "../hooks/useRegister";
+import GoogleAuth from "../components/GoogleAuth";
 // import Cookies from "js-cookie";
 
 const Login = () => {
@@ -97,6 +98,7 @@ const Login = () => {
               >
                 {loading ? "Logging in..." : "Login"}
               </button>
+              <GoogleAuth/>
             </form>
 
             <div className="altLogin mt-1 mb-1">
