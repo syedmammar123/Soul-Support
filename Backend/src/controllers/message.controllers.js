@@ -44,5 +44,3 @@ const getMessages = asyncHandler(async (req, res) => {
 
 
 export {sendMessage,getMessages}
-
-

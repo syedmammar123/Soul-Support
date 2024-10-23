@@ -9,14 +9,14 @@ import webHookRoute from './routes/webHook.routes.js';
 app.use("/api/v1/webhook", express.raw({type: 'application/json'}), webHookRoute);
 
 
-// app.use(cors({
-//     origin: ['http://localhost:5173', 'http://localhost:3001', 'http://localhost:3000'],
-//     credentials: true
-// }));
 app.use(cors({
-    origin: '*',
+    origin: ['http://localhost:5173', 'http://localhost:3001', 'http://localhost:3000'],
     credentials: true
 }));
+// app.use(cors({
+//     origin: '*',
+//     credentials: true
+// }));
 
 app.use(express.json()); //parse json object from client in req 
 app.use(express.urlencoded({ extended: true })); //parse string or array req from client in url
