@@ -14,7 +14,7 @@ function Chat() {
   }, [Messages]);
 
   useEffect(() => {
-    fetchChatLog();
+    fetchChatLog(setMessages);
   }, []);
 
   const handleSubmit = (e) => {

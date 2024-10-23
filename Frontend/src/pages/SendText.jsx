@@ -70,7 +70,7 @@ function SendText() {
     <>
       {/* <Navbar/> */}
       <Test />
-      <div className="gptMain max-w-screen overflow-x-hidden bg">
+      <div className="gptMain max-w-screen overflow-x-hidden">
         <div className={"chatMain"}>
           {fetchChatLoading && (
             <div className="h-full w-full text-center flex items-center justify-center">
