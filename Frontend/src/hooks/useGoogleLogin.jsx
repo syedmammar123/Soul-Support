@@ -46,9 +46,12 @@ const useGoogleLogin = () => {
       setAuthUser(userData);
       toast.success("Logged in successfully!");
       navigate("/");
+      toast.success("Logged in successfully!");
     } catch (error) {
       console.log("Could not sign in with google", error);
       setError("Could not sign in with google" + error);
+      toast.error("Could not sign in with google!");
+
     } finally {
       setLoading(false);
     }

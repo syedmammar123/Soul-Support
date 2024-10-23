@@ -4,6 +4,7 @@ import { io } from "socket.io-client"; // Import socket.io-client
 import Test from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
+import Spinner from "../components/Spinner";
 
 function SendText() {
   const [input, setInput] = useState("");
@@ -95,7 +96,7 @@ function SendText() {
         <div className={"chatMain"}>
           {fetchChatLoading && (
             <div className="h-full w-full text-center flex items-center justify-center">
-              <p>Loading...</p>
+              <Spinner/>
             </div>
           )}
           {Messages &&

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Test from "../components/Navbar";
 import useChat from "../hooks/useChat";
+import Spinner from "../components/Spinner";
 
 function Chat() {
   const [input, setInput] = useState("");
@@ -30,7 +31,7 @@ function Chat() {
         <div className={"chatMain"}>
           {fetchChatLoading && (
             <div className="h-full w-full text-center">
-              <p>Loading...</p>
+              <Spinner/>
             </div>
           )}
           {Messages &&

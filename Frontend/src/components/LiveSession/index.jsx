@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./index.module.css";
 import useLiveSession from "../../hooks/useLiveSession";
+import Spinner from "../Spinner";
 
 function LiveSession() {
   const [sessionData, setSessionData] = useState([]);
@@ -43,7 +44,7 @@ function LiveSession() {
       <div className={styles.carouselContainerrr}>
         {loading && (
           <div className="h-full w-full flex items-center justify-center">
-            <p>Loading...</p>
+            <Spinner/>
           </div>
         )}
         <div className={`${styles.carousel} h-[80%] w-[80%] max-lg:h-fit items-stretch`}>

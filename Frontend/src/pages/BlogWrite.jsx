@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
+import {  useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Test from "../components/Navbar";
 import { backendUrl } from "../constants";
@@ -98,8 +97,23 @@ const BlogWrite = () => {
       formData.append("bannerPhoto", imageUpload);
     }
 
-    try {
-      const body = formData;
+    const uploadImage = () => {
+        if (imageUpload == null) return;
+        toast.success("Uploading Image");
+        
+        setUrl(URL.createObjectURL(imageUpload))
+    };
+    // const uploadImage = () => {
+    //     if (imageUpload == null) return;
+    //     toast("Uploading Image");
+    //     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    //     uploadBytes(imageRef, imageUpload).then((url) => {
+    //         getDownloadURL(url.ref).then((url) => {
+    //             console.log(url);
+    //             setUrl(url);
+    //         });
+    //     });
+    // };
 
       if (state) {
         await axios.put(`${backendUrl}/api/v1/blogs/${state?._id}`, {
@@ -120,7 +134,7 @@ const BlogWrite = () => {
       setTimeout(() => {
         navigate("/therapist");
       }, 2000);
-    } catch (err) {
+    } catch(err) {
       console.log(err.message);
     }
   };
@@ -138,12 +152,64 @@ const BlogWrite = () => {
               onChange={(e) => setBlogTitle(e.target.value)}
             />
 
-            <div>
-              <textarea
-                className="editorContainer"
-                value={blogContent}
-                onChange={(e) => setBlogContent(e.target.value)}
-              />
+            if (state) {
+                await axios.put(`${backendUrl}/api/v1/blogs/${state?._id}`, { blogTitle, blogContent });
+                
+            } else {
+                await axios.post(`${backendUrl}/api/v1/blogs`, body,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                toast.success("Blog Uploaded Successfully!");
+            }
+            toast.success(`${state ? "Blog Updated Successful!" : "Blog Uploaded Successfully!"}`);
+            setTimeout(()=>{
+                navigate("/therapist");
+            },2000)
+            
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
+
+    return (
+        <>
+            <Test />
+            <div className="write-main-container">
+                <div className="add">
+                    <div className="content">
+                        <input type="text" placeholder="Title" value={blogTitle} onChange={e => setBlogTitle(e.target.value)} />
+                        
+                        <div>
+                            <textarea
+                                className="editorContainer"
+                                value={blogContent}
+                                onChange={e => setBlogContent(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    
+                    <div className="menu">
+                        <div className="item">
+                            <h1>Publish Blog</h1>
+                            {url ? (
+                                <div className="item">
+                                    <img src={url} alt="" />
+                                    
+                                </div>
+                            ) : (
+                                <div>
+                                    <input type="file" id="file" onChange={handleImageChange} />
+                                    <label className="file" htmlFor="file">Upload Image</label>
+                                </div>
+                            )}
+                            <div className="buttons">
+                                <button disabled={url === null} onClick={handleSubmit}>Publish</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
           </div>
 
