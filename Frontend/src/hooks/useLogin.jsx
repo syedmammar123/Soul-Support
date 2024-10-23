@@ -29,20 +29,23 @@ const useLogin = () => {
       const userData = response.data.data.user;
       setAuthUser(userData);
 
-      if (userData.role == "user") {
+      if (userData.role === "user") {
         navigate(redirect ? redirect : "/");
-      } else if (userData.role == "pro") {
+      } else if (userData.role === "pro") {
         navigate(`/${redirect != undefined ? redirect : "therapist"}`);
-      } else if (response.data.role == "instructor") {
+      } else if (response.data.role === "instructor") {
         navigate("/instructor/session");
       }
       toast.success("Logged in successfully!");
     } catch (error) {
-      toast.error(error);
+      // Handling the error by displaying a more readable message
+      const errorMessage = error.response?.data?.message || "An error occurred. Please try again.";
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
   };
+
 
   return { loading, login };
 };
