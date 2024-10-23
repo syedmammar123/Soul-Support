@@ -194,7 +194,7 @@ function SendText() {
 
   // Scroll to the latest message
   useEffect(() => {
-    chatMainRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    chatMainRef.current?.scrollIntoView({ behavior: "smooth"});
   }, [Messages]);
 
   const handleSubmit = async (e) => {
@@ -222,7 +222,7 @@ function SendText() {
   return (
     <>
       <Test />
-      <div className="gptMain max-w-screen overflow-x-hidden bg">
+      <div className="gptMain max-w-screen overflow-x-hidden">
         <div className={"chatMain"}>
           {fetchChatLoading && (
             <div className="h-full w-full text-center flex items-center justify-center">

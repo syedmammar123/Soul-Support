@@ -10,11 +10,11 @@ function Chat() {
   const { submit, fetchChatLoading, fetchChatLog } = useChat();
 
   useEffect(() => {
-    chatMainRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    chatMainRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [Messages]);
 
   useEffect(() => {
-    fetchChatLog();
+    fetchChatLog(setMessages);
   }, []);
 
   const handleSubmit = (e) => {
