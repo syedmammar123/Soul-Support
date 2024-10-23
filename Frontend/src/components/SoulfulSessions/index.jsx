@@ -39,9 +39,10 @@ function SoulfulSessions() {
               ))}
             </ul>
 
-             <button id="ins_butn" className="absolute lg:relative border-[2px] border-[#001147] text-[#001147] bg-white py-3 rounded-3xl w-[200px] lg:w-[250px] left-[50%] lg:left-auto lg:ml-0 transform -translate-x-1/2 lg:transform-none mt-[60vh] lg:mt-0 shadow-xl font-semibold text-sm  transition-all hover:bg-[#001147] hover:text-white">
+             <button id="ins_butn" className="absolute lg:relative border-[2px] border-[#001147] text-[#001147] bg-white py-3 rounded-3xl w-[200px] lg:w-[250px] left-[50%] lg:left-auto lg:ml-0 transform -translate-x-1/2 lg:transform-none mt-[92vh] lg:mt-0 shadow-xl font-semibold text-sm  transition-all hover:bg-[#001147] hover:text-white -10">
               <Link to="/sessions">View Sessions</Link>
             </button>
+          
           </div>
         </div>
       </div>
