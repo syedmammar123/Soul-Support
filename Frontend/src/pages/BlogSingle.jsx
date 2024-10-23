@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Test from "../components/Test";
 import Footer from "../components/Footer";
 import { backendUrl } from "../constants";
+import Spinner from "../components/Spinner";
 
 
 const BlogSingle = () => {

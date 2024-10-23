@@ -13,6 +13,7 @@ import "swiper/css/effect-creative";
 import { Autoplay, EffectFade, Pagination, Navigation } from "swiper/modules";
 import Footer from "../components/Footer";
 import useBlogs from "../hooks/useBlogs";
+import Spinner from "../components/Spinner";
 
 const BlogList = () => {
   const navigate = useNavigate();
@@ -164,7 +165,7 @@ const BlogList = () => {
       </div>
       {loading && (
         <div className="w-full text-center">
-          <p>Loading...</p>
+          <Spinner/>
         </div>
       )}
       <div className="flex items-center justify-around  w-[95%] m-auto flex-wrap max-lg:flex-col">
