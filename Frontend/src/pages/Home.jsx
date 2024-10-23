@@ -15,9 +15,9 @@ function Home() {
       <HeroSection />
       <HowItWorks />
       <LiveSession />
-      {/* <Blog />
+      <Blog />
       <ChatBot />
-      <SoulfulSessions /> */}
+      <SoulfulSessions />
       <Reviews />
       <Footer />
     </>
