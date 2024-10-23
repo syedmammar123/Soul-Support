@@ -204,7 +204,7 @@ const BlogWrite = () => {
                                     <label className="file" htmlFor="file">Upload Image</label>
                                 </div>
                             )}
-                            <div className="buttons">
+                            <div className="buttonss ">
                                 <button disabled={url === null} onClick={handleSubmit}>Publish</button>
                             </div>
                         </div>
