@@ -91,7 +91,7 @@ const BlogSingle = () => {
     return content.replace(/\n/g, '<br />');
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Spinner/>;
   if (error) return <p>{error}</p>;
 
   return (
