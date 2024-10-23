@@ -44,6 +44,7 @@ const useGoogleLogin = () => {
 
       const userData = await response.data.data.user;
       setAuthUser(userData);
+      toast.success("Logged in successfully!");
       navigate("/");
       toast.success("Logged in successfully!");
     } catch (error) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { io } from "socket.io-client"; // Import socket.io-client
-import Test from "../components/Test";
+import Test from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import Spinner from "../components/Spinner";
@@ -40,11 +40,16 @@ function SendText() {
   };
 
   useEffect(() => {
-    socket.current = io("http://localhost:4000"); 
+    socket.current = io("http://localhost:4000");
 
     // Listen for incoming messages
     socket.current.on("receiveMessage", (newMessage) => {
-      if((newMessage.senderId==patientId || newMessage.senderId==therapistId) && (newMessage.receiverId==patientId || newMessage.receiverId==therapistId))
+      if (
+        (newMessage.senderId == patientId ||
+          newMessage.senderId == therapistId) &&
+        (newMessage.receiverId == patientId ||
+          newMessage.receiverId == therapistId)
+      )
         setMessages((prevMessages) => [...prevMessages, newMessage]);
     });
 
@@ -57,26 +62,28 @@ function SendText() {
 
   // Scroll to the latest message
   useEffect(() => {
-    chatMainRef.current?.scrollIntoView({ behavior: "smooth"});
+    chatMainRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [Messages]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!input.trim()) return; 
+    if (!input.trim()) return;
 
     try {
       // Sending message to the server
-      const response = await axios.post('http://localhost:4000/api/v1/message', {
-        message: input,
-        senderId, 
-        receiverId, 
-      });
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/message",
+        {
+          message: input,
+          senderId,
+          receiverId,
+        }
+      );
 
       setInput("");
 
       // Emit the new message to the socket
       socket.current.emit("sendMessage", response.data.data);
-
     } catch (error) {
       console.error("Failed to send message", error);
     }
@@ -104,33 +111,39 @@ function SendText() {
                     </div>
                     <p className="text-xs italic text-gray-400 ml-1 mt-1">
                       {new Date(message.createdAt).toLocaleString(undefined, {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric'
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
                       })}
                     </p>
                   </div>
                 ) : (
-                  <>{ message.message!=null && 
-                  <div className={"assistant-message !bg-orange-100"}>
-                    <div className={"message max-sm:text-sm rounded-xl  ml-1"}>
-                      <b>{my_role === "pro" ? "Patient" : "Therapist"}</b>
-                      <br />
-                      {message.message}
-                    </div>
-                    <p className="text-xs italic text-gray-400 ml-1 mt-1">
-                      {new Date(message.createdAt).toLocaleString(undefined, {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric'
-                      })}
-                    </p>
-                 
-                  </div>}
+                  <>
+                    {message.message != null && (
+                      <div className={"assistant-message !bg-orange-100"}>
+                        <div
+                          className={"message max-sm:text-sm rounded-xl  ml-1"}
+                        >
+                          <b>{my_role === "pro" ? "Patient" : "Therapist"}</b>
+                          <br />
+                          {message.message}
+                        </div>
+                        <p className="text-xs italic text-gray-400 ml-1 mt-1">
+                          {new Date(message.createdAt).toLocaleString(
+                            undefined,
+                            {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            }
+                          )}
+                        </p>
+                      </div>
+                    )}
                   </>
                 )}
               </React.Fragment>
@@ -142,9 +155,7 @@ function SendText() {
           )}
 
           <div className="mt-16" ref={chatMainRef} />
-          
         </div>
-        
 
         <div className={"gptInput-container sm:px-28 max-sm:px-5"}>
           <form className={"flex gap-2 w-full"} onSubmit={handleSubmit}>
@@ -165,7 +176,6 @@ function SendText() {
             </button>
           </form>
         </div>
-        
       </div>
     </>
   );

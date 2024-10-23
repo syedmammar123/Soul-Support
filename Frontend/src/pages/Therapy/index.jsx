@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Test from "../../components/Test";
+import Test from "../../components/Navbar";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 import { appointmentReasons } from "../../utils/therapyData";
@@ -53,7 +53,9 @@ const TakeTherapy = () => {
 
   const fetchProfessionals = async () => {
     try {
-      const response = await axios.get(`${backendUrl}/api/v1/professionals/getPro`);
+      const response = await axios.get(
+        `${backendUrl}/api/v1/professionals/getPro`
+      );
       const data = response.data.message;
 
       let formattedData = [];
@@ -112,8 +114,6 @@ const TakeTherapy = () => {
       }
 
       formattedData.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
-
-      
 
       setUpcomingAppointments(formattedData);
       setLoadingAppointments(false);
@@ -239,11 +239,14 @@ const TakeTherapy = () => {
     } else {
       setError("");
       try {
-        const response = await axios.post(`${backendUrl}/api/v1/appointment/validate`, {
-          therapist: selectedDoctorId,
-          date: selectedDate,
-          time: selectedTime,
-        });
+        const response = await axios.post(
+          `${backendUrl}/api/v1/appointment/validate`,
+          {
+            therapist: selectedDoctorId,
+            date: selectedDate,
+            time: selectedTime,
+          }
+        );
 
         if (
           response.status === 200 &&
@@ -334,7 +337,7 @@ const TakeTherapy = () => {
     return "upcoming";
   };
 
-  const handleJoinChat = (patientId,therapistId) => {
+  const handleJoinChat = (patientId, therapistId) => {
     window.location.href = `chat/${patientId}/${therapistId}`;
   };
 
@@ -359,17 +362,24 @@ const TakeTherapy = () => {
                   <div
                     key={index}
                     className="mb-4 px-2 py-1 mr-1 rounded-lg bg-green-50 "
-                  >{console.log(appointment)
-                  }
+                  >
+                    {console.log(appointment)}
                     <p className="text-lg font-semibold text-green-900 italic ">
                       Dr. {appointment.therapistName}
                     </p>
                     <p className="text-gray-500 text-xs italic flex items-center justify-between">
                       {appointment.date}
-                      <span className="mb-1 px-2 py-1 rounded-xl text-xs bg-green-200 text-blue-800 border border-green-500  cursor-pointer "
-                              onClick={() => handleJoinChat(appointment.patientId,appointment.therapistId)}>
-                          Chat Now!
-                        </span>
+                      <span
+                        className="mb-1 px-2 py-1 rounded-xl text-xs bg-green-200 text-blue-800 border border-green-500  cursor-pointer "
+                        onClick={() =>
+                          handleJoinChat(
+                            appointment.patientId,
+                            appointment.therapistId
+                          )
+                        }
+                      >
+                        Chat Now!
+                      </span>
                     </p>
                     <p className="text-gray-500 text-xs italic flex items-center justify-between mb-1">
                       {appointment.time}

@@ -1,12 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Test from "../components/Test";
+import Test from "../components/Navbar";
 import Footer from "../components/Footer";
 import { backendUrl } from "../constants";
 import Spinner from "../components/Spinner";
 import { useAuthStore } from "../store/authStore";
-
 
 const BlogSingle = () => {
   const navigate = useNavigate();
@@ -18,19 +17,17 @@ const BlogSingle = () => {
   const [showControls, setShowControls] = useState(false);
   const authUser = useAuthStore((state) => state.authUser);
 
-
-
   const fetchData = async () => {
     try {
       const res = await axios.get(`${backendUrl}/api/v1/blogs`);
-      const blogData = res.data.data.map(blog => ({
+      const blogData = res.data.data.map((blog) => ({
         ...blog,
         displaytext: blog.content.slice(0, 180),
       }));
 
       setBlogs(blogData);
 
-      const foundBlog = blogData.find(item => item._id === id);
+      const foundBlog = blogData.find((item) => item._id === id);
       setBlog(foundBlog || {});
       if (authUser._id===foundBlog?.author) {
         setShowControls(true)   
@@ -56,24 +53,23 @@ const BlogSingle = () => {
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        setShowControls(false)
+        setShowControls(false);
         try {
           await axios.post(`${backendUrl}/api/v1/users/refresh-token`);
           await fetchUserDetail();
         } catch (refreshError) {
-          
           // no user loggedIn
         }
       } else {
-        console.error('Error occurred:', error);
+        console.error("Error occurred:", error);
       }
     }
   };
 
-
-
   const handleDelete = async () => {
-    const confirmed = window.confirm("Are you sure you want to delete this blog?");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this blog?"
+    );
     if (!confirmed) return;
 
     try {
@@ -87,9 +83,9 @@ const BlogSingle = () => {
   useEffect(() => {
     fetchData();
     fetchUserDetail();
-     window.scrollTo({
+    window.scrollTo({
       top: 0,
-      behavior: "instant"
+      behavior: "instant",
     });
   }, [id]);
 
@@ -114,18 +110,25 @@ const BlogSingle = () => {
             <img src={blog.picUrl} alt="Author" />
             <div className="info text-blue-950">
               <span>{blog.name}</span>
-              <div className="italic text-sm font-normal text-gray-600">{blog?.updatedAt?.slice(0, 10)}</div>
+              <div className="italic text-sm font-normal text-gray-600">
+                {blog?.updatedAt?.slice(0, 10)}
+              </div>
             </div>
-            {showControls?
-            <div className="edit flex items-center justify-between">
-              <Link to={`/write?edit=${blog?._id}`} state={blog}>
-                <button className="h-6 py-0 px-4 border rounded-lg hover:bg-gray-100 mx-2 text-base flex items-center">Edit</button>
-              </Link>
-              <button className="h-6 py-0 px-4 border rounded-lg hover:bg-gray-100 text-base flex items-center" onClick={handleDelete}>Delete</button>
-            </div>
-            
-            :null}
-            
+            {showControls ? (
+              <div className="edit flex items-center justify-between">
+                <Link to={`/write?edit=${blog?._id}`} state={blog}>
+                  <button className="h-6 py-0 px-4 border rounded-lg hover:bg-gray-100 mx-2 text-base flex items-center">
+                    Edit
+                  </button>
+                </Link>
+                <button
+                  className="h-6 py-0 px-4 border rounded-lg hover:bg-gray-100 text-base flex items-center"
+                  onClick={handleDelete}
+                >
+                  Delete
+                </button>
+              </div>
+            ) : null}
           </div>
 
           <div>

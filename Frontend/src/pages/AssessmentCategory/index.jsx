@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "./index.module.css";
-import Test from "../../components/Test";
+import Test from "../../components/Navbar";
 import { useNavigate, useParams } from "react-router-dom";
 import GaugeComponent from "react-gauge-component";
 import Footer from "../../components/Footer";
